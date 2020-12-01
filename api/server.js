@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 //app.use("/img", express.static('uploads'));
-
+// token validao: b1a14a69c88591d4888a0d3ada044c
 app.use("/", function(req,res,next){
     let tokenWeb = req.query.token;
     if(tokenWeb !== null && tokenWeb !== undefined){
