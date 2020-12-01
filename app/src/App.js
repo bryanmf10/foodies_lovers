@@ -26,6 +26,7 @@ import Tupper from "./components/Tupper";
 
 
 const App = () => {
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -34,10 +35,8 @@ const App = () => {
 
     <BrowserRouter>
       <Container fluid>
-
-
         <Navbar color="rgb(255,204,153,0.5)" light expand="md">
-          <NavbarBrand href="/">TUKTOK</NavbarBrand>
+          <NavbarBrand href="/">TUPTOK</NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar  >
@@ -53,11 +52,11 @@ const App = () => {
                 <DropdownToggle nav caret>  Usuario </DropdownToggle>
                 <DropdownMenu >
 
-                  <DropdownItem>      Ofertas </DropdownItem>
-                  <DropdownItem>   Mis tuppers </DropdownItem>
-                  <DropdownItem>  Credito </DropdownItem>
+                  <DropdownItem> Ofertas </DropdownItem>
+                  <DropdownItem> Mis tuppers </DropdownItem>
+                  <DropdownItem> Credito </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem> Editar   </DropdownItem>
+                  <DropdownItem> Editar </DropdownItem>
                   <DropdownItem> Cerrar sesión  </DropdownItem>
 
 
