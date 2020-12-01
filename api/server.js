@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-
+const querystring = require('querystring');
 const usersRouter = require('./routes/usersController');
 const rankingRouter = require('./routes/rankingController');
+
+const modelo = require('./models/index.js');
 
 const app = express();
 app.use(cors());
@@ -10,6 +12,21 @@ app.use(cors());
 app.use(express.json());
 
 //app.use("/img", express.static('uploads'));
+
+app.use("/", function(req,res,next){
+    let tokenWeb = req.query.token;
+    if(tokenWeb !== null && tokenWeb !== undefined){
+            modelo.token_usuario.findOne({where: {token:tokenWeb}})
+                .then(user => {
+                    req.body.id_usuario_token = (user.usuarios_id_usuarios);
+                    next();
+                })
+                .catch(err => res.json({ ok: false, error: "Falta token" }));
+    }else{
+        res.json({ok: false, error:"Falta token"});
+    }
+    
+});
 app.use("/", express.static('public'));
 app.use('/users', usersRouter);
 app.use('/ranking', rankingRouter);
