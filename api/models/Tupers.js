@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
  
-  const Ofertas = sequelize.define('ofertas', {
+  const Tupers = sequelize.define('tupers', {
     titulo: DataTypes.STRING,
     descripcion: DataTypes.TEXT,
     urlFoto: DataTypes.STRING,
@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     cooking_date: DataTypes.DATE,
     valor_tamano: DataTypes.INTEGER,
     ingredientes: DataTypes.TEXT
-  }, { tableName: 'ofertas', timestamps: true});
+  }, { tableName: 'tupers', timestamps: false});
   
-  return Ofertas;
+  return Tupers;
   
 };

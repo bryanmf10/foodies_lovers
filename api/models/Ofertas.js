@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     comentario_cambio: DataTypes.STRING,
     puntuacion: DataTypes.INTEGER,
     id_taper_contraoferta: DataTypes.INTEGER
-  }, { tableName: 'ofertas', timestamps: true});
+  }, { tableName: 'ofertas', timestamps: false});
   
   return Ofertas;
   

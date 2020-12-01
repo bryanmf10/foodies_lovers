@@ -3,6 +3,9 @@ const cors = require('cors');
 const querystring = require('querystring');
 const usersRouter = require('./routes/usersController');
 const rankingRouter = require('./routes/rankingController');
+const tupersRouter = require('./routes/tupersController');
+const tokenRouter = require('./routes/tokenController');
+const ofertasRouter = require('./routes/ofertasController');
 
 const modelo = require('./models/index.js');
 
@@ -30,6 +33,10 @@ app.use("/", function(req,res,next){
 app.use("/", express.static('public'));
 app.use('/users', usersRouter);
 app.use('/ranking', rankingRouter);
+app.use('/tupers', tupersRouter);
+app.use('/token', tokenRouter);
+app.use('/ofertas', ofertasRouter);
+
 
 
 const port = process.env.PORT || 3000;

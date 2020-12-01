@@ -14,9 +14,9 @@ router.get('/', (req, res, next) => {
 //devuelve un Usuarios
 router.get('/:id', (req, res, next) => {
     let idUser = req.params.id;
-    modelo.usuarios.findByPk(idUser)
-        .then(lista => res.json(lista))
-        .catch(err => res.json({ ok: false, error: err }));
+    selectById(idUser)
+        .then(user => res.json(user));
+
 });
 
 //inserta un Usuarios
@@ -28,12 +28,59 @@ router.post('/', (req, res, next) => {
 
 //modifica pass
 router.put('/changepassword/:id', (req, res, next) => {
-    modelo.usuarios.update({password: req.body.password},{where:{id:req.params.id}})
+    modelo.usuarios.update({ password: req.body.password }, { where: { id: req.params.id } })
         .then(item => res.json({ ok: true, data: item }))
         .catch(err => res.json({ ok: false, error: err }));
 });
 
+//actualiza ranking
+
+router.put('/ranking/:id', (req, res, next) => {
+    modelo.usuarios.update({ id_ranking: req.body.id_ranking }, { where: { id: req.params.id } })
+        .then(item => res.json({ ok: true, data: item }))
+        .catch(err => res.json({ ok: false, error: err }));
+});
+
+//actualiza tickets
+
+router.put('/tickets/:id', (req, res, next) => {
+    modelo.usuarios.update({ tickets: req.body.tickets }, { where: { id: req.params.id } })
+        .then(item => res.json({ ok: true, data: item }))
+        .catch(err => res.json({ ok: false, error: err }));
+});
+
+//intercambia tickets
+
+router.put('/ticketsUpdate/:id2', (req, res, next) => {
+    selectById(req.params.id2)
+        .then(user => {
+            let operacion = user.tickets - req.body.tickets;
+            if (operacion >= 0) {
+                modelo.usuarios.update({ tickets: operacion }, { where: { id: user.id } })
+                    .then(item => {
+                        selectById(req.body.id_usuario_token)
+                            .then(user2 => {
+                                modelo.usuarios.update({ tickets: user2.tickets + req.body.tickets }, { where: { id: user2.id } })
+                                    .then(item2 => res.json({ ok: true, data: { item, item2 } }))
+                                    .catch(err => res.json({ ok: false, error: err }));
+                            })
+                    })
+                    .catch(err => res.json({ ok: false, error: err }));
+                } else {
+                    res.json({ok:false, error:'Falta de tickets'})
+                }
+            });
+
+});
+
+const selectById = (idUser) => {
+    return new Promise((resolve, reject) => {
+        modelo.usuarios.findByPk(idUser)
+            .then(lista => { resolve(lista) })
+            .catch(err => reject({ ok: false, error: err }));
+    })
 
 
+}
 
 module.exports = router;
