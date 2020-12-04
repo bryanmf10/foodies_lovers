@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 const modelo = require('../models/index.js');
 
 //devuelve todas los ofertas
@@ -34,9 +33,16 @@ router.delete('/:id', (req, res, next) => {
         .catch(err => res.json({ ok: false, error: err }));
 });
 
-//TODO: cambia al estado final
+//Cambia al estado final a aceptado
 router.put('/change/:id', (req, res, next) => {
-    modelo.ofertas.update({where:{id:req.params.id}})
+    modelo.ofertas.update({ respuesta: req.body.respuesta },{where:{id:req.params.id}})
+        .then(item => res.json({ ok: true, data: item }))
+        .catch(err => res.json({ ok: false, error: err }));
+});
+
+//Cambia al estado final a aceptado con puntuacion y comentario.
+router.put('/response/:id', (req, res, next) => {
+    modelo.ofertas.update({ comentario_cambio: req.body.comentario, puntuacion: req.body.puntuacion, final_date: new Date() },{where:{id:req.params.id}})
         .then(item => res.json({ ok: true, data: item }))
         .catch(err => res.json({ ok: false, error: err }));
 });

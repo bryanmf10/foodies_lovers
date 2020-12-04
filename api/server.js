@@ -14,7 +14,6 @@ app.use(cors());
 
 app.use(express.json());
 
-//app.use("/img", express.static('uploads'));
 // token validao: b1a14a69c88591d4888a0d3ada044c
 app.use("/account", accountRouter);
 app.use("/", function(req,res,next){
@@ -32,7 +31,7 @@ app.use("/", function(req,res,next){
                     }else{
                         req.body.id_usuario_token = user.usuarios_id_usuarios;
                     }
-                    
+                    console.log(req.body.id_usuario_token);
                     next();
                 })
                 .catch(err => res.json({ ok: false, error: "Falta token" }));
@@ -40,7 +39,7 @@ app.use("/", function(req,res,next){
         res.json({ok: false, error:"Falta token"});
     }
 });
-
+app.use("/img", express.static('uploads'));
 app.use("/", express.static('public'));
 app.use('/users', usersRouter);
 app.use('/ranking', rankingRouter);
