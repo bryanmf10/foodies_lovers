@@ -6,6 +6,7 @@ const rankingRouter = require('./routes/rankingController');
 const tupersRouter = require('./routes/tupersController');
 const tokenRouter = require('./routes/tokenController');
 const ofertasRouter = require('./routes/ofertasController');
+const accountRouter = require('./routes/accountController');
 
 const modelo = require('./models/index.js');
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 //app.use("/img", express.static('uploads'));
 // token validao: b1a14a69c88591d4888a0d3ada044c
+app.use("/account", accountRouter);
 app.use("/", function(req,res,next){
     let tokenWeb = req.query.token;
     if(tokenWeb !== null && tokenWeb !== undefined){
@@ -28,7 +30,6 @@ app.use("/", function(req,res,next){
     }else{
         res.json({ok: false, error:"Falta token"});
     }
-    
 });
 app.use("/", express.static('public'));
 app.use('/users', usersRouter);

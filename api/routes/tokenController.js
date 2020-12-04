@@ -3,7 +3,12 @@ const router = express.Router();
 
 
 const modelo = require('../models/index.js');
-
+//devuelve todos los tokens
+router.get('/', (req, res, next) => {
+    modelo.token_usuario.findAll()
+        .then(lista => res.json(lista))
+        .catch(err => res.json({ ok: false, error: err }));
+});
 
 //devuelve un token por id
 router.get('/:id', (req, res, next) => {

@@ -19,22 +19,7 @@ router.get('/:id', (req, res, next) => {
 
 });
 
-//inserta un Usuarios
-router.post('/', (req, res, next) => {
-    modelo.usuarios.create(req.body)
-        .then(item => res.json({ ok: true, data: item }))
-        .catch(err => res.json({ ok: false, error: err }));
-});
-
-//modifica pass
-router.put('/changepassword/:id', (req, res, next) => {
-    modelo.usuarios.update({ password: req.body.password }, { where: { id: req.params.id } })
-        .then(item => res.json({ ok: true, data: item }))
-        .catch(err => res.json({ ok: false, error: err }));
-});
-
 //actualiza ranking
-
 router.put('/ranking/:id', (req, res, next) => {
     modelo.usuarios.update({ id_ranking: req.body.id_ranking }, { where: { id: req.params.id } })
         .then(item => res.json({ ok: true, data: item }))
@@ -79,8 +64,6 @@ const selectById = (idUser) => {
             .then(lista => { resolve(lista) })
             .catch(err => reject({ ok: false, error: err }));
     })
-
-
 }
 
 module.exports = router;
