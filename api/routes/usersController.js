@@ -58,6 +58,12 @@ router.put('/ticketsUpdate/:id2', (req, res, next) => {
 
 });
 
+router.delete("/logout", (req, res, next) => {
+    modelo.token_usuario.destroy({ where: { usuarios_id_usuarios: req.body.id_usuario_token, token: req.query.token } })
+        .then(item => res.json({ ok: true, data: "Exito al hacer logout." }))
+        .catch(err => res.json({ ok: false, error: "Error al hacer logout." }));
+});
+
 const selectById = (idUser) => {
     return new Promise((resolve, reject) => {
         modelo.usuarios.findByPk(idUser)

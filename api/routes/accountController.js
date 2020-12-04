@@ -32,7 +32,8 @@ router.put('/changepassword/:id', (req, res, next) => {
 
 const creaToken = (idUsuario) => {
     return new Promise((resolve, reject) => {
-        let tokenString = md5(new Date().getTime()).toString();
+        let tokenString = md5(new Date().getTime());
+        console.log(tokenString);
         let paramToken = {token: tokenString, time:60, usuarios_id_usuarios: idUsuario};
         modelo.token_usuario.create(paramToken)
             .then(lista => { resolve(lista) })
