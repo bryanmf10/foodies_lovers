@@ -32,7 +32,6 @@ const Descripcion = styled.div`
   padding: 20px; 
   width: 50%;
   height: 30%;
-
 `;
 
 const Description = () => {

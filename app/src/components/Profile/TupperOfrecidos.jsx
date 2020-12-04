@@ -4,7 +4,6 @@ import React from "react";
 import Perfil from "./Perfil";
 import Tupper from "../Tupper";
 
-
 const TupperOfrecidos = () => {
   return (
     <>
