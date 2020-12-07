@@ -1,9 +1,9 @@
 import { Button, Container, Row } from "reactstrap";
 import React from "react";
-import Perfil from "./Perfil";
-
 import styled from "styled-components";
 import Star from "../Star";
+
+import Perfil from "./Perfil";
 
 const Foto = styled.div`
     width: 300px;
@@ -35,6 +35,7 @@ const Info = styled.div`
     background-color: antiquewhite;
     width: 300px;
     text-align: center;
+    height: 250px;
 `;
 
 const Description = styled.div`
@@ -61,7 +62,8 @@ const SolEntrantes = () => {
   return (
     <Container>
       <Perfil />
-      <h2>Esto es el SolEntrantes</h2>
+      <br/>
+      {/* <h2>Esto es el SolEntrantes</h2> */}
       <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
         <Row style={{ paddingTop: "30px" }} className="w-100">
           <Container>

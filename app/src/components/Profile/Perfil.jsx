@@ -36,19 +36,19 @@ const Perfil = () => {
         <Container>
           <StyledNav tabs>
             <NavItem>
-              <StyledLink href="/perfil">tus tuppers</StyledLink>
+              <StyledLink href="/perfil">Mis Tuppers</StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/solEntrantes">solicitudes entrantes</StyledLink>
+              <StyledLink href="/perfil/solEntrantes">Solicitudes entrantes</StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/tupperOfrecidos">tuppers ofrecidos</StyledLink>
+              <StyledLink href="/perfil/tuppersOfrecidos">Tuppers ofrecidos</StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/trueques">trueques</StyledLink>
+              <StyledLink href="/perfil/trueques">Trueques</StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/opiniones">opiniones</StyledLink>
+              <StyledLink href="/perfil/opiniones">Opiniones</StyledLink>
             </NavItem>
           </StyledNav>
         </Container>

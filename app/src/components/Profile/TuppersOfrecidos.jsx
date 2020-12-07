@@ -4,14 +4,15 @@ import React from "react";
 import Perfil from "./Perfil";
 import Tupper from "../Tupper";
 
-const TupperOfrecidos = () => {
+const TuppersOfrecidos = () => {
   return (
     <Container>
       <Perfil />
-      <h2>Esto es el TupperOfrecidos</h2>
+      <br/>
+      {/* <h2>Esto es el TupperOfrecidos</h2> */}
       <Tupper />
     </Container>
   );
 }
 
-export default TupperOfrecidos;
+export default TuppersOfrecidos;

@@ -1,9 +1,8 @@
 import { Form, FormGroup, Input, Button } from "reactstrap";
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
-import Context from "../../context/Context";
-
 import styled from 'styled-components';
+import Context from "../../context/Context";
 import Star from "../Star";
 
 const Contenedor = styled.div`

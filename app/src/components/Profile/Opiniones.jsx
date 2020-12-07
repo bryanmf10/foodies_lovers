@@ -2,8 +2,8 @@ import { Container } from "reactstrap";
 import React from "react";
 import styled from 'styled-components';
 import imagen from './images/images.jpg';
-import Perfil from "./Perfil";
 
+import Perfil from "./Perfil";
 import Opinion from "./Opinion";
 
 const Chip = styled.div`
@@ -51,7 +51,8 @@ const Opiniones = () => {
       <Perfil />
       <div>
       </div>
-      <h2>Esto es el Opiniones</h2>
+      <br/>
+      {/* <h2>Esto es el Opiniones</h2> */}
       <Contenedor>
         <Chip>
           <Imagen src={imagen} width="96" height="96" />

@@ -1,8 +1,8 @@
-import { Container, Row } from "reactstrap";
+import { Button, Container, Row } from "reactstrap";
 import React from "react";
-import Perfil from "./Perfil";
-
 import styled from "styled-components"
+
+import Perfil from "./Perfil";
 
 const Foto = styled.div`
     width: 300px;
@@ -34,6 +34,7 @@ const Info = styled.div`
     background-color: antiquewhite;
     width: 300px;
     text-align: center;
+    height: 190px;
 `;
 
 const Description = styled.div`
@@ -43,19 +44,17 @@ const Description = styled.div`
     font-weight: bold;
 `;
 
-const Usuario = styled.div`
-    text-Align: right;
-    margin: 10px;
-    margin:10px; 
-    font-Size: 13px;
-    scroll-padding-block:30px,
+const Botones = styled.div`
+    display: flex;
+    justify-content: space-around;
 `;
 
-const Home = () => {
+const MisTuppers = () => {
   return (
     <Container>
       <Perfil />
-      <h2>Esto es el Home</h2>
+      <br/>
+      {/* <h2>Esto es el MisTuppers</h2> */}
       <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
         <Row style={{ paddingTop: "30px" }} className="w-100">
           <Box className=" col-12 col-sm-6 col-lg-4">
@@ -64,14 +63,10 @@ const Home = () => {
             <Info>
               <Title>CROQUETAS</Title>
               <Description>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odit quae exercitationem reprehenderit fuga.</Description>
-              <Usuario >
-                Usuario
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star-o" aria-hidden="true"></i>
-                <i className="fa fa-star-o" aria-hidden="true"></i>
-              </Usuario>
+              <Botones>
+                <Button color="info">Ofrecer</Button>
+                <Button color="danger">Eliminar</Button>
+              </Botones>
             </Info>
           </Box>
           <Box className=" col-12 col-sm-6 col-lg-4">
@@ -80,14 +75,10 @@ const Home = () => {
             <Info>
               <Title >CROQUETAS</Title>
               <Description>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni labore unde explicabo officiis consectetur?</Description>
-              <Usuario >
-                usuario
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star-o" aria-hidden="true"></i>
-                <i className="fa fa-star-o" aria-hidden="true"></i>
-              </Usuario>
+              <Botones>
+                <Button color="info">Ofrecer</Button>
+                <Button color="danger">Eliminar</Button>
+              </Botones>
             </Info>
           </Box>
           <Box className=" col-12 col-sm-6 col-lg-4">
@@ -96,14 +87,10 @@ const Home = () => {
             <Info>
               <Title >CROQUETAS</Title>
               <Description>corquetas de jamon hechas con mucho amor jsjjs jsjsjs sjjsjs sjsjjsjss nabsabjF JSDFLJSH FSDKFB LKJSDBLKJSD JSDHBF</Description>
-              <Usuario >
-                usuario
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                <i className="fa fa-star-o" aria-hidden="true"></i>
-                <i className="fa fa-star-o" aria-hidden="true"></i>
-              </Usuario>
+              <Botones>
+                <Button color="info">Ofrecer</Button>
+                <Button color="danger">Eliminar</Button>
+              </Botones>
             </Info>
           </Box>
         </Row>
@@ -112,4 +99,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default MisTuppers;
