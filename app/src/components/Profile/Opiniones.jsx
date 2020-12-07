@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import imagen from './images/images.jpg';
 import Perfil from "./Perfil";
 
-import { FaStar } from "react-icons/fa";
-import { FiStar } from "react-icons/fi";
+import Opinion from "./Opinion";
 
 const Chip = styled.div`
   display: inline-block;
@@ -36,47 +35,33 @@ const Contenedor = styled.div`
   justify-content: space-between;
 `;
 
-const Opinion = styled.div`
+const Review = styled.div`
   border-radius: 25px;
-  width: 300px;
+  width: 600px;
   height: 50px;
   display: flex;
   justify-content: space-between;
-  margin-right: 80px;
-`;
-
-const Stars = styled.div`
-  color: orange;
+  margin-right: 100px;
 `;
 
 const Opiniones = () => {
+
   return (
-    <>
-      <Container>
-      <Perfil/>
+    <Container>
+      <Perfil />
       <div>
       </div>
       <h2>Esto es el Opiniones</h2>
-      
       <Contenedor>
         <Chip>
           <Imagen src={imagen} width="96" height="96" />
           <span>Julio Carpa Por Si Llueve</span>
         </Chip>
-        <Opinion>
-          <span>Lorem, ipsum dolor.</span>
-          <Stars>
-            <span><FaStar /></span>
-            <span><FaStar /></span>
-            <span><FaStar /></span>
-            <span><FiStar /></span>
-            <span><FiStar /></span>
-          </Stars>
-        </Opinion>
+        <Review>
+          <Opinion />
+        </Review>
       </Contenedor>
-      </Container>
-      
-    </>
+    </Container>
   );
 }
 

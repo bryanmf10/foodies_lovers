@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
+
+import Context from "../context/Context";
 
 const Star = (props) => {
 
-    const [rating, setRating] = useState(1);
+    const context = useContext(Context);
+
+    const [rating, setRating] = useState(props.valor);
 
     const onStarClick = (nextValue, prevValue, name) => {
         setRating(nextValue);
@@ -11,9 +15,10 @@ const Star = (props) => {
     useEffect(() => {
         setRating(rating);
     }, [rating])
+    context.setRating(rating);
 
     return (
-        <div>
+        <>
             {/* <h2>Rating from state: {rating}</h2> */}
             <StarRatingComponent
                 name="rate1"
@@ -21,7 +26,8 @@ const Star = (props) => {
                 value={rating}
                 onStarClick={onStarClick}
             />
-        </div>
+        </>
     );
 }
+
 export default Star;
