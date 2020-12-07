@@ -98,11 +98,6 @@ router.put('/:id', (req, res, next) => {
         } else if (err) {
             return res.status(500).json(err)
         }
-        try{
-            await unlinkAsync("uploads/tupers/"+userDB.fotoURL);
-        }catch(err){
-            console.log("Error al borrar la foto: "+err);
-        }
         selectTuperById(idTuper)
         .then(async tuperDB => {
             try{
