@@ -1,9 +1,9 @@
 import { Button, Container, Row } from "reactstrap";
 import React from "react";
 import Perfil from "./Perfil";
-import Tupper from "../Tupper";
 
-import styled from "styled-components"
+import styled from "styled-components";
+import Star from "../Star";
 
 const Foto = styled.div`
     width: 300px;
@@ -47,20 +47,24 @@ const Description = styled.div`
 const Usuario = styled.div`
     text-Align: right;
     margin: 10px;
-    margin:10px; 
     font-Size: 13px;
     scroll-padding-block:30px,
 `;
 
+const Botones = styled.div`
+    display: flex;
+    justify-content: space-around;
+`;
+
 const SolEntrantes = () => {
+
   return (
-    <>
-      <Container>
-        <Perfil />
-        <h2>Esto es el SolEntrantes</h2>
-        <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
-          <Row style={{ paddingTop: "30px" }} className="w-100">
-            <Container>
+    <Container>
+      <Perfil />
+      <h2>Esto es el SolEntrantes</h2>
+      <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
+        <Row style={{ paddingTop: "30px" }} className="w-100">
+          <Container>
             <Box className=" col-12 col-sm-6 col-lg-4">
               <Foto imagSrc="https://s1.eestatic.com/2019/04/21/cocinillas/actualidad-gastronomica/Actualidad_gastronomica_392722143_120971228_1280x1280.jpg">
               </Foto>
@@ -68,24 +72,20 @@ const SolEntrantes = () => {
                 <Title>CROQUETAS</Title>
                 <Description>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odit quae exercitationem reprehenderit fuga.</Description>
                 <Usuario >
-                    Usuario
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star-o" aria-hidden="true"></i>
-                  <i className="fa fa-star-o" aria-hidden="true"></i>
+                  Usuario
+                  <br />
+                  <Star />
                 </Usuario>
+                <Botones>
+                  <Button color="warning">Aceptar</Button>
+                  <Button color="danger">Rechazar</Button>
+                </Botones>
               </Info>
             </Box>
-            <div>
-              <Button color="warning">Aceptar</Button>
-              <Button color="danger">Rechazar</Button>
-            </div>
-            </Container>
-          </Row>
-        </Container >
-      </Container>
-    </>
+          </Container>
+        </Row>
+      </Container >
+    </Container>
   );
 }
 

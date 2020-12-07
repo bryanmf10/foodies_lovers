@@ -6,13 +6,11 @@ import Tupper from "../Tupper";
 
 const TupperOfrecidos = () => {
   return (
-    <>
-      <Container>
-        <Perfil />
-        <h2>Esto es el TupperOfrecidos</h2>
-        <Tupper/>
-      </Container>
-    </>
+    <Container>
+      <Perfil />
+      <h2>Esto es el TupperOfrecidos</h2>
+      <Tupper />
+    </Container>
   );
 }
 
