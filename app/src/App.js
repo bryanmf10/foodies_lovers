@@ -25,9 +25,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Tupper from "./components/Tupper";
 import NotFound from "./components/P404";
-import Home from "./components/Profile/Home";
+import MisTuppers from "./components/Profile/MisTuppers";
 import SolEntrantes from "./components/Profile/SolEntrantes";
-import TupperOfrecidos from "./components/Profile/TupperOfrecidos";
+import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 
@@ -70,9 +70,9 @@ const App = () => {
         </Navbar>
         <Switch>
             <Route exact path="/" component={Tupper} />
-            <Route exact path="/perfil" component={Home} />
+            <Route exact path="/perfil" component={MisTuppers} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />
-            <Route exact path="/perfil/tupperOfrecidos" component={TupperOfrecidos} />
+            <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />
             <Route exact path="/perfil/opiniones" component={Opiniones} />
             <Route component={NotFound} />

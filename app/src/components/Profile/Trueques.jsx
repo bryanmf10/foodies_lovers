@@ -15,7 +15,6 @@ const Chip = styled.div`
   border-radius: 25px;
   background-color: black;
   color: white;
-  border: 2px solid #73AD21;
 `;
 
 const Imagen = styled.img`
@@ -49,7 +48,8 @@ const Trueques = () => {
       <Perfil />
       <div>
       </div>
-      <h2>Esto es el Trueques</h2>
+      <br/>
+      {/* <h2>Esto es el Trueques</h2> */}
       <Contenedor>
         <Chip>
           <Imagen src={imagen} width="96" height="96" />
