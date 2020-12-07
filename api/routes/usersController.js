@@ -5,9 +5,22 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
 const unlinkAsync = promisify(fs.unlink);
-
+const jsonwebtoken = require('jsonwebtoken');
+const Config = require('../config/config.js');
+const { secretKey } = Config;
 const modelo = require('../models/index.js');
 const multer = require('multer');
+
+const decoderUserId = (token) => {
+    let user = {};
+	jsonwebtoken.verify(token, secretKey, (error, decoded) => {
+		if (!error) {
+            const { id } = decoded;
+            user.id = id;
+		}
+    });
+    return user;
+}
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -17,28 +30,41 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname)
     },
     
-})
+});
 
 const upload = multer({ storage: storage }).single('file');
+
 router.put('/foto', (req, res, next) => {
-    let idUser = (req.body.id_usuario_token);
+    const token = req.headers.authorization || '';
+    let user = decoderUserId(token);
+    selectById(user.id)
+        .then(async userDB => {
+            if(userDB.fotoURL !== undefined && userDB.fotoURL !== null){
+                try{
+                    await unlinkAsync("uploads/users/"+userDB.fotoURL);
+                }catch(err){
+                    console.log("Error al borrar la foto: "+err);
+                }
+            }
+        })
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err)
         } else if (err) {
             return res.status(500).json(err)
         }
-        modelo.usuarios.update({ fotoURL: req.file.filename }, { where: { id: idUser } })
+        modelo.usuarios.update({ fotoURL: req.file.filename }, { where: { id: user.id } })
         .then(item => {
             if(item[0] === 0) throw new Error("Error");
-            res.json({ok: true, item: item})
+            res.json({ok: true, item: item});
         })
         .catch( async err => {
             await unlinkAsync(req.file.path);
             res.json({ok: false, error: "Error al subir la foto"})
         });
-    })    
+    });  
 });
+
 //devuelve todas los Usuarios
 router.get('/', (req, res, next) => {
     modelo.usuarios.findAll()
@@ -71,13 +97,15 @@ router.put('/tickets/:id', (req, res, next) => {
 //intercambia tickets
 
 router.put('/ticketsUpdate/:id2', (req, res, next) => {
+    const token = req.headers.authorization || '';
+    let userToken = decoderUserId(token);
     selectById(req.params.id2)
         .then(user => {
             let operacion = user.tickets - req.body.tickets;
             if (operacion >= 0) {
                 modelo.usuarios.update({ tickets: operacion }, { where: { id: user.id } })
                     .then(item => {
-                        selectById(req.body.id_usuario_token)
+                        selectById(userToken.id)
                             .then(user2 => {
                                 modelo.usuarios.update({ tickets: user2.tickets + req.body.tickets }, { where: { id: user2.id } })
                                     .then(item2 => res.json({ ok: true, data: { item, item2 } }))
@@ -93,7 +121,9 @@ router.put('/ticketsUpdate/:id2', (req, res, next) => {
 });
 
 router.delete("/logout", (req, res, next) => {
-    modelo.token_usuario.destroy({ where: { usuarios_id_usuarios: req.body.id_usuario_token, token: req.query.token } })
+    const token = req.headers.authorization || '';
+    let userToken = decoderUserId(token);
+    modelo.token_usuario.destroy({ where: { usuarios_id_usuarios: userToken.id, token } })
         .then(item => res.json({ ok: true, data: "Exito al hacer logout." }))
         .catch(err => res.json({ ok: false, error: "Error al hacer logout." }));
 });

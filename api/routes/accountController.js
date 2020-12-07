@@ -38,7 +38,6 @@ const creaToken = (idUsuario, foto_url) => {
         let tokenString =jsonwebtoken.sign(
 			{
 				expiredAt: new Date().getTime() + expiredAfter,
-				foto: foto_url,
 				id: idUsuario,
 			},
 			secretKey
@@ -52,3 +51,4 @@ const creaToken = (idUsuario, foto_url) => {
 }
 
 module.exports = router;
+module.exports.creaToken = creaToken;

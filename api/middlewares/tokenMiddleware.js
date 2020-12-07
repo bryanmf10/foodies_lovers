@@ -5,7 +5,6 @@ const { secretKey } = Config;
 
 const verifyToken = (req, res, next) => {
     const tokenWeb = req.headers.authorization || '';
-    console.log(tokenWeb);
     if(tokenWeb !== null && tokenWeb !== undefined && tokenWeb.trim().replace(/\s/g,'') !== ""){
             findToken(tokenWeb)
                 .then(user => {
@@ -13,10 +12,7 @@ const verifyToken = (req, res, next) => {
                         destroyToken(user.usuarios_id_usuarios, user.token)
                         .then(token => res.json({ ok: true, data: "Exito al borrar token." }))
                         .catch(err => res.json({ ok: false, error: "Error al borrar token." }));
-                    }else{
-                        req.body.id_usuario_token = user.usuarios_id_usuarios;
                     }
-                    console.log(req.body.id_usuario_token);
                     next();
                 })
                 .catch(err => res.json({ ok: false, error: "No se encuentra token" }));
@@ -39,7 +35,6 @@ const authenticate = (token) => {
 
 const findToken = (tokenWeb) => {
     return new Promise((resolve, reject) => {
-        console.log("sss");
         modelo.token_usuario.findOne({attributes: ['token', 'usuarios_id_usuarios'],where: {token: tokenWeb}})
         .then(data => data.get({ plain: true }))
         .then(item =>  { resolve(item) })
@@ -55,4 +50,4 @@ const destroyToken = (idUsuario, token) => {
     })
 }
 
-module.exports = {verifyToken} ;
+module.exports = {verifyToken, destroyToken} ;
