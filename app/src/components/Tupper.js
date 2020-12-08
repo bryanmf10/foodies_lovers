@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-    Container, Row, Col, Button, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, CustomInput
+    Container, Row, Col, Button, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, Input, CustomInput
 } from "reactstrap";
-
 import styled from "styled-components";
 import prueba from "./Prueba.json"
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-
+import TuperController from '../controller/TuperController';
 
 const Foto = styled.div`
     width: 90%;
@@ -17,7 +16,6 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
-
 `;
 
 const Box = styled.div`
@@ -26,25 +24,22 @@ const Box = styled.div`
     width: 100vw;
     max-height: 150vh;
     justify-content: center;
-    
-    align-items: center;`;
-
-
+    align-items: center;
+`;
 
 const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
     margin-left:10px;
     height:50px;
-    font-family: 'Londrina Solid', cursive;`;
+    font-family: 'Londrina Solid', cursive;
+`;
 
 const Info = styled.div`
     font-family: Trispace, sans-serif;
     background-color: #E6F8F7;
     width: 90%;
     margin-bottom:15px;
-  
-   
 `;
 
 const Description = styled.div`
@@ -54,8 +49,6 @@ const Description = styled.div`
     font-weight: bold;
     overflow:scroll; 
     height:80px;
-
-
 `;
 
 const Usuario = styled.div`
@@ -63,22 +56,16 @@ const Usuario = styled.div`
     margin:5px; 
     font-Size: 13px;
     scroll-padding-block:30px,
-
 `;
 
 const Divider = styled.div`
-border-left: 1px solid black;
-;
+    border-left: 1px solid black;
 `;
 
 const Botones = styled.div`
-    
     display:flex;
     justify-Content:space-around;
     margin-Bottom:20px;
-
-
-
 `;
 
 const Titulo = styled.h2`
@@ -86,27 +73,33 @@ font-Family:'Londrina Solid', cursive;
 `;
 
 const Tupperparati=styled.h2`
-font-Family:'Londrina Solid', cursive;
-margin-top:20px;
-text-align:center;
-
-
-}
-
+    font-Family:'Londrina Solid', cursive;
+    margin-top:20px;
+    text-align:center;
 `;
 
 
 const Tupper = () => {
 
-    // const [datos,setdatos]=useState({});
-
-    // Controller.getDatos()
-    // .then(data=>setdatos(data))
+    const [listaTupers,setListaTupers]=useState([]);
 
     //Del Dropdown-----------------------
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
     //------------------------------------
+
+    useEffect(() => {
+        TuperController.getAll()
+        .then(data => {
+            console.log(data);
+            if(data.ok === false){
+                setListaTupers([]);
+            }else{
+                setListaTupers(data);
+            }
+        })
+        .catch(err => console.log(err));
+    }, []);
 
     //del Range-----------------------
     const useStyles = makeStyles({
@@ -125,18 +118,16 @@ const Tupper = () => {
 
     //------------------------------------
 
-    const tuppers = prueba.map((el) => (
-
-
+    const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
         <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-            <Foto imagSrc={el.url}>
+            <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"}>
             </Foto>
             <Info>
                 <Title >
                     {el.titulo}
                 </Title>
                 <Usuario >
-                    <span>Usuario</span>
+                    <span>{el.usuarios_id_usuarios}</span>
                     <i className="fa fa-star" aria-hidden="true"></i>
                     <i className="fa fa-star" aria-hidden="true"></i>
                     <i className="fa fa-star" aria-hidden="true"></i>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBCol } from "mdbreact";
 
 import {
@@ -12,8 +12,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem
-
-
 } from "reactstrap";
 
 import {
@@ -21,8 +19,7 @@ import {
   Switch, 
   Route,
   NavLink,
-  Redirect,
-  Route
+  Redirect
 } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -44,6 +41,7 @@ const App = () => {
 
   const toggle = () => setIsOpen(!isOpen);
   
+
   return (
     <ContenedorContexto>
     <BrowserRouter>
@@ -78,7 +76,7 @@ const App = () => {
         <Switch>
             <Route exact path="/" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
-            <Route exact path="/perfil" component={Home} />
+           { /*<Route exact path="/perfil" component={Home} />*/}
             <Route exact path="/perfil" component={MisTuppers} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />

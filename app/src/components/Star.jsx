@@ -13,19 +13,28 @@ const Star = (props) => {
         setRating(nextValue);
     }
     useEffect(() => {
+        console.log(props.valor);
         setRating(rating);
     }, [rating])
     context.setRating(rating);
 
-    return (
-        <>
-            {/* <h2>Rating from state: {rating}</h2> */}
-            <StarRatingComponent
+    const Estrellas = () => {
+        if(props.valor !== ""){
+            return(
+                <StarRatingComponent
                 name="rate1"
                 starCount={5}
                 value={rating}
-                onStarClick={onStarClick}
-            />
+                onStarClick={onStarClick} /> 
+            )
+        }
+        return null;
+    }
+
+    return (
+        <>
+            {/* <h2>Rating from state: {rating}</h2> */}
+            <Estrellas />
         </>
     );
 }
