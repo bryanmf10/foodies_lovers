@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-    Container, Row
+    Container, Row, Col, Button, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, CustomInput
 } from "reactstrap";
 
-import styled from "styled-components"
+import styled from "styled-components";
+import prueba from "./Prueba.json"
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
 
 
 const Foto = styled.div`
-    width: 200px;
+    width: 90%;
     height: 200px;
     display: inline-block;
     background-image: url(${props => props.imagSrc});
@@ -22,19 +26,24 @@ const Box = styled.div`
     width: 100vw;
     max-height: 150vh;
     justify-content: center;
+    
     align-items: center;`;
+
+
 
 const Title = styled.div`
     margin-Top: 10px;
-    font-Weight: bold; 
-    font-Size: 20px;
+    font-Size: 25px;
     margin-left:10px;
-`;
+    height:50px;
+    font-family: 'Londrina Solid', cursive;`;
 
 const Info = styled.div`
     font-family: Trispace, sans-serif;
-    background-color: antiquewhite;
-    width: 200px;
+    background-color: #E6F8F7;
+    width: 90%;
+    margin-bottom:15px;
+  
    
 `;
 
@@ -57,12 +66,12 @@ const Usuario = styled.div`
 
 `;
 
-const Divider=styled.div`
+const Divider = styled.div`
 border-left: 1px solid black;
 ;
 `;
 
-const Botones=styled.div`
+const Botones = styled.div`
     
     display:flex;
     justify-Content:space-around;
@@ -72,103 +81,193 @@ const Botones=styled.div`
 
 `;
 
+const Titulo = styled.h2`
+font-Family:'Londrina Solid', cursive;
+`;
 
+const Tupperparati=styled.h2`
+font-Family:'Londrina Solid', cursive;
+margin-top:20px;
+text-align:center;
+
+
+}
+
+`;
 
 
 const Tupper = () => {
+
+    // const [datos,setdatos]=useState({});
+
+    // Controller.getDatos()
+    // .then(data=>setdatos(data))
+
+    //Del Dropdown-----------------------
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen(prevState => !prevState);
+    //------------------------------------
+
+    //del Range-----------------------
+    const useStyles = makeStyles({
+        root: {
+            width: 300,
+        },
+    });
+
+    function valuetext(value) {
+        return `${value}°C`;
+    }
+
+
+    const classes = useStyles();
+
+
+    //------------------------------------
+
+    const tuppers = prueba.map((el) => (
+
+
+        <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
+            <Foto imagSrc={el.url}>
+            </Foto>
+            <Info>
+                <Title >
+                    {el.titulo}
+                </Title>
+                <Usuario >
+                    <span>Usuario</span>
+                    <i className="fa fa-star" aria-hidden="true"></i>
+                    <i className="fa fa-star" aria-hidden="true"></i>
+                    <i className="fa fa-star" aria-hidden="true"></i>
+                    <i className="fa fa-star-o" aria-hidden="true"></i>
+                    <i className="fa fa-star-o" aria-hidden="true"></i>
+
+                </Usuario>
+                <Description>
+                    {el.descripcion}
+                </Description>
+
+                <Botones>
+                    <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+
+                    <Divider></Divider>
+
+                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{color:"#E43333"}}></i>
+
+                </Botones>
+            </Info>
+
+        </Box>
+    ));
+
+
+
+
     return (
-        <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
-            <Row style={{ paddingTop: "30px" }} className="w-100">
-                <Box className=" col-12 col-sm-6 col-lg-4">
-                    <Foto imagSrc="https://s1.eestatic.com/2019/04/21/cocinillas/actualidad-gastronomica/Actualidad_gastronomica_392722143_120971228_1280x1280.jpg">
 
-                    </Foto>
-                    <Info>
-                        <Title >
-                            CROQUETAS
-                        </Title>
-                        <Usuario >
-                            Usuario
-                        <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star-o" aria-hidden="true"></i>
-                            <i className="fa fa-star-o" aria-hidden="true"></i>
-                        </Usuario>
-                        <Description>
-                            croquetas de jamon hechas con mucho amor  jvvl hgbjsjjs jsjsjs sjjsjs sjsjjsjss nabsabjF JSDFLJSH FSDKFB LKJSDBLKJSD JSDHBF
-                        </Description>
-                       
-                        <Botones>
-                            <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+        <Container fluid style={{ marginTop: "80px" }}>
+            <Row>
 
-                            <Divider></Divider>
-                      
+                <Titulo>Quiero mi tupper:</Titulo>
+            </Row>
+            <Row  className="filtros">
+                <Col className="col-md-3 col-sm-12 col-12 text-center p-3" style={{  display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
+                    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                        <DropdownToggle caret style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" }}>
+                            Alimentación
+        </DropdownToggle>
+                        <DropdownMenu className="p-2">
 
-                            <i class="fa fa-heart fa-2x" aria-hidden="true"></i>
-                       
-                     
-                           
-                        
-                        </Botones>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" id="checkbox2" />{' '}
+              Vegano
+            </Label>
+                            </FormGroup>
 
 
-                    </Info>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" id="checkbox2" />{' '}
+              Vegetariano
+            </Label>
+                            </FormGroup>
 
-                </Box>
-                <Box className=" col-12 col-sm-6 col-lg-4">
-                    <Foto imagSrc="https://estaticos.miarevista.es/media/cache/760x570_thumb/uploads/images/recipe/5d5d03125bafe8dc49b479ab/ensalada-de-aguacates-int.jpg">
-                    </Foto>
-                    <Info>
-                        <Title >
-                            CROQUETAS
-                        </Title>
-                        <Description>
-                            corquetas de jamon hechas con mucho amor jsjjs jsjsjs sjjsjs sjsjjsjss nabsabjF JSDFLJSH FSDKFB LKJSDBLKJSD JSDHBF
-                    </Description>
-                        <Usuario >
-                            usuario
-                        <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star-o" aria-hidden="true"></i>
-                            <i className="fa fa-star-o" aria-hidden="true"></i>
-                        </Usuario>
 
-                    </Info>
-                </Box>
-                <Box className=" col-12 col-sm-6 col-lg-4">
-                    <Foto imagSrc="https://www.laespanolaaceites.com/wp-content/uploads/2019/06/croquetas-de-pollo-y-jamon-1080x671.jpg">
-                    </Foto>
-                    <Info>
-                        <Title >
-                            CROQUETAS
-                        </Title>
-                        <Description>
-                            corquetas de jamon hechas con mucho amor jsjjs jsjsjs sjjsjs sjsjjsjss nabsabjF JSDFLJSH FSDKFB LKJSDBLKJSD JSDHBF
-                    </Description>
-                        <Usuario >
-                            usuario
-                        <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star-o" aria-hidden="true"></i>
-                            <i className="fa fa-star-o" aria-hidden="true"></i>
-                        </Usuario>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" id="checkbox2" />{' '}
+              Sin Frutos Secos
+            </Label>
+                            </FormGroup>
 
-                    </Info>
-                </Box>
+
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" id="checkbox2" />{' '}
+              Sin Lactosa
+            </Label>
+                            </FormGroup>
+
+
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" id="checkbox2" />{' '}
+              Sin Gluten
+            </Label>
+                            </FormGroup>
+
+
+
+
+                        </DropdownMenu>
+                    </Dropdown>
+                </Col>
+                <Col className="col-md-3 col-sm-12 col-12 text-center" style={{fontFamily: "Londrina Solid "}}>
+                    <FormGroup>
+                        <Label for="exampleCheckbox"> </Label>
+                        <div>
+                            <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="1 $" inline />
+                            <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="2 $" inline />
+                            <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label="  3 $" inline />
+                            <CustomInput type="radio" id="exampleCustomRadio4" name="customRadio" label="Solo acepto Tupper" inline />
+                        </div>
+                    </FormGroup>
+                </Col>
+                <Col className="col-md-3 col-sm-12 col-12 text-center " >
+                    <div className={classes.root}>
+                        <Typography id="discrete-slider" gutterBottom>
+                            Distancia
+                         </Typography>
+                        <Slider
+                            defaultValue={30}
+                            getAriaValueText={valuetext}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={10}
+                            marks
+                            min={10}
+                            max={110}
+                        />
+                    </div>
+
+                </Col>
+
+                <Col className="col-md-3 col-sm-12 p-3 col-12 text-center" style={{ display: "flex", justifyContent: "center", alignItems: "center",}}>
+
+                    <Button style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid " }}>Go</Button>
+                </Col>
+
 
             </Row>
+            <Row>
 
-
-
-
-
-
-
-
-
+                <Tupperparati>Tuppers para ti:</Tupperparati>
+            </Row>
+            <Row style={{paddingTop: "30px"}} className="w-100">
+                {tuppers}
+            </Row>
 
         </Container >
 

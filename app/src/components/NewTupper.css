@@ -1,0 +1,35 @@
+.cuerpoRegistro{
+
+background-color: #E6F8F7;
+margin-top: 20px;
+padding: 30px;
+font-family: Londrina Solid ;
+
+
+}
+
+.tituloSubirTupper{
+
+    font-size: 30px;
+    text-align: center;
+    font-family: Londrina Solid;
+   
+}
+.filtros{
+    background-color:#E6F8F7;
+
+
+}
+
+.fototupper{
+
+width: 250px;
+align-items: center;
+margin-left: 30px;
+justify-content: center;
+}
+
+.precio{
+font-family: Londrina Solid ;
+font-size: 20px;
+}
