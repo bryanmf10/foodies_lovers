@@ -8,16 +8,11 @@ const Tuptok = styled.h2`
     font-size: 30px;
     text-align: center;
     font-family: Londrina Solid;
-<<<<<<< HEAD
     margin-top:60px;
-=======
-    margin-top: 60px;
->>>>>>> b29696326ed0bd7253f547dee17f973fd5c67f87
 `;
 
 const Login = () => {
 
-<<<<<<< HEAD
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -50,19 +45,6 @@ const Login = () => {
 
 
 
-=======
-    return (
-        <Form>
-            <Tuptok>TUPTOK</Tuptok>
-            <FormGroup className="col-sm-12 col-md-4  offset-md-4 cuerpoRegistro" >
-                <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" id="exampleEmail" placeholder="Introduce tu email" />
-                <Label for="examplePassword" styled={{ marginTop: "10px" }}>Contraseña</Label>
-                <Input type="password" name="password" id="examplePassword" placeholder="introduce tu contraseña" />
-            </FormGroup>
-            <button type="submit" class="col-sm-12 col-md-4  offset-md-4  text-center boton ">Submit</button>
-        </Form>
->>>>>>> b29696326ed0bd7253f547dee17f973fd5c67f87
     );
 }
 
