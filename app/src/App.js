@@ -20,7 +20,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-
+import { withCookies } from 'react-cookie';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Tupper from "./components/Tupper";
@@ -34,10 +34,24 @@ import NewTupper from "./components/NewTupper";
 
 import ContenedorContexto from "./context/ContenedorContexto";
 
-const App = () => {
+const App = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  
+  useEffect(()=>{
+    pruebaCookies();    
+  }, []);
+
+  const pruebaCookies = () => {
+    const { cookies } = props;
+    if(cookies.get('prueba')){
+      console.log(cookies.get('prueba'));
+    }else{
+      cookies.set('prueba', "abcd");
+      console.log(cookies.get('prueba'));
+    }
+  }
 
   return (
     <ContenedorContexto>
@@ -85,4 +99,4 @@ const App = () => {
     </ContenedorContexto>
   );
 }
-export default App;
+export default withCookies(App);
