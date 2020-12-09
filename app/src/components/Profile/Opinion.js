@@ -18,7 +18,7 @@ const Estrellas = styled.div`
   width: 100px;
 `;
 
-const Opinion = props => {
+const Opinion = (props) => {
   const context = useContext(Context);
 
   return (

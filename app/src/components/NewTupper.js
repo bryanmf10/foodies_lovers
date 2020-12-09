@@ -1,6 +1,4 @@
-import {
-    Container, Row, Input, FormGroup, Col, Form, Label, CustomInput, Button, FormText
-} from "reactstrap";
+import { Container, Row, Input, FormGroup, Col, Form, Label, CustomInput, Button } from "reactstrap";
 
 import './NewTupper.css';
 
@@ -14,32 +12,19 @@ const Foto = styled.div`
     background-size: cover;
     background-position: center;
     margin-left:47px;
-    
-    
-   
 `;
 
-
-
-
 const SubirTupper = (props) => {
-
-
 
     return (
         <>
             <Container fluid >
-
                 <Form >
                     <Col className="col-sm-12 col-md-6  offset-md-3  cuerpoRegistro tituloSubirTupper text-center" >
-
                         New tupper
-
-
                     </Col>
                     <Row form >
                         <Col className=" col-sm-12 col-md-3 p-3 offset-md-3  cuerpoRegistro " >
-
                             <Foto imagSrc="https://estaticos.miarevista.es/media/cache/760x570_thumb/uploads/images/recipe/5d5d03125bafe8dc49b479ab/ensalada-de-aguacates-int.jpg"></Foto>
                             <FormGroup className="precio  text-center" >
                                 <Label for="exampleCheckbox"> </Label>
@@ -51,27 +36,17 @@ const SubirTupper = (props) => {
                                 </div>
                             </FormGroup>
                             <FormGroup>
-
                                 <CustomInput className="fototupper text-center" type="file" id="exampleCustomFileBrowser" name="customFile" label="Yo, pick a file!" />
                             </FormGroup>
-
-
-
                         </Col>
-
-
                         <Col className="  col-sm-12 col-md-3 p-3 cuerpoRegistro "   >
                             <FormGroup >
                                 <Label for="exampleText"  >Nombre</Label>
-
                                 <Input className="input" type="text" name="text" id="exampleText" placeholder="Introduce el nombre de tu Tupper" />
-
                             </FormGroup>
                             <FormGroup >
                                 <Label for="exampleText"  >Descripción</Label>
-
                                 <Input className="input" type="textarea" name="text" id="exampleText" placeholder="Datos relevantes del tupper" maxLength="100" />
-
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleCheckbox">...</Label>
@@ -81,19 +56,12 @@ const SubirTupper = (props) => {
                                     <CustomInput type="switch" id="exampleCustomSwitch3" name="customSwitch" label=" Sin gluten" />
                                     <CustomInput type="switch" id="exampleCustomSwitch4" name="customSwitch" label=" Sin lactosa" />
                                     <CustomInput type="switch" id="exampleCustomSwitch5" name="customSwitch" label=" Sin frutos secos" />
-
-
                                 </div>
                             </FormGroup>
                         </Col>
-
                     </Row>
-
-
-
                     <Col className="col-sm-12 col-md-6  offset-md-3  cuerpoRegistro" >
                         <Label for="exampleText" sm={2} >Ingredientes</Label>
-
                         <FormGroup check >
                             <Label check>
                                 <Input type="checkbox" /> Huevos
@@ -120,31 +88,13 @@ const SubirTupper = (props) => {
                              </Label>
                         </FormGroup>
                     </Col>
-
-
-
-
-
                     <Col className="col-sm-12 col-md-6  offset-md-3  cuerpoRegistro text-center" >
-
                         <Button>Submit</Button>
-
-
                     </Col>
-
-
                 </Form>
-
-
             </Container>
-
-
         </>
     );
-
-
-
-
 }
 
 export default SubirTupper;

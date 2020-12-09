@@ -52,7 +52,6 @@ const Opiniones = () => {
       <div>
       </div>
       <br/>
-      {/* <h2>Esto es el Opiniones</h2> */}
       <Contenedor>
         <Chip>
           <Imagen src={imagen} width="96" height="96" />

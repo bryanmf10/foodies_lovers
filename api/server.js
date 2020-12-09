@@ -11,6 +11,7 @@ const accountRouter = require('./routes/accountController');
 const { verifyToken } = authMiddleware;
 const { port } = Config;
 const app = express();
+
 app.use(cors());
 
 app.use(express.json());

@@ -3,11 +3,12 @@ import React from "react";
 import styled from "styled-components";
 import Star from "../Star";
 
+import Prueba from "../Prueba.json"
 import Perfil from "./Perfil";
 
 const Foto = styled.div`
-    width: 300px;
-    height: 300px;
+    width: 90%;
+    height: 200px;
     display: inline-block;
     background-image: url(${props => props.imagSrc});
     background-size: cover;
@@ -18,24 +19,24 @@ const Box = styled.div`
     display: flex;
     flex-flow: column wrap;
     width: 100vw;
-    max-height: 100vh;
+    max-height: 150vh;
     justify-content: center;
     align-items: center;
 `;
 
 const Title = styled.div`
-    margin-Top: 30px;
-    font-Weight: bold; 
-    font-Size: 20px;
-    font-weight: bold;
+    margin-Top: 10px;
+    font-Size: 25px;
+    margin-left:10px;
+    height:50px;
+    font-family: 'Londrina Solid', cursive;
 `;
 
 const Info = styled.div`
     font-family: Trispace, sans-serif;
-    background-color: antiquewhite;
-    width: 300px;
-    text-align: center;
-    height: 250px;
+    background-color: #E6F8F7;
+    width: 90%;
+    margin-bottom:15px;
 `;
 
 const Description = styled.div`
@@ -43,50 +44,76 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
+    overflow:scroll; 
+    height:80px;
 `;
 
 const Usuario = styled.div`
     text-Align: right;
-    margin: 10px;
+    margin:5px; 
     font-Size: 13px;
     scroll-padding-block:30px,
 `;
 
+const Divider = styled.div`
+    border-left: 1px solid black;
+`;
+
 const Botones = styled.div`
-    display: flex;
-    justify-content: space-around;
+    display:flex;
+    justify-Content:space-around;
+    margin-Bottom:20px;
 `;
 
 const SolEntrantes = () => {
 
+  // API SECTION (UNCOMMENT TO USE /* */)
+  /*const [listaTupers, setListaTupers] = useState([]);
+
+  useEffect(() => {
+    TuperController.getAll()
+      .then(data => {
+        console.log(data);
+        if (data.ok === false) {
+          setListaTupers([]);
+        } else {
+          setListaTupers(data);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
+  const tuppers = Prueba.map((el) => (
+    <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
+      <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
+      <Info>
+        <Title>
+          {el.titulo}
+        </Title>
+        <Usuario >
+          <span>{el.usuarios_id_usuarios}</span>
+          <Star />
+        </Usuario>
+        <Description>
+          {el.descripcion}
+        </Description>
+        <Botones>
+          <Button color="warning">Aceptar</Button>
+          <Divider />
+          <Button color="danger">Rechazar</Button>
+        </Botones>
+      </Info>
+    </Box>
+  ));
   return (
     <Container>
       <Perfil />
-      <br/>
-      {/* <h2>Esto es el SolEntrantes</h2> */}
-      <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
+      <Container fluid>
         <Row style={{ paddingTop: "30px" }} className="w-100">
-          <Container>
-            <Box className=" col-12 col-sm-6 col-lg-4">
-              <Foto imagSrc="https://s1.eestatic.com/2019/04/21/cocinillas/actualidad-gastronomica/Actualidad_gastronomica_392722143_120971228_1280x1280.jpg">
-              </Foto>
-              <Info>
-                <Title>CROQUETAS</Title>
-                <Description>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odit quae exercitationem reprehenderit fuga.</Description>
-                <Usuario >
-                  Usuario
-                  <br />
-                  <Star />
-                </Usuario>
-                <Botones>
-                  <Button color="warning">Aceptar</Button>
-                  <Button color="danger">Rechazar</Button>
-                </Botones>
-              </Info>
-            </Box>
-          </Container>
+          {tuppers}
         </Row>
-      </Container >
+      </Container>
     </Container>
   );
 }

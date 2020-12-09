@@ -24,7 +24,7 @@ const Puntuar = styled.div`
   width: 100px;
 `;
 
-const Comentario = props => {
+const Comentario = (props) => {
   const context = useContext(Context);
   const [redireccion, setRedireccion] = useState(false);
   const [name, setName] = useState("");

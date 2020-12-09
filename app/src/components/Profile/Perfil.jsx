@@ -29,9 +29,11 @@ const Perfil = () => {
 
   return (
     <>
-      <br />
+      <br/>
+      <br/>
+      <br/>
       <Description />
-      <br />
+      <br/>
       <BrowserRouter>
         <Container>
           <StyledNav tabs>

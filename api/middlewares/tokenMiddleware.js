@@ -22,15 +22,16 @@ const verifyToken = (req, res, next) => {
 }
 
 const authenticate = (token) => {
+    let result = false;
 	jsonwebtoken.verify(token, secretKey, (error, decoded) => {
 		if (!error) {
             const { expiredAt } = decoded;
-			if (expiredAt > new Date().getTime()) {
-				return true;
+			if (expiredAt < new Date().getTime()) {
+				result = true;
 			}
         }
-        return false;
-	});
+    });
+    return result;
 };
 
 const findToken = (tokenWeb) => {
