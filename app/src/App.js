@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MDBCol } from "mdbreact";
 
 import {
@@ -31,6 +31,7 @@ import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 import NewTupper from "./components/NewTupper";
+import Detalle from "./components/Detalle";
 
 import ContenedorContexto from "./context/ContenedorContexto";
 
@@ -92,6 +93,7 @@ const App = (props) => {
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />
             <Route exact path="/perfil/opiniones" component={Opiniones} />
+            <Route exact path="/detalle" component={Detalle} />
             <Route component={NotFound} />
           </Switch>
         </Container>
