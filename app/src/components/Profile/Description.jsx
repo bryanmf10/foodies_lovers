@@ -2,8 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import imagen from './images/images.jpg';
 
-import { FaStar } from "react-icons/fa";
-import { FiStar } from "react-icons/fi";
+import StarFixed from "../StarFixed";
 
 const Rango = styled.div`
   border-radius: 25px;
@@ -42,13 +41,7 @@ const Description = () => {
       </Descripcion>
       <Rango>
         Rango: "Abuela"
-          <br />
-        <span><FaStar /></span>
-        <span><FaStar /></span>
-        <span><FaStar /></span>
-        <span><FiStar /></span>
-        <span><FiStar /></span>
-        <span>4</span>
+        <StarFixed valor={2}/>
       </Rango>
     </Centro>
   );
