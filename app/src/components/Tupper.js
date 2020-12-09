@@ -126,7 +126,7 @@ const Tupper = () => {
     const classes = useStyles();
 
     //------------------------------------
-    // Consulta desde la api
+    // API SECTION (UNCOMMENT TO USE /* */)
     // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
     const tuppers = prueba.map((el) => (
         <Box key={el.id} className="col-lg-3  col-sm-6 col-12">

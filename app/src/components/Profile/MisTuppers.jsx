@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Container,Row,} from "reactstrap";
+import { Container, Row, Button } from "reactstrap";
 import styled from "styled-components";
 import TuperController from '../../controller/TuperController';
 
@@ -48,13 +48,6 @@ const Description = styled.div`
     height:80px;
 `;
 
-const Usuario = styled.div`
-    text-Align: right;
-    margin:5px; 
-    font-Size: 13px;
-    scroll-padding-block:30px,
-`;
-
 const Divider = styled.div`
     border-left: 1px solid black;
 `;
@@ -66,12 +59,9 @@ const Botones = styled.div`
 `;
 
 const MisTuppers = () => {
-  const [listaTupers, setListaTupers] = useState([]);
 
-  //Del Dropdown-----------------------
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = () => setDropdownOpen(prevState => !prevState);
-  //------------------------------------
+  // API SECTION (UNCOMMENT TO USE /* */)
+  /*const [listaTupers, setListaTupers] = useState([]);
 
   useEffect(() => {
     TuperController.getAll()
@@ -86,9 +76,7 @@ const MisTuppers = () => {
       .catch(err => console.log(err));
   }, []);
 
-  //------------------------------------
-  // Consulta desde la api
-  // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
+  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
   const tuppers = Prueba.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
       <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
@@ -96,21 +84,13 @@ const MisTuppers = () => {
         <Title>
           {el.titulo}
         </Title>
-        <Usuario >
-          <span>{el.usuarios_id_usuarios}</span>
-          <i className="fa fa-star" aria-hidden="true"></i>
-          <i className="fa fa-star" aria-hidden="true"></i>
-          <i className="fa fa-star" aria-hidden="true"></i>
-          <i className="fa fa-star-o" aria-hidden="true"></i>
-          <i className="fa fa-star-o" aria-hidden="true"></i>
-        </Usuario>
         <Description>
           {el.descripcion}
         </Description>
         <Botones>
-          <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+          <Button color="warning">Ofrecer</Button>
           <Divider />
-          <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#E43333" }}></i>
+          <Button color="danger">Eliminar</Button>
         </Botones>
       </Info>
     </Box>

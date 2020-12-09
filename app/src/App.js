@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React, { useState,useEffect } from "react";
+>>>>>>> 0c7b5ad68ef75fd8a48ab6ee69d8cc752904f469
 import { MDBCol } from "mdbreact";
 
 import {
