@@ -9,7 +9,6 @@ const TuppersOfrecidos = () => {
     <Container>
       <Perfil />
       <br/>
-      {/* <h2>Esto es el TupperOfrecidos</h2> */}
       <Tupper />
     </Container>
   );

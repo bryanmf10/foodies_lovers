@@ -19,13 +19,13 @@ const Star = (props) => {
     context.setRating(rating);
 
     const Estrellas = () => {
-        if(props.valor !== ""){
-            return(
+        if (props.valor !== "") {
+            return (
                 <StarRatingComponent
-                name="rate1"
-                starCount={5}
-                value={rating}
-                onStarClick={onStarClick} /> 
+                    name="rate1"
+                    starCount={5}
+                    value={rating}
+                    onStarClick={onStarClick} />
             )
         }
         return null;
@@ -33,7 +33,6 @@ const Star = (props) => {
 
     return (
         <>
-            {/* <h2>Rating from state: {rating}</h2> */}
             <Estrellas />
         </>
     );

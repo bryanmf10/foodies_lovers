@@ -63,7 +63,6 @@ const SolEntrantes = () => {
     <Container>
       <Perfil />
       <br/>
-      {/* <h2>Esto es el SolEntrantes</h2> */}
       <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
         <Row style={{ paddingTop: "30px" }} className="w-100">
           <Container>
