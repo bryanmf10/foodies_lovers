@@ -18,7 +18,8 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  NavLink
+  NavLink,
+  
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,9 +32,25 @@ import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 import NewTupper from "./components/NewTupper";
+import styled from "styled-components";
 import Detalle from "./components/Detalle";
+import Login from "./components/Login";
 
 import ContenedorContexto from "./context/ContenedorContexto";
+// import Detalle from "./components/Detalle";
+
+import imagen from './components/Profile/images/images.jpg';
+
+const FotoPerfilNav = styled.div`
+border-radius:50%;
+width:35px;
+height:35px;
+display:inline-block;
+background-size: cover;
+background-position:center;
+background-image:url( ${props => props.imgSrc});
+`
+    ;
 
 const App = (props) => {
 
@@ -59,7 +76,7 @@ const App = (props) => {
       <BrowserRouter>
         <Container fluid>
           <Navbar className="fixed-top" light expand="md" style={{ backgroundColor: '#EE5D6E' }}>
-            <NavbarBrand href="/">TUPTOK</NavbarBrand>
+            <NavbarBrand href="/Tupper">TUPTOK</NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
               <Nav className="ml-auto" navbar  >
@@ -86,7 +103,8 @@ const App = (props) => {
             </Collapse>
           </Navbar>
           <Switch>
-            <Route exact path="/" component={Tupper} />
+            <Route exact path="/" component={Login} />
+            <Route exact path="/Tupper" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
             <Route exact path="/perfil" component={MisTuppers} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />

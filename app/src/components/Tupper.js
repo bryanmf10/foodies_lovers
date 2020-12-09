@@ -14,7 +14,8 @@ import {
 } from "reactstrap";
 
 import styled from "styled-components";
-import prueba from "./Prueba.json"
+import prueba from "./Prueba.json";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
@@ -89,7 +90,6 @@ const Tupperparati = styled.h2`
     text-align:center;
 `;
 
-
 const Tupper = () => {
 
     const [listaTupers, setListaTupers] = useState([]);
@@ -147,6 +147,7 @@ const Tupper = () => {
                     {el.descripcion}
                 </Description>
                 <Botones>
+           
                     <i class="fa fa-info fa-2x" aria-hidden="true"></i>
                     <Divider />
                     <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#E43333" }}></i>
