@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
-    Container, Row, Col, Button, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, Input, CustomInput
+    Container,
+    Row,
+    Col,
+    Button,
+    FormGroup,
+    Label,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu,
+    Input,
+    CustomInput
 } from "reactstrap";
+
 import styled from "styled-components";
 import prueba from "./Prueba.json"
 import { makeStyles } from '@material-ui/core/styles';
@@ -72,7 +83,7 @@ const Titulo = styled.h2`
 font-Family:'Londrina Solid', cursive;
 `;
 
-const Tupperparati=styled.h2`
+const Tupperparati = styled.h2`
     font-Family:'Londrina Solid', cursive;
     margin-top:20px;
     text-align:center;
@@ -81,7 +92,7 @@ const Tupperparati=styled.h2`
 
 const Tupper = () => {
 
-    const [listaTupers,setListaTupers]=useState([]);
+    const [listaTupers, setListaTupers] = useState([]);
 
     //Del Dropdown-----------------------
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -90,15 +101,15 @@ const Tupper = () => {
 
     useEffect(() => {
         TuperController.getAll()
-        .then(data => {
-            console.log(data);
-            if(data.ok === false){
-                setListaTupers([]);
-            }else{
-                setListaTupers(data);
-            }
-        })
-        .catch(err => console.log(err));
+            .then(data => {
+                console.log(data);
+                if (data.ok === false) {
+                    setListaTupers([]);
+                } else {
+                    setListaTupers(data);
+                }
+            })
+            .catch(err => console.log(err));
     }, []);
 
     //del Range-----------------------
@@ -112,18 +123,16 @@ const Tupper = () => {
         return `${value}°C`;
     }
 
-
     const classes = useStyles();
 
-
     //------------------------------------
-
-    const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
+    // Consulta desde la api
+    // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
+    const tuppers = prueba.map((el) => (
         <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-            <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"}>
-            </Foto>
+            <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
             <Info>
-                <Title >
+                <Title>
                     {el.titulo}
                 </Title>
                 <Usuario >
@@ -133,91 +142,67 @@ const Tupper = () => {
                     <i className="fa fa-star" aria-hidden="true"></i>
                     <i className="fa fa-star-o" aria-hidden="true"></i>
                     <i className="fa fa-star-o" aria-hidden="true"></i>
-
                 </Usuario>
                 <Description>
                     {el.descripcion}
                 </Description>
-
                 <Botones>
                     <i class="fa fa-info fa-2x" aria-hidden="true"></i>
-
-                    <Divider></Divider>
-
-                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{color:"#E43333"}}></i>
-
+                    <Divider />
+                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#E43333" }}></i>
                 </Botones>
             </Info>
-
         </Box>
     ));
 
-
-
-
     return (
-
         <Container fluid style={{ marginTop: "80px" }}>
             <Row>
-
                 <Titulo>Quiero mi tupper:</Titulo>
             </Row>
-            <Row  className="filtros">
-                <Col className="col-md-3 col-sm-12 col-12 text-center p-3" style={{  display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
+            <Row className="filtros">
+                <Col className="col-md-3 col-sm-12 col-12 text-center p-3" style={{ display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
                     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                         <DropdownToggle caret style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" }}>
                             Alimentación
-        </DropdownToggle>
+                        </DropdownToggle>
                         <DropdownMenu className="p-2">
-
                             <FormGroup check>
                                 <Label check>
                                     <Input type="checkbox" id="checkbox2" />{' '}
-              Vegano
-            </Label>
+                                    Vegano
+                                </Label>
                             </FormGroup>
-
-
                             <FormGroup check>
                                 <Label check>
                                     <Input type="checkbox" id="checkbox2" />{' '}
-              Vegetariano
-            </Label>
+                                    Vegetariano
+                                </Label>
                             </FormGroup>
-
-
                             <FormGroup check>
                                 <Label check>
                                     <Input type="checkbox" id="checkbox2" />{' '}
-              Sin Frutos Secos
-            </Label>
+                                    Sin Frutos Secos
+                                </Label>
                             </FormGroup>
-
-
                             <FormGroup check>
                                 <Label check>
                                     <Input type="checkbox" id="checkbox2" />{' '}
-              Sin Lactosa
-            </Label>
+                                    Sin Lactosa
+                                </Label>
                             </FormGroup>
-
-
                             <FormGroup check>
                                 <Label check>
                                     <Input type="checkbox" id="checkbox2" />{' '}
-              Sin Gluten
-            </Label>
+                                    Sin Gluten
+                                </Label>
                             </FormGroup>
-
-
-
-
                         </DropdownMenu>
                     </Dropdown>
                 </Col>
-                <Col className="col-md-3 col-sm-12 col-12 text-center" style={{fontFamily: "Londrina Solid "}}>
+                <Col className="col-md-3 col-sm-12 col-12 text-center" style={{ fontFamily: "Londrina Solid " }}>
                     <FormGroup>
-                        <Label for="exampleCheckbox"> </Label>
+                        <Label for="exampleCheckbox"/>
                         <div>
                             <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="1 $" inline />
                             <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="2 $" inline />
@@ -242,35 +227,19 @@ const Tupper = () => {
                             max={110}
                         />
                     </div>
-
                 </Col>
-
-                <Col className="col-md-3 col-sm-12 p-3 col-12 text-center" style={{ display: "flex", justifyContent: "center", alignItems: "center",}}>
-
+                <Col className="col-md-3 col-sm-12 p-3 col-12 text-center" style={{ display: "flex", justifyContent: "center", alignItems: "center", }}>
                     <Button style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid " }}>Go</Button>
                 </Col>
-
-
             </Row>
             <Row>
-
                 <Tupperparati>Tuppers para ti:</Tupperparati>
             </Row>
-            <Row style={{paddingTop: "30px"}} className="w-100">
+            <Row style={{ paddingTop: "30px" }} className="w-100">
                 {tuppers}
             </Row>
-
         </Container >
-
-
-
-
-
     );
-
-
-
-
 }
 
 export default Tupper;

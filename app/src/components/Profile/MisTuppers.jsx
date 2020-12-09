@@ -1,12 +1,14 @@
-import { Button, Container, Row } from "reactstrap";
-import React from "react";
-import styled from "styled-components"
+import React, { useEffect, useState } from "react";
+import {Container,Row,} from "reactstrap";
+import styled from "styled-components";
+import TuperController from '../../controller/TuperController';
 
-import Perfil from "./Perfil";
+import Prueba from "../Prueba.json"
+import Perfil from "./Perfil"
 
 const Foto = styled.div`
-    width: 300px;
-    height: 300px;
+    width: 90%;
+    height: 200px;
     display: inline-block;
     background-image: url(${props => props.imagSrc});
     background-size: cover;
@@ -17,24 +19,24 @@ const Box = styled.div`
     display: flex;
     flex-flow: column wrap;
     width: 100vw;
-    max-height: 100vh;
+    max-height: 150vh;
     justify-content: center;
     align-items: center;
 `;
 
 const Title = styled.div`
-    margin-Top: 30px;
-    font-Weight: bold; 
-    font-Size: 20px;
-    font-weight: bold;
+    margin-Top: 10px;
+    font-Size: 25px;
+    margin-left:10px;
+    height:50px;
+    font-family: 'Londrina Solid', cursive;
 `;
 
 const Info = styled.div`
     font-family: Trispace, sans-serif;
-    background-color: antiquewhite;
-    width: 300px;
-    text-align: center;
-    height: 190px;
+    background-color: #E6F8F7;
+    width: 90%;
+    margin-bottom:15px;
 `;
 
 const Description = styled.div`
@@ -42,59 +44,86 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
+    overflow:scroll; 
+    height:80px;
+`;
+
+const Usuario = styled.div`
+    text-Align: right;
+    margin:5px; 
+    font-Size: 13px;
+    scroll-padding-block:30px,
+`;
+
+const Divider = styled.div`
+    border-left: 1px solid black;
 `;
 
 const Botones = styled.div`
-    display: flex;
-    justify-content: space-around;
+    display:flex;
+    justify-Content:space-around;
+    margin-Bottom:20px;
 `;
 
 const MisTuppers = () => {
+  const [listaTupers, setListaTupers] = useState([]);
+
+  //Del Dropdown-----------------------
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+  //------------------------------------
+
+  useEffect(() => {
+    TuperController.getAll()
+      .then(data => {
+        console.log(data);
+        if (data.ok === false) {
+          setListaTupers([]);
+        } else {
+          setListaTupers(data);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  //------------------------------------
+  // Consulta desde la api
+  // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
+  const tuppers = Prueba.map((el) => (
+    <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
+      <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
+      <Info>
+        <Title>
+          {el.titulo}
+        </Title>
+        <Usuario >
+          <span>{el.usuarios_id_usuarios}</span>
+          <i className="fa fa-star" aria-hidden="true"></i>
+          <i className="fa fa-star" aria-hidden="true"></i>
+          <i className="fa fa-star" aria-hidden="true"></i>
+          <i className="fa fa-star-o" aria-hidden="true"></i>
+          <i className="fa fa-star-o" aria-hidden="true"></i>
+        </Usuario>
+        <Description>
+          {el.descripcion}
+        </Description>
+        <Botones>
+          <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+          <Divider />
+          <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#E43333" }}></i>
+        </Botones>
+      </Info>
+    </Box>
+  ));
+
   return (
     <Container>
       <Perfil />
-      <br/>
-      {/* <h2>Esto es el MisTuppers</h2> */}
-      <Container fluid style={{ backgroundColor: "rgb(249,208,127,0.2)" }}>
+      <Container fluid>
         <Row style={{ paddingTop: "30px" }} className="w-100">
-          <Box className=" col-12 col-sm-6 col-lg-4">
-            <Foto imagSrc="https://s1.eestatic.com/2019/04/21/cocinillas/actualidad-gastronomica/Actualidad_gastronomica_392722143_120971228_1280x1280.jpg">
-            </Foto>
-            <Info>
-              <Title>CROQUETAS</Title>
-              <Description>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odit quae exercitationem reprehenderit fuga.</Description>
-              <Botones>
-                <Button color="info">Ofrecer</Button>
-                <Button color="danger">Eliminar</Button>
-              </Botones>
-            </Info>
-          </Box>
-          <Box className=" col-12 col-sm-6 col-lg-4">
-            <Foto imagSrc="https://estaticos.miarevista.es/media/cache/760x570_thumb/uploads/images/recipe/5d5d03125bafe8dc49b479ab/ensalada-de-aguacates-int.jpg">
-            </Foto>
-            <Info>
-              <Title >CROQUETAS</Title>
-              <Description>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni labore unde explicabo officiis consectetur?</Description>
-              <Botones>
-                <Button color="info">Ofrecer</Button>
-                <Button color="danger">Eliminar</Button>
-              </Botones>
-            </Info>
-          </Box>
-          <Box className=" col-12 col-sm-6 col-lg-4">
-            <Foto imagSrc="https://www.laespanolaaceites.com/wp-content/uploads/2019/06/croquetas-de-pollo-y-jamon-1080x671.jpg">
-            </Foto>
-            <Info>
-              <Title >CROQUETAS</Title>
-              <Description>corquetas de jamon hechas con mucho amor jsjjs jsjsjs sjjsjs sjsjjsjss nabsabjF JSDFLJSH FSDKFB LKJSDBLKJSD JSDHBF</Description>
-              <Botones>
-                <Button color="info">Ofrecer</Button>
-                <Button color="danger">Eliminar</Button>
-              </Botones>
-            </Info>
-          </Box>
+          {tuppers}
         </Row>
-      </Container >
+      </Container>
     </Container>
   );
 }
