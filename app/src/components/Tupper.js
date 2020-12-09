@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import {
-    Container, Row, Col, Button, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, CustomInput
+    Container, Row, Col, Button, FormGroup, Label, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, CustomInput,NavLink
 } from "reactstrap";
 
 import styled from "styled-components";
 import prueba from "./Prueba.json"
+import Detalle from "./Detalle";
+
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+
 
 
 const Foto = styled.div`
@@ -149,11 +153,14 @@ const Tupper = () => {
                 </Description>
 
                 <Botones>
+           
                     <i class="fa fa-info fa-2x" aria-hidden="true"></i>
-
+                   
                     <Divider></Divider>
+              
 
                     <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{color:"#E43333"}}></i>
+                    
 
                 </Botones>
             </Info>
