@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { MDBCol } from "mdbreact";
 
 import {
@@ -19,7 +19,7 @@ import {
   Switch,
   Route,
   NavLink,
-  
+
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
@@ -36,35 +36,33 @@ import Detalle from "./components/Detalle";
 import Login from "./components/Login";
 
 import ContenedorContexto from "./context/ContenedorContexto";
-// import Detalle from "./components/Detalle";
 
 import imagen from './components/Profile/images/images.jpg';
 
 const FotoPerfilNav = styled.div`
-border-radius:50%;
-width:35px;
-height:35px;
-display:inline-block;
-background-size: cover;
-background-position:center;
-background-image:url( ${props => props.imgSrc});
-`
-    ;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  background-image: url( ${props => props.imgSrc});
+`;
 
 const App = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  
-  useEffect(()=>{
-    pruebaCookies();    
+
+  useEffect(() => {
+    pruebaCookies();
   }, []);
 
   const pruebaCookies = () => {
     const { cookies } = props;
-    if(cookies.get('prueba')){
+    if (cookies.get('prueba')) {
       console.log(cookies.get('prueba'));
-    }else{
+    } else {
       cookies.set('prueba', "abcd");
       console.log(cookies.get('prueba'));
     }
@@ -90,9 +88,7 @@ const App = (props) => {
                 <UncontrolledDropdown nav inNavbar className="text-left">
                   <DropdownToggle nav caret>  Usuario </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem> Ofertas </DropdownItem>
                     <DropdownItem href="/perfil"> Mis tuppers </DropdownItem>
-                    <DropdownItem> Credito </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem> Editar </DropdownItem>
                     <DropdownItem> Cerrar sesión  </DropdownItem>
