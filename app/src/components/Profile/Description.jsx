@@ -10,6 +10,7 @@ const Rango = styled.div`
   width: 200px;
   height: 150px;
 `;
+
 const Centro = styled.div`
   display: flex;
   justify-content: center;

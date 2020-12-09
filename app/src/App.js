@@ -37,7 +37,7 @@ import Login from "./components/Login";
 
 import ContenedorContexto from "./context/ContenedorContexto";
 
-import imagen from './components/Profile/images/images.jpg';
+import Imagen from './components/Profile/images/images.jpg';
 
 const FotoPerfilNav = styled.div`
   border-radius: 50%;
@@ -85,7 +85,7 @@ const App = (props) => {
                 <MDBCol md="-4">
                   <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
                 </MDBCol>
-                <UncontrolledDropdown nav inNavbar className="text-left">
+                <UncontrolledDropdown nav className="text-left">
                   <DropdownToggle nav caret>  Usuario </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem href="/perfil"> Mis tuppers </DropdownItem>

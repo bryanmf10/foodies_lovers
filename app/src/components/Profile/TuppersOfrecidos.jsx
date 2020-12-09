@@ -48,16 +48,6 @@ const Description = styled.div`
     height: 80px;
 `;
 
-const Divider = styled.div`
-    border-left: 1px solid black;
-`;
-
-const Botones = styled.div`
-    display: flex;
-    justify-Content: space-around;
-    margin-Bottom: 20px;
-`;
-
 const TuppersOfrecidos = () => {
 
   // API SECTION (UNCOMMENT TO USE /* */)
@@ -87,11 +77,6 @@ const TuppersOfrecidos = () => {
         <Description>
           {el.descripcion}
         </Description>
-        <Botones>
-          <Button color="warning">Ofrecer</Button>
-          <Divider />
-          <Button color="danger">Eliminar</Button>
-        </Botones>
       </Info>
     </Box>
   ));

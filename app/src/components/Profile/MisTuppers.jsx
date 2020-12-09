@@ -88,7 +88,7 @@ const MisTuppers = () => {
           {el.descripcion}
         </Description>
         <Botones>
-          <Button color="warning">Ofrecer</Button>
+          <Button color="warning">Editar</Button>
           <Divider />
           <Button color="danger">Eliminar</Button>
         </Botones>
