@@ -27,8 +27,8 @@ const Box = styled.div`
 const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
-    margin-left:10px;
-    height:50px;
+    margin-left: 10px;
+    height: 50px;
     font-family: 'Londrina Solid', cursive;
 `;
 
@@ -36,7 +36,7 @@ const Info = styled.div`
     font-family: Trispace, sans-serif;
     background-color: #E6F8F7;
     width: 90%;
-    margin-bottom:15px;
+    margin-bottom: 15px;
 `;
 
 const Description = styled.div`
@@ -44,8 +44,8 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow:scroll; 
-    height:80px;
+    overflow: scroll; 
+    height: 80px;
 `;
 
 const Divider = styled.div`
@@ -53,9 +53,9 @@ const Divider = styled.div`
 `;
 
 const Botones = styled.div`
-    display:flex;
-    justify-Content:space-around;
-    margin-Bottom:20px;
+    display: flex;
+    justify-Content: space-around;
+    margin-Bottom: 20px;
 `;
 
 const MisTuppers = () => {

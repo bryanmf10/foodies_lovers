@@ -48,7 +48,7 @@ const Trueques = () => {
       <Perfil />
       <div>
       </div>
-      <br/>
+      <br />
       <Contenedor>
         <Chip>
           <Imagen src={imagen} width="96" height="96" />

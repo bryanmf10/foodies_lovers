@@ -14,6 +14,8 @@ import {
 } from "reactstrap";
 
 import styled from "styled-components";
+import StarFixed from "./StarFixed";
+
 import prueba from "./Prueba.json"
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -41,8 +43,8 @@ const Box = styled.div`
 const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
-    margin-left:10px;
-    height:50px;
+    margin-left: 10px;
+    height: 50px;
     font-family: 'Londrina Solid', cursive;
 `;
 
@@ -50,7 +52,7 @@ const Info = styled.div`
     font-family: Trispace, sans-serif;
     background-color: #E6F8F7;
     width: 90%;
-    margin-bottom:15px;
+    margin-bottom: 15px;
 `;
 
 const Description = styled.div`
@@ -58,15 +60,15 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow:scroll; 
-    height:80px;
+    overflow: scroll; 
+    height: 80px;
 `;
 
 const Usuario = styled.div`
     text-Align: right;
-    margin:5px; 
+    margin: 5px; 
     font-Size: 13px;
-    scroll-padding-block:30px,
+    scroll-padding-block: 30px,
 `;
 
 const Divider = styled.div`
@@ -74,19 +76,19 @@ const Divider = styled.div`
 `;
 
 const Botones = styled.div`
-    display:flex;
-    justify-Content:space-around;
-    margin-Bottom:20px;
+    display: flex;
+    justify-Content: space-around;
+    margin-Bottom: 20px;
 `;
 
 const Titulo = styled.h2`
-font-Family:'Londrina Solid', cursive;
+    font-Family: 'Londrina Solid', cursive;
 `;
 
 const Tupperparati = styled.h2`
-    font-Family:'Londrina Solid', cursive;
-    margin-top:20px;
-    text-align:center;
+    font-Family: 'Londrina Solid', cursive;
+    margin-top: 20px;
+    text-align: center;
 `;
 
 
@@ -130,18 +132,16 @@ const Tupper = () => {
     // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
     const tuppers = prueba.map((el) => (
         <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-            <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
+            {/* <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} /> */}
+            <Foto imagSrc={el.url} />
             <Info>
                 <Title>
                     {el.titulo}
                 </Title>
                 <Usuario >
-                    <span>{el.usuarios_id_usuarios}</span>
-                    <i className="fa fa-star" aria-hidden="true"></i>
-                    <i className="fa fa-star" aria-hidden="true"></i>
-                    <i className="fa fa-star" aria-hidden="true"></i>
-                    <i className="fa fa-star-o" aria-hidden="true"></i>
-                    <i className="fa fa-star-o" aria-hidden="true"></i>
+                    <StarFixed valor={el.rating}/>
+                    <br/>
+                    <span>{el.user}</span>
                 </Usuario>
                 <Description>
                     {el.descripcion}

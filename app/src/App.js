@@ -21,7 +21,6 @@ import {
   NavLink
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import Tupper from "./components/Tupper";
 import NotFound from "./components/P404";
@@ -72,7 +71,7 @@ const App = (props) => {
                 </MDBCol>
                 <UncontrolledDropdown nav inNavbar className="text-left">
                   <DropdownToggle nav caret>  Usuario </DropdownToggle>
-                  <DropdownMenu >
+                  <DropdownMenu>
                     <DropdownItem> Ofertas </DropdownItem>
                     <DropdownItem href="/perfil"> Mis tuppers </DropdownItem>
                     <DropdownItem> Credito </DropdownItem>
