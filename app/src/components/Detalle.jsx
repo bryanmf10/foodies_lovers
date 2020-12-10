@@ -1,8 +1,8 @@
 import { Container, Row, Col, Button } from "reactstrap";
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 import imagen from './Profile/images/images.jpg';
-
+import Modal from './ModalTupers';
 
 
 const Chip = styled.div`
@@ -16,7 +16,20 @@ const Chip = styled.div`
   color: white;
 `;
 
+const ContenedorImagen = styled.div`
+height: 50%;
+width: 100%;
+`;
+
 const Imagen = styled.img`
+height: 100%;
+width: 100%;
+object-fit: cover;
+border-radius: 20px;
+border: 3px pink solid;
+`;
+
+const FotoUser = styled.img`
   float: left;
   margin: 0 10px 0 -25px;
   height: 50px;
@@ -24,13 +37,13 @@ const Imagen = styled.img`
   border-radius: 50%;
 `;
 const Contenedor = styled.div`
-  border: 2px solid #ccc;
-  background-color: #eee;
+background-color: #E6F8F7;
+border-radius: 30px;
 
 `;
+
 const Cabecera = styled.div`
-  border: 2px solid #ccc;
-  background-color: #eee;
+
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
@@ -42,52 +55,63 @@ const Cabecera = styled.div`
 
 export default () => {
 
-    return (
-        <Container>
+    const [modal, setModal] = useState(false);
+    const toggle = () => {
+        setModal(!modal)
+    }
 
-            <div style={{ height: "50px" }}>
+
+    return (
+        <Container >
+          
+            <div style={{ height: '50px' }}>
             </div>
             <br />
             <Contenedor>
                 <Cabecera>
                     <Chip>
-                        <Imagen src={imagen} width="96" height="96" />
+                        <FotoUser src={imagen} width="96" height="96" />
                         <span>Julio Carpa Por Si Llueve</span>
                     </Chip>
-                    <Button style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" }}>Ofrecer tupper</Button>
+                    <Button onClick={toggle} style={{ backgroundColor: '#EE5D6E', border: 'none', borderRadius: "5px 20px 5px 5px", color: "#E6F8F7" }}>Ofrecer tupper</Button>
                 </Cabecera>
                 <Row>
                     <Col sm='12' lg='6' className="order-2 order-lg-1">
-                        <div style={{ border: "1px solid black" }}>
-                            <img src="https://estaticos.miarevista.es/media/cache/1140x_thumb/uploads/images/gallery/59b648f65bafe80ec7221fab/tupperinterior.jpg" style={{ width: "300px" }} />
-                        </div>
-                        <hr/>
-                        <div>
-                            <h3>INTOLERANCIAS</h3>
+                        <div style={{ padding: '10px' }}>
+                            <ContenedorImagen>
+                                <Imagen src="https://estaticos.miarevista.es/media/cache/1140x_thumb/uploads/images/gallery/59b648f65bafe80ec7221fab/tupperinterior.jpg" />
+                            </ContenedorImagen>
+                            <hr />
                             <div>
-                                <i className="fas fa-circle"></i>
-                                <i className="fas fa-circle"></i>
-                                <i className="fas fa-circle"></i>
+                                <h3>INTOLERANCIAS</h3>
+                                <div>
+                                    <i className="fas fa-circle"></i>
+                                    <i className="fas fa-circle"></i>
+                                    <i className="fas fa-circle"></i>
+                                </div>
+                                <h3>INGREDIENTES</h3>
+                                <ul>
+                                    <li>limon</li>
+                                    <li>lechuga</li>
+                                    <li>tomate cherri</li>
+                                </ul>
                             </div>
-                            <h3>INGREDIENTES</h3>
-                            <ul>
-                                <li>limon</li>
-                                <li>lechuga</li>
-                                <li>tomate cherri</li>
-                            </ul>
                         </div>
                     </Col>
                     <Col sm='12' lg='6' className="order-1 order-lg-2">
-                        <div style={{ border: "1px solid black" }}>
-                            <img src="https://i.blogs.es/b4dd5c/maps/1366_2000.png" style={{ width: "300px" }} />
-                        </div>
-                        <hr/>
-                        <div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur quo, corrupti praesentium iure odit in veritatis incidunt aperiam atque ea at culpa hic nostrum sint reprehenderit optio sapiente impedit vero.</p>
+                        <div style={{ padding: '10px' }}>
+                            <ContenedorImagen >
+                                <Imagen src="https://i.blogs.es/b4dd5c/maps/1366_2000.png" />
+                            </ContenedorImagen>
+                            <hr />
+                            <div>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur quo, corrupti praesentium iure odit in veritatis incidunt aperiam atque ea at culpa hic nostrum sint reprehenderit optio sapiente impedit vero.</p>
+                            </div>
                         </div>
                     </Col>
                 </Row>
             </Contenedor>
+            {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} /> }
         </Container>
     );
 }
