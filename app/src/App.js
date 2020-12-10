@@ -34,6 +34,7 @@ import NewTupper from "./components/NewTupper";
 import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Login from "./components/Login";
+import Registro from "./components/Registro";
 
 import ContenedorContexto from "./context/ContenedorContexto";
 
@@ -99,6 +100,7 @@ const App = (props) => {
           </Navbar>
           <Switch>
             <Route exact path="/" component={Login} />
+            <Route exact path="/Registro" component={Registro} />
             <Route exact path="/Tupper" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
             <Route exact path="/perfil" component={MisTuppers} />

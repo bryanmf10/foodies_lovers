@@ -1,8 +1,9 @@
 import { Container, Row, Input, FormGroup, Col, Form, Label, CustomInput, Button } from "reactstrap";
-
+import React,{useState} from "react";
 import './NewTupper.css';
 
-import styled from "styled-components";
+import styled from 'styled-components';
+import TupperController from '../controller/TuperController';
 
 const Foto = styled.div`
     width: 200px;
@@ -15,11 +16,27 @@ const Foto = styled.div`
 `;
 
 const SubirTupper = (props) => {
+    const [nom, setNom] = useState("");
+    const [des, setDes] = useState("");
+    const [alergias, setAlergias] = useState("");
+    const [img, setImg] = useState("");
+    const [ingredientes, setingredientes] = useState("");
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let tuper = {
+            nombre: nom,
 
+        }
+       TupperController.getOne(tuper)
+          .then(data => console.log(data))
+          .catch(error => console.log(error));
+      }
+      
     return (
         <>
             <Container fluid >
-                <Form >
+                <Form onSubmit={(event) => handleSubmit(event)}>
                     <Col className="col-sm-12 col-md-6  offset-md-3  cuerpoRegistro tituloSubirTupper text-center" >
                         New tupper
                     </Col>
@@ -42,11 +59,11 @@ const SubirTupper = (props) => {
                         <Col className="  col-sm-12 col-md-3 p-3 cuerpoRegistro "   >
                             <FormGroup >
                                 <Label for="exampleText"  >Nombre</Label>
-                                <Input className="input" type="text" name="text" id="exampleText" placeholder="Introduce el nombre de tu Tupper" />
+                                <Input className="input" type="text" name="text" id="exampleText" placeholder="Introduce el nombre de tu Tupper" value={nom} onChange={(event) =>setNom(event.target.value)} />
                             </FormGroup>
                             <FormGroup >
                                 <Label for="exampleText"  >Descripción</Label>
-                                <Input className="input" type="textarea" name="text" id="exampleText" placeholder="Datos relevantes del tupper" maxLength="100" />
+                                <Input className="input" type="textarea" name="text" id="exampleText" placeholder="Datos relevantes del tupper" maxLength="100" value={des} onChange={(event) =>setDes(event.target.value)} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleCheckbox">...</Label>
