@@ -67,7 +67,7 @@ const Usuario = styled.div`
     text-Align: right;
     margin: 5px; 
     font-Size: 13px;
-    scroll-padding-block: 30px,
+    scroll-padding-block: 30px;
 `;
 
 const Divider = styled.div`

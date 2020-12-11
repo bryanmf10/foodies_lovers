@@ -3,7 +3,7 @@ import { Container, Row, Button } from "reactstrap";
 import styled from "styled-components";
 import TuperController from '../../controller/TuperController';
 
-import Prueba from "../Prueba.json"
+import Data from "./data/MisTuppers.json"
 import Perfil from "./Perfil"
 
 const Foto = styled.div`
@@ -77,9 +77,9 @@ const MisTuppers = () => {
   }, []);
 
   const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
-  const tuppers = Prueba.map((el) => (
+  const tuppers = Data.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
+      <Foto imagSrc={el.url} />
       <Info>
         <Title>
           {el.titulo}
