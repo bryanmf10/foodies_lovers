@@ -19,7 +19,7 @@ import {
   Switch,
   Route,
   NavLink,
-
+  Link
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
@@ -84,11 +84,11 @@ const App = (props) => {
       return(
         <Container fluid>
           <Navbar className="fixed-top" light expand="md" style={{ backgroundColor: '#EE5D6E' }}>
-            <NavbarBrand href="/Tupper">TUPTOK</NavbarBrand>
+            <NavbarBrand><Link to="/">TUPTOK</Link></NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
               <Nav className="ml-auto" navbar  >
-                <NavLink to="/NewTupper" >
+                <NavLink to="/NewTupper">
                   <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: " #E6F8F7" }} ></i>
                 </NavLink>
               </Nav>
@@ -97,9 +97,9 @@ const App = (props) => {
                   <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
                 </MDBCol>
                 <UncontrolledDropdown nav className="text-left">
-                  <DropdownToggle nav caret>  Usuario </DropdownToggle>
+                  <DropdownToggle nav caret>Usuario </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem href="/perfil"> Mis tuppers </DropdownItem>
+                    <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem> Editar </DropdownItem>
                     <DropdownItem> Cerrar sesión  </DropdownItem>

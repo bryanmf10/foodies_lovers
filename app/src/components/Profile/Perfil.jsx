@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import { Container, Nav, NavItem, NavLink } from "reactstrap";
 import styled from 'styled-components';
 
@@ -34,27 +34,25 @@ const Perfil = () => {
       <br/>
       <Description />
       <br/>
-      <BrowserRouter>
         <Container>
           <StyledNav tabs>
             <NavItem>
-              <StyledLink href="/perfil">Mis Tuppers</StyledLink>
+              <StyledLink><Link to="/perfil">Mis Tuppers</Link></StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/solEntrantes">Solicitudes entrantes</StyledLink>
+              <StyledLink><Link to="/perfil/solEntrantes">Solicitudes entrantes</Link></StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/tuppersOfrecidos">Tuppers ofrecidos</StyledLink>
+              <StyledLink><Link to="/perfil/tuppersOfrecidos">Tuppers ofrecidos</Link></StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/trueques">Trueques</StyledLink>
+              <StyledLink><Link to="/perfil/trueques">Trueques</Link></StyledLink>
             </NavItem>
             <NavItem>
-              <StyledLink href="/perfil/opiniones">Opiniones</StyledLink>
+              <StyledLink><Link to="/perfil/opiniones">Opiniones</Link></StyledLink>
             </NavItem>
           </StyledNav>
         </Container>
-      </BrowserRouter>
     </>
   );
 }
