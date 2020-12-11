@@ -11,7 +11,7 @@ const Tuptok = styled.h2`
     margin-top:60px;
 `;
 
-const Login = () => {
+const Login = (props) => {
 
 
     const [email, setEmail] = useState("");

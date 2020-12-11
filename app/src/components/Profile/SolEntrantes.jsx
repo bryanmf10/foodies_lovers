@@ -1,10 +1,10 @@
 import { Button, Container, Row } from "reactstrap";
 import React from "react";
 import styled from "styled-components";
-import Star from "../Star";
 
-import Prueba from "../Prueba.json"
+import Data from "./data/SolEntrantes.json"
 import Perfil from "./Perfil";
+import StarFixed from "../StarFixed";
 
 const Foto = styled.div`
     width: 90%;
@@ -84,16 +84,17 @@ const SolEntrantes = () => {
   }, []);
 
   const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
-  const tuppers = Prueba.map((el) => (
+  const tuppers = Data.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
+      <Foto imagSrc={el.url} />
       <Info>
         <Title>
           {el.titulo}
         </Title>
         <Usuario >
-          <span>{el.usuarios_id_usuarios}</span>
-          <Star />
+          <StarFixed valor={el.rating} />
+          <br />
+          <span>{el.user}</span>
         </Usuario>
         <Description>
           {el.descripcion}

@@ -4,51 +4,48 @@ import styled from 'styled-components';
 import imagen from './Profile/images/images.jpg';
 import Modal from './ModalTupers';
 
-
 const Chip = styled.div`
-  display: inline-block;
-  padding: 0 25px;
-  height: 50px;
-  font-size: 16px;
-  line-height: 50px;
-  border-radius: 25px;
-  background-color: black;
-  color: white;
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: black;
+    color: white;
 `;
 
 const ContenedorImagen = styled.div`
-height: 50%;
-width: 100%;
+    height: 50%;
+    width: 100%;
 `;
 
 const Imagen = styled.img`
-height: 100%;
-width: 100%;
-object-fit: cover;
-border-radius: 20px;
-border: 3px pink solid;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 3px pink solid;
 `;
 
 const FotoUser = styled.img`
-  float: left;
-  margin: 0 10px 0 -25px;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
 `;
 const Contenedor = styled.div`
-background-color: #E6F8F7;
-border-radius: 30px;
-
+    background-color: #E6F8F7;
+    border-radius: 30px;
 `;
 
 const Cabecera = styled.div`
-
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
 `;
 
 
@@ -60,10 +57,8 @@ export default () => {
         setModal(!modal)
     }
 
-
     return (
         <Container >
-          
             <div style={{ height: '50px' }}>
             </div>
             <br />
@@ -111,7 +106,7 @@ export default () => {
                     </Col>
                 </Row>
             </Contenedor>
-            {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} /> }
+            {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} />}
         </Container>
     );
 }

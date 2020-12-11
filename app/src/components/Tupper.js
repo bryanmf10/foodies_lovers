@@ -67,7 +67,7 @@ const Usuario = styled.div`
     text-Align: right;
     margin: 5px; 
     font-Size: 13px;
-    scroll-padding-block: 30px,
+    scroll-padding-block: 30px;
 `;
 
 const Divider = styled.div`
@@ -99,18 +99,18 @@ const Tupper = () => {
     const toggle = () => setDropdownOpen(prevState => !prevState);
     //------------------------------------
 
-    useEffect(() => {
-        TuperController.getAll()
-            .then(data => {
-                console.log(data);
-                if (data.ok === false) {
-                    setListaTupers([]);
-                } else {
-                    setListaTupers(data);
-                }
-            })
-            .catch(err => console.log(err));
-    }, []);
+    // useEffect(() => {
+    //     TuperController.getAll()
+    //         .then(data => {
+    //             console.log(data);
+    //             if (data.ok === false) {
+    //                 setListaTupers([]);
+    //             } else {
+    //                 setListaTupers(data);
+    //             }
+    //         })
+    //         .catch(err => console.log(err));
+    // }, []);
 
     //del Range-----------------------
     const useStyles = makeStyles({
