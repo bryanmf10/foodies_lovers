@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import TupperController from '../controller/TuperController';
 import Context from "../context/Context";
 import TokenController from "../controller/TokenController";
+import { Redirect } from "react-router-dom";
 
 const Foto = styled.div`
     width: 200px;
@@ -28,6 +29,7 @@ const SubirTupper = (props) => {
     const [hasGluten, setHasGluten] = useState(false);
     const [valor,setValor] = useState("");
     const [selectedFile, setSelectedFile] = useState(false);
+    const [loading, setLoading] = useState(null);
     const context = useContext(Context);
 
     const handleSubmit = (event) => {
@@ -48,10 +50,9 @@ const SubirTupper = (props) => {
             tuper.append("cooking_date", new Date().toISOString().split('T')[0]);
             tuper.append("valor_tamano", valor);
             tuper.append("ingredientes", ingredientes.join(","));
-        console.log(tuper);
-        /*TupperController.insertOne(tuper,context.token)
-          .then(data => console.log(data))
-          .catch(error => console.log(error));*/
+        TupperController.insertOne(tuper,context.token)
+          .then(data => setLoading(true))
+          .catch(error => console.log(error));
       }
 
       const añadeIngrediente = (ingr) => {
@@ -65,6 +66,10 @@ const SubirTupper = (props) => {
         setIngredientes(newArray);
       }
       
+      if(loading){
+          return <Redirect to="/" />;
+      }
+
     return (
         <>
             <Container fluid >
