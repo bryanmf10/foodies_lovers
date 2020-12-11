@@ -15,7 +15,8 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
-    margin-left:47px;
+
+   
 `;
 
 const SubirTupper = (props) => {
@@ -99,6 +100,7 @@ const SubirTupper = (props) => {
                             </Row>
                         </Col>
                         <Col className="  col-sm-12 col-md-3 p-3 cuerpoRegistro "   >
+                           <Row>
                             <FormGroup >
                                 <Label for="inputName"  >Nombre</Label>
                                 <Input className="input" type="text" name="text" id="inputName" placeholder="Introduce el nombre de tu Tupper" value={nom} onChange={(event) =>setNom(event.target.value)} />
@@ -107,8 +109,10 @@ const SubirTupper = (props) => {
                                 <Label for="exampleText"  >Descripción</Label>
                                 <Input className="input" type="textarea" name="text" id="exampleText" placeholder="Datos relevantes del tupper" maxLength="100" value={des} onChange={(event) =>setDes(event.target.value)} />
                             </FormGroup>
-                            <FormGroup>
-                                <Label for="exampleCheckbox">...</Label>
+                            </Row>
+                            <Row className="justify-content-center">
+                            <FormGroup className="precio text-center" required >
+                              
                                 <div>
                                     <CustomInput type="switch" id="vegano" checked={vegan} onChange={(event) => setVegan(event.target.checked)} name="customSwitch" label="Vegano" />
                                     <CustomInput type="switch" id="vegetarian" checked={vegetarian} onChange={(event) => setVegetarian(event.target.checked)} name="customSwitch" label="Vegetariano" />
@@ -117,7 +121,29 @@ const SubirTupper = (props) => {
                                     <CustomInput type="switch" id="hasFrutosSecos" checked={hasFrutosSecos} onChange={(event) => setHasFrutosSecos(event.target.checked)} name="customSwitch" label=" Sin frutos secos" />
                                 </div>
                             </FormGroup>
+                            </Row>
+                      
                         </Col>
+                            <Col className="  col-sm-12 col-md-3 p-3 cuerpoRegistro "   >
+                                <FormGroup >
+                                    <Label for="inputName"  >Nombre</Label>
+                                    <Input className="input" type="text" name="text" id="inputName" placeholder="Introduce el nombre de tu Tupper" value={nom} onChange={(event) => setNom(event.target.value)}  required/>
+                                </FormGroup>
+                                <FormGroup >
+                                    <Label for="inputDescripcion"  >Descripción</Label>
+                                    <Input className="input" type="textarea" name="text" id="inputDescripcion" placeholder="Datos relevantes del tupper" maxLength="100" value={des} onChange={(event) => setDes(event.target.value)} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="Checkbox" >...</Label>
+                                    <div>
+                                        <CustomInput type="switch" id="CustomSwitch" name="customSwitch" label="Vegano" />
+                                        <CustomInput type="switch" id="CustomSwitch2" name="customSwitch" label="Vegetariano" />
+                                        <CustomInput type="switch" id="CustomSwitch3" name="customSwitch" label=" Sin gluten" />
+                                        <CustomInput type="switch" id="CustomSwitch4" name="customSwitch" label=" Sin lactosa" />
+                                        <CustomInput type="switch" id="CustomSwitch5" name="customSwitch" label=" Sin frutos secos" />
+                                    </div>
+                                </FormGroup>
+                            </Col>
                     </Row>
                     <Col className="col-sm-12 col-md-6  offset-md-3  cuerpoRegistro" >
                         <Label for="exampleText" sm={2} >Ingredientes</Label>
