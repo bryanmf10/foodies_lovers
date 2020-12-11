@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import TupperController from '../controller/TuperController';
 import Context from "../context/Context";
 import TokenController from "../controller/TokenController";
+import { Redirect } from "react-router-dom";
 
 const Foto = styled.div`
     width: 100%;
@@ -44,31 +45,31 @@ const SubirTupper = (props) => {
     const [hasGluten, setHasGluten] = useState(false);
     const [valor, setValor] = useState("");
     const [selectedFile, setSelectedFile] = useState(false);
+    const [loading, setLoading] = useState(null);
     const context = useContext(Context);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const tuper = new FormData();
-        tuper.append("file", selectedFile);
-        tuper.append("titulo", nom);
-        tuper.append("descripcion", des);
-        tuper.append("longitud", props.coords.longitude);
-        tuper.append("latitud", props.coords.latitude);
-        tuper.append("isSold", 0);
-        tuper.append("vegan", vegan);
-        tuper.append("vegetarian", vegetarian);
-        tuper.append("hasFrutosSecos", hasFrutosSecos);
-        tuper.append("hasLactosa", hasLactosa);
-        tuper.append("hasGluten", hasGluten);
-        tuper.append("usuarios_id_usuarios", TokenController.getIdUser(context.token));
-        tuper.append("cooking_date", new Date().toISOString().split('T')[0]);
-        tuper.append("valor_tamano", valor);
-        tuper.append("ingredientes", ingredientes.join(","));
-        console.log(tuper);
-        /*TupperController.insertOne(tuper,context.token)
-          .then(data => console.log(data))
-          .catch(error => console.log(error));*/
-    }
+            tuper.append("file", selectedFile);
+            tuper.append("titulo", nom);
+            tuper.append("descripcion", des);
+            tuper.append("longitud", props.coords.longitude);
+            tuper.append("latitud", props.coords.latitude);
+            tuper.append("isSold", 0);
+            tuper.append("vegan", vegan);
+            tuper.append("vegetarian", vegetarian);
+            tuper.append("hasFrutosSecos", hasFrutosSecos);
+            tuper.append("hasLactosa", hasLactosa);
+            tuper.append("hasGluten", hasGluten);
+            tuper.append("usuarios_id_usuarios", TokenController.getIdUser(context.token));
+            tuper.append("cooking_date", new Date().toISOString().split('T')[0]);
+            tuper.append("valor_tamano", valor);
+            tuper.append("ingredientes", ingredientes.join(","));
+        TupperController.insertOne(tuper,context.token)
+          .then(data => setLoading(true))
+          .catch(error => console.log(error));
+      }
 
     const añadeIngrediente = (ingr) => {
         let newArray = [...ingredientes];
@@ -79,7 +80,11 @@ const SubirTupper = (props) => {
             newArray.push(ingr);
         }
         setIngredientes(newArray);
-    }
+      }
+      
+      if(loading){
+          return <Redirect to="/" />;
+      }
 
     return (
         <>
@@ -93,9 +98,7 @@ const SubirTupper = (props) => {
                                     </Label>
                                         <Input id="file-input" type="file" />
                             </FormGroup>
-                         </AnadirTupper> 
-             
-    
+                         </AnadirTupper>     
                     <Row className="justify-content-center ">
                         <Col sm={6}>
                             <Row className="cuerpoNewTupper"> </Row>
@@ -128,7 +131,6 @@ const SubirTupper = (props) => {
                                             </div>
                                         </FormGroup>
                                     </Row>
-
                                 </Col>  
                             </Row>
                             <Row className="alergias">
@@ -144,9 +146,6 @@ const SubirTupper = (props) => {
                                           </div>
                                  </FormGroup>
                                  </Col>
-                    
-
-                           
                             </Row>
                             <Row>
                             <Col className="fondoNewTupper">
@@ -180,13 +179,10 @@ const SubirTupper = (props) => {
                                       
                                             <Input type="text" name="text" id="inputingrediente" placeholder="Añade ingrediente"  />
                                             <Button  style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}}>Añadir</Button>
-                                       
+                                    
 
-                                        </FormGroup>
+                                    </FormGroup>
                                 </Col>      
-
-
-
                             </Row>
       
                             <Row className="justify-content-center">

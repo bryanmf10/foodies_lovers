@@ -50,14 +50,15 @@ export default class TuperController {
     }
 
     static insertOne = async (tuper, token) => {
-        tuper.append('headers')
         await axios.post(api_url+ "/tupers", tuper, {
-            headers: new Headers({
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'authorization': token,
                 'Host': 'Host'
-            })
-        }).then((res) => res.statusText);        
+            }
+        })
+        .then((res) => res)
+        .catch((err) => console.log(err))   
     }
 }
