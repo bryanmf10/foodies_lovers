@@ -6,6 +6,8 @@ const valoresPorDefecto = {
   setName: name => (valoresPorDefecto.name = name),
   rating: "",
   setRating: rating => (valoresPorDefecto.rating = rating),
+  token: "",
+  setToken: token => (valoresPorDefecto.token = token)
 };
 
 const ContenedorContexto = props => (

@@ -1,19 +1,19 @@
-
 const api_url = 'https://heroku-foodies-lovers-app.herokuapp.com';
 
 export default class TuperController{
-    static getCookie = () => {
+    
+    /*static getCookie = () => {
         return cookies.get('token');
-    }
+    }*/
 
-    static getAll = () => {
+    static getAll = (token) => {
         let obj = {
             method: "GET",
             headers: new Headers(
                 {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'authorization': this.getCookie,
+                    'authorization': token,
                     'Host': 'Host'
                 }),
             };
@@ -30,14 +30,14 @@ export default class TuperController{
            });
     }
 
-    static getOne = (idTuper) => {
+    static getOne = (idTuper,token) => {
         let obj = {
             method: "GET",
             headers: new Headers(
                 {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'authorization': this.getCookie,
+                    'authorization': token,
                     'Host': 'Host'
                 }),
             };
@@ -53,13 +53,13 @@ export default class TuperController{
                    });
            });
     }
-    static insertOne = (tuper) =>{
+    static insertOne = (tuper,token) =>{
         let obj= {
             method:"POST",
             headers: new Headers({ 
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'authorization': this.getCookie,
+            'authorization': token,
             'Host': 'Host'
 
             }),

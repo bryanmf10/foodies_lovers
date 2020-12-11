@@ -4,7 +4,9 @@ const valoresPorDefecto = {
     name: "",
     setName: () => {},
     rating: "",
-    setRating: () => {}
+    setRating: () => {},
+    token: "",
+    setToken: () => {}
 };
 const Context = React.createContext(valoresPorDefecto);
 export default Context;

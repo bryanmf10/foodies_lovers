@@ -11,7 +11,7 @@ router.post('/login', (req, res, next) => {
     modelo.usuarios.findAll({attributes: ['id', 'fotoURL'],where: {email: req.body.email, password: md5(req.body.password)}})
         .then(data => {
             creaToken(data[0].id, data[0].fotoURL)
-            .then(token => res.json(token.token))
+            .then(token => res.json({ok: true,token: token.token}))
         })
         .catch(err => res.json({ok: false, error: "Los datos de usuario no concuerdan."}));
 });
@@ -22,7 +22,7 @@ router.post('/register', (req, res, next) => {
     modelo.usuarios.create(userToInsert)
         .then(item => {
             creaToken(item.id, null)
-            .then(token => res.json({token: token.token}))
+            .then(token => res.json({ok: true, token: token.token}))
         })
         .catch(err => res.json({ ok: false, error: "El usuario ya existe o datos incorrectos." }));
 });
