@@ -19,7 +19,7 @@ import {
   Switch,
   Route,
   NavLink,
-
+  Link
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
@@ -31,22 +31,16 @@ import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 import NewTupper from "./components/NewTupper";
-import styled from "styled-components";
+//import styled from "styled-components";
 import Detalle from "./components/Detalle";
-import Login from "./components/Login";
-import imagen from './components/Profile/images/images.jpg';
-
-import './components/NewTupper.css';
-
 import Context from "./context/Context";
 
 //import ContenedorContexto from "./context/ContenedorContexto";
 import TokenController from "./controller/TokenController";
 
-
 import ContainerLogin from "./components/ContainerLogin";
 
-const FotoPerfilNav = styled.div`
+/*const FotoPerfilNav = styled.div`
   border-radius: 50%;
   width: 35px;
   height: 35px;
@@ -54,7 +48,7 @@ const FotoPerfilNav = styled.div`
   background-size: cover;
   background-position: center;
   background-image: url( ${props => props.imgSrc});
-`;
+`;*/
 
 const App = (props) => {
   
@@ -89,28 +83,26 @@ const App = (props) => {
     if(authenticated || context.token === cookies.get('token') ){
       return(
         <Container fluid>
-          <Navbar className="fixed-top h-10 p-0 navbarBgColor" light expand="md" >
-            <NavbarBrand href="/Tupper" className="ml-2">TUPTOK</NavbarBrand>
+          <Navbar className="fixed-top" light expand="md" style={{ backgroundColor: '#EE5D6E' }}>
+            <NavbarBrand><Link to="/">TUPTOK</Link></NavbarBrand>
             <NavbarToggler onClick={toggle} />
-            <Nav className="ml-auto" navbar  >
-                <NavLink to="/NewTupper" >
+            <Collapse isOpen={isOpen} navbar>
+              <Nav className="ml-auto" navbar  >
+                <NavLink to="/NewTupper">
                   <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: " #E6F8F7" }} ></i>
                 </NavLink>
               </Nav>
-            <Collapse isOpen={isOpen} navbar>
-           
               <Nav className="ml-auto" navbar >
-                {/* <MDBCol>
+                <MDBCol md="-4">
                   <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
-                </MDBCol> */}
-                <UncontrolledDropdown nav inNavbar className="mr-3">
-                  <DropdownToggle nav className="text-rigth">  <FotoPerfilNav imgSrc={imagen} /> </DropdownToggle>
-                  <DropdownMenu >
-                    <DropdownItem> Ofertas </DropdownItem>
-                    <DropdownItem href="/perfil"> Mis tuppers </DropdownItem>
+                </MDBCol>
+                <UncontrolledDropdown nav className="text-left">
+                  <DropdownToggle nav caret>Usuario </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem> Editar </DropdownItem>
-                    <DropdownItem> Cerrar sesión  </DropdownItem>
+                    <DropdownItem>Cerrar sesión</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </Nav>
