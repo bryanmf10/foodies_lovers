@@ -1,35 +1,54 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import './NewTupper.css';
 import styled from "styled-components";
-
+import AccountController from '../controller/AccountController';
+import { withCookies } from 'react-cookie';
+import Context from "../context/Context";
 const Tuptok = styled.h2`
     font-size: 30px;
     text-align: center;
     font-family: Londrina Solid;
     margin-top:60px;
-
 `;
 
-const Registro = () => {
-    return (
-        <Form>
-            <Tuptok>TUPTOK</Tuptok>
-            <FormGroup className="col-sm-12 col-md-4  offset-md-4 cuerpoRegistro" >
-                <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" id="exampleEmail" placeholder="Introduce tu email" />
-            </FormGroup>
-            <FormGroup className="col-sm-12 col-md-4  offset-md-4 cuerpoRegistro" >
-                <Label for="examplePassword" styled={{ marginTop: "10px" }}>Contraseña</Label>
-                <Input type="password" name="password" id="examplePassword" placeholder="introduce tu contraseña" />
-            </FormGroup>
-            <FormGroup className="col-sm-12 col-md-4  offset-md-4 cuerpoRegistro" >
-                <Label for="telefono" styled={{ marginTop: "10px" }}>Telefono</Label>
-                <Input type="tel" name="tel" id="telefono" placeholder="introduce tu numero de telefono" />
-            </FormGroup>
-            <button type="submit" class="col-sm-12 col-md-4  offset-md-4  text-center boton ">Submit</button>
-        </Form>
-    );
-}
+const Registro = (props) => {
+  const context = useContext(Context);
 
-export default Registro;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [tel, setTel] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    AccountController.registerUser(email, password, tel)
+      .then(data => saveCookie(data.token))
+      .catch(error => console.log(error));
+  }
+  const saveCookie = (token) => {
+    const { cookies } = props;
+    cookies.set('token', token, [{sameSite: 'none',secure: true, expires: 120*60*1000}]);
+    context.setToken(token);
+    props.onLogin(true);
+  }
+
+  return (
+    <Form onSubmit={(event) => handleSubmit(event)}>
+      <Tuptok>TUPTOK REGISTRO</Tuptok>
+      <FormGroup className="col-12 cuerpoRegistro" >
+        <Label for="exampleEmail">Email</Label>
+        <Input type="email" name="email" id="email" placeholder="Introduce tu email" value={email} onChange={(event) => setEmail(event.target.value)} />
+      </FormGroup>
+      <FormGroup className="col-12 cuerpoRegistro" >
+        <Label for="examplePassword" styled={{ marginTop: "10px" }}>Contraseña</Label>
+        <Input type="password" name="password" id="password" placeholder="Introduce tu contraseña" value={password} onChange={(event) => setPassword(event.target.value)} />
+      </FormGroup>
+      <FormGroup className="col-12 cuerpoRegistro" >
+        <Label for="telefono" styled={{ marginTop: "10px" }}>Teléfono</Label>
+        <Input type="tel" name="telefono" id="tel" placeholder="Introduce tu número de teléfono" value={tel} onChange={(event) => setTel(event.target.value)} />
+      </FormGroup>
+      <button type="submit" className="col-sm-12 col-md-4 btn btn-primary text-center boton ">Registrame</button>
+    </Form>
+  );
+}
+export default withCookies(Registro);

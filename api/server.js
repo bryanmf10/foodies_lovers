@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/account", accountRouter);
-app.use("/", verifyToken, express.static('public'));
+app.use("/", express.static('public'), verifyToken);
 app.use("/img", express.static('uploads'));
 
 app.use('/users', usersRouter);

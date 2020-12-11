@@ -35,17 +35,20 @@ const storage = multer.diskStorage({
 
 //devuelve todas los tupers
 router.get('/', (req, res, next) => {
-    modelo.tupers.findAll()
-        .then(lista => res.json(lista))
-        .catch(err => res.json({ ok: false, error: err }));
+    modelo.usuarios.hasOne(modelo.tupers, {foreignKey: 'id'})
+    modelo.tupers.belongsTo(modelo.usuarios, {foreignKey: 'usuarios_id_usuarios'})
+
+    modelo.tupers.findAll({include: [{model: modelo.usuarios, attributes: ['email']}]})
+        .then(lista => res.json({ ok: true, resp: lista }))
+        .catch(err => res.json({ ok: false, error: "Error al devolver los tupers" }));
 });
 
 //devuelve un tuper por id
 router.get('/:id', (req, res, next) => {
     let idTupers = req.params.id;
     modelo.tupers.findByPk(idTupers)
-        .then(lista => res.json(lista))
-        .catch(err => res.json({ ok: false, error: err }));
+        .then(lista => res.json({ ok: true, resp: lista }))
+        .catch(err => res.json({ ok: false, error: "Error al devolver el tuper" }));
 });
 
 //crea tupper
@@ -79,7 +82,7 @@ router.post('/', (req, res, next) => {
         })
             .then(item => {
                 if(item[0] === 0) throw new Error("Error");
-                res.json({ok: true, item: item});
+                res.json({ok: true, resp: item});
             })
             .catch( async err => {
                 await unlinkAsync(req.file.path);
@@ -122,7 +125,7 @@ router.put('/:id', (req, res, next) => {
         }, { where: { id: user.id } })
             .then(item => {
                 if(item[0] === 0) throw new Error("Error");
-                res.json({ok: true, item: item});
+                res.json({ok: true, resp: item});
             })
             .catch( async err => {
                 await unlinkAsync(req.file.path);
@@ -139,16 +142,16 @@ router.put('/foto/:id', (req, res, next) => {
         urlFoto: req.body.urlFoto,
         
     }, { where: { id: req.params.id } })
-        .then(item => res.json({ ok: true, data: item }))
-        .catch(err => res.json({ ok: false, error: err }));
+        .then(item => res.json({ ok: true, resp: item }))
+        .catch(err => res.json({ ok: false, error: "Error al modificar la foto del tupper" }));
 });
 
 
 //borra tupper
 router.delete('/:id', (req, res, next) => {
     modelo.tupers.destroy({ where: { id: req.params.id } })
-        .then(item => res.json({ ok: true, data: item }))
-        .catch(err => res.json({ ok: false, error: err }));
+        .then(item => res.json({ ok: true, resp: item }))
+        .catch(err => res.json({ ok: false, error: "Error al borrar el tupper" }));
 });
 
 

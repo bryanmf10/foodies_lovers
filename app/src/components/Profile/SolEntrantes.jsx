@@ -1,10 +1,10 @@
 import { Button, Container, Row } from "reactstrap";
 import React from "react";
 import styled from "styled-components";
-import Star from "../Star";
 
-import Prueba from "../Prueba.json"
+import Data from "./data/SolEntrantes.json"
 import Perfil from "./Perfil";
+import StarFixed from "../StarFixed";
 
 const Foto = styled.div`
     width: 90%;
@@ -27,8 +27,8 @@ const Box = styled.div`
 const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
-    margin-left:10px;
-    height:50px;
+    margin-left: 10px;
+    height: 50px;
     font-family: 'Londrina Solid', cursive;
 `;
 
@@ -36,7 +36,7 @@ const Info = styled.div`
     font-family: Trispace, sans-serif;
     background-color: #E6F8F7;
     width: 90%;
-    margin-bottom:15px;
+    margin-bottom: 15px;
 `;
 
 const Description = styled.div`
@@ -44,15 +44,15 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow:scroll; 
-    height:80px;
+    overflow: scroll; 
+    height: 80px;
 `;
 
 const Usuario = styled.div`
     text-Align: right;
-    margin:5px; 
+    margin: 5px; 
     font-Size: 13px;
-    scroll-padding-block:30px,
+    scroll-padding-block: 30px,
 `;
 
 const Divider = styled.div`
@@ -60,9 +60,9 @@ const Divider = styled.div`
 `;
 
 const Botones = styled.div`
-    display:flex;
-    justify-Content:space-around;
-    margin-Bottom:20px;
+    display: flex;
+    justify-Content: space-around;
+    margin-Bottom: 20px;
 `;
 
 const SolEntrantes = () => {
@@ -84,16 +84,17 @@ const SolEntrantes = () => {
   }, []);
 
   const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
-  const tuppers = Prueba.map((el) => (
+  const tuppers = Data.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
+      <Foto imagSrc={el.url} />
       <Info>
         <Title>
           {el.titulo}
         </Title>
         <Usuario >
-          <span>{el.usuarios_id_usuarios}</span>
-          <Star />
+          <StarFixed valor={el.rating} />
+          <br />
+          <span>{el.user}</span>
         </Usuario>
         <Description>
           {el.descripcion}

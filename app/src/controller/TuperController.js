@@ -1,29 +1,78 @@
 const api_url = 'https://heroku-foodies-lovers-app.herokuapp.com';
 
-export default class TuperController{
+export default class TuperController {
 
-    static getAll = () => {
+    /*static getCookie = () => {
+        return cookies.get('token');
+    }*/
+
+    static getAll = (token) => {
         let obj = {
             method: "GET",
-            headers: new Headers(
-                {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVkQXQiOjE2MDc0NTUxNjMzNjYsImlkIjozNCwiaWF0IjoxNjA3NDUxNTYzfQ.2hwmYh8JhS-Kd1c_3WB_JXAE25S0Nx1oL12DnoLTupA",
-                    'Host': 'Host'
-                }),
-            };
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token,
+                'Host': 'Host'
+            }),
+        };
         return new Promise(
             (resolve, reject) => {
-               fetch(api_url+"/tupers", obj)
-                   .then(data => data.json())
-                   .then(datos => {
+                fetch(api_url + "/tupers", obj)
+                    .then(data => data.json())
+                    .then(datos => {
                         resolve(datos);
-                   })
-                   .catch(err => {
-                       reject(err);
-                   });
-           });
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
     }
 
+    static getOne = (idTuper, token) => {
+        let obj = {
+            method: "GET",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token,
+                'Host': 'Host'
+            }),
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/tupers/" + idTuper, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
+    static insertOne = (tuper, token) => {
+        let obj = {
+            method: "POST",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token,
+                'Host': 'Host'
+
+            }),
+            body: JSON.stringify(tuper)
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/tupers", obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
 }
