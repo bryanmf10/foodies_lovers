@@ -6,22 +6,22 @@ import Context from "../../context/Context";
 import Star from "../Star";
 
 const Contenedor = styled.div`
-  width: 300px;
+    width: 300px;
 `;
 
 const Formulario = styled.div`
-  width: 600px;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
+    width: 600px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const Estrellas = styled.div`
-  width: 100px;
+    width: 100px;
 `;
 
 const Puntuar = styled.div`
-  width: 100px;
+    width: 100px;
 `;
 
 const Comentario = (props) => {

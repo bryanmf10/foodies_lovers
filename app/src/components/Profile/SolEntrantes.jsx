@@ -1,10 +1,13 @@
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Container, Row } from "reactstrap";
-import React from "react";
 import styled from "styled-components";
 
 import Data from "./data/SolEntrantes.json"
 import Perfil from "./Perfil";
 import StarFixed from "../StarFixed";
+
+import Context from "../../context/Context";
+import TuperController from '../../controller/TuperController';
 
 const Foto = styled.div`
     width: 90%;
@@ -66,7 +69,24 @@ const Botones = styled.div`
 `;
 
 const SolEntrantes = () => {
+  const context = useContext(Context);
+  const [listaTupers, setListaTupers] = useState([]);
 
+  useEffect(() => {
+    TuperController.getAll(context.token)
+      .then(data => {
+        if (data.ok === false) {
+          setListaTupers([]);
+        } else {
+          setListaTupers(data.resp);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+
+  console.log("listaTupers");
+  console.log(listaTupers);
   // API SECTION (UNCOMMENT TO USE /* */)
   /*const [listaTupers, setListaTupers] = useState([]);
 
@@ -82,17 +102,17 @@ const SolEntrantes = () => {
       })
       .catch(err => console.log(err));
   }, []);
-
-  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
-  const tuppers = Data.map((el) => (
+*/
+  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
+  // const tuppers = Data.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={el.url} />
+      <Foto imagSrc={el.urlFoto} />
       <Info>
         <Title>
           {el.titulo}
         </Title>
         <Usuario >
-          <StarFixed valor={el.rating} />
+          <StarFixed valor={el.id_ranking} />
           <br />
           <span>{el.user}</span>
         </Usuario>
@@ -102,11 +122,20 @@ const SolEntrantes = () => {
         <Botones>
           <Button color="warning">Aceptar</Button>
           <Divider />
-          <Button color="danger">Rechazar</Button>
+          <Button color="danger" onClick={()=>hablar(el.id)}>Rechazar</Button>
         </Botones>
       </Info>
     </Box>
   ));
+
+
+  const hablar = (e) =>{
+    // const id = e.target.getAttribute("id")
+    console.log("listaTupers");
+    console.log(listaTupers);
+    console.log(listaTupers.filter(item => item.e !== e));
+  }
+
   return (
     <Container>
       <Perfil />
