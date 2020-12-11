@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input,Button } from 'reactstrap';
 import './NewTupper.css';
 import styled from "styled-components";
 import AccountController from '../controller/AccountController';
@@ -10,6 +10,13 @@ const Tuptok = styled.h2`
     text-align: center;
     font-family: Londrina Solid;
     margin-top:60px;
+`;
+
+const AnadirUsuario=styled.h3`
+  font-family: Londrina Solid;
+  font-size: 20px;
+  color:#EE5D6E;
+  text-align: center;
 `;
 
 const Registro = (props) => {
@@ -34,7 +41,10 @@ const Registro = (props) => {
 
   return (
     <Form onSubmit={(event) => handleSubmit(event)}>
-      <Tuptok>TUPTOK REGISTRO</Tuptok>
+      <Tuptok> 
+      <i class="fa fa-plus" aria-hidden="true"></i>
+         TUPTOK REGISTRO</Tuptok>
+         <AnadirUsuario>¿No tienes cuenta?</AnadirUsuario>
       <FormGroup className="col-12 cuerpoRegistro" >
         <Label for="exampleEmail">Email</Label>
         <Input type="email" name="email" id="email" placeholder="Introduce tu email" value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -47,7 +57,7 @@ const Registro = (props) => {
         <Label for="telefono" styled={{ marginTop: "10px" }}>Teléfono</Label>
         <Input type="tel" name="telefono" id="tel" placeholder="Introduce tu número de teléfono" value={tel} onChange={(event) => setTel(event.target.value)} />
       </FormGroup>
-      <button type="submit" className="col-sm-12 col-md-4 btn btn-primary text-center boton ">Registrame</button>
+      <Button type="submit" className="col-sm-12 col-md-4 text-center boton mb-3" style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}}>Registrame</Button>
     </Form>
   );
 }

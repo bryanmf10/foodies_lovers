@@ -2,9 +2,11 @@
 
 background-color: #E6F8F7;
 margin-top: 40px;
-padding: 30px;
-font-family: Londrina Solid ;}
+padding: 30px; 
+font-family: Londrina Solid ;
+border-radius: 20px;
 
+}
 
 .tituloSubirTupper {
     font-size: 30px;
@@ -18,8 +20,8 @@ font-family: Londrina Solid ;}
 
 .fototupper {
     width: 250px;
+    
     align-items: center;
-    margin-left: 30px;
     justify-content: center;
 }
 
@@ -39,3 +41,34 @@ font-family: Londrina Solid ;}
     .navbarBgColor{
         background-color:#EE5D6E;
     }
+    .tuptok{
+        text-decoration:none;
+        font-family: Londrina Solid;
+    }
+    .distancia{
+        font-family: Londrina Solid;
+    }
+
+    .ingredientes{
+        font-size: 30px;
+    }
+
+    .image-upload > input
+{
+    display: none;
+}
+
+.image-upload img
+{
+    width: 30px;
+    cursor: pointer;
+}
+.camera{
+   position: absolute;
+   left: 0;
+   top: 0;
+}
+
+
+ 
+    

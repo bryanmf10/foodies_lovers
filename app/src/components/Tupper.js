@@ -20,6 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import TuperController from '../controller/TuperController';
+import './NewTupper.css';
 
 const Foto = styled.div`
     width: 90%;
@@ -199,14 +200,14 @@ const Tupper = () => {
                     <FormGroup>
                         <Label for="exampleCheckbox" />
                         <div>
-                            <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="1 $" inline />
-                            <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="2 $" inline />
-                            <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label="  3 $" inline />
-                            <CustomInput type="radio" id="exampleCustomRadio4" name="customRadio" label="Solo acepto Tupper" inline />
+                            <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="1 Tok" inline />
+                            <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="2 Tok" inline />
+                            <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label="3 Tok" inline />
+                            <CustomInput type="radio" id="exampleCustomRadio4" name="customRadio" label="Solo acepto Tup" inline />
                         </div>
                     </FormGroup>
                 </Col>
-                <Col className="col-md-3 col-sm-12 col-12 text-center " >
+                <Col className="col-md-3 col-sm-12 col-12 d-flex align-items-center text-center "  >
                     <div className={classes.root}>
                         <Typography id="discrete-slider" gutterBottom>
                             Distancia
@@ -224,7 +225,7 @@ const Tupper = () => {
                     </div>
                 </Col>
                 <Col className="col-md-3 col-sm-12 p-3 col-12 text-center" style={{ display: "flex", justifyContent: "center", alignItems: "center", }}>
-                    <Button style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid " }}>Go</Button>
+                    <Button className="boton" style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid " }}>Go</Button>
                 </Col>
             </Row>
             <Row>
