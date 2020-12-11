@@ -9,10 +9,10 @@ const ContainerLogin = (props) => {
         <>
             <Container fluid>
                 <Row>
-                    <Col sm={6}>
+                    <Col sm={4}>
                         <Registro onLogin={(value) => props.onLogin(value)} />
                     </Col>
-                    <Col sm={6}>
+                    <Col sm={4}>
                         <Login onLogin={(value) => props.onLogin(value)} />
                     </Col>
                 </Row>

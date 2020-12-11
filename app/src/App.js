@@ -19,7 +19,8 @@ import {
   Switch,
   Route,
   NavLink,
-  Link
+  Link,
+  useParams
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
@@ -39,6 +40,7 @@ import Context from "./context/Context";
 import TokenController from "./controller/TokenController";
 
 import ContainerLogin from "./components/ContainerLogin";
+import Logout from "./components/Logout";
 
 /*const FotoPerfilNav = styled.div`
   border-radius: 50%;
@@ -61,7 +63,7 @@ const App = (props) => {
   const { cookies } = props;
   useEffect(() => {
     authenticateToken();
-  }, []);
+  }, [authenticated]);
 
   const authenticateToken = () => {
     let token = cookies.get('token');
@@ -72,7 +74,7 @@ const App = (props) => {
           context.setToken(token);
           setAuthenticated(true)
         }else{
-          cookies.set('token',false);
+          cookies.remove('token',false);
         }
       })
       .catch(error => console.log(error));
@@ -80,7 +82,7 @@ const App = (props) => {
   }
 
   const Inicio = () => {
-    if(authenticated || context.token === cookies.get('token') ){
+    if(authenticated && context.token === cookies.get('token') ){
       return(
         <Container fluid>
           <Navbar className="fixed-top" light expand="md" style={{ backgroundColor: '#EE5D6E' }}>
@@ -102,7 +104,7 @@ const App = (props) => {
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem> Editar </DropdownItem>
-                    <DropdownItem> Cerrar sesión  </DropdownItem>
+                    <DropdownItem><Link to="/logout">Cerrar sesión</Link></DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </Nav>
@@ -117,6 +119,7 @@ const App = (props) => {
             <Route exact path="/perfil/trueques" component={Trueques} />
             <Route exact path="/perfil/opiniones" component={Opiniones} />
             <Route exact path="/detalle" component={Detalle} />
+            <Route exact path="/logout" component={()=><Logout auth={()=>setAuthenticated(false)} />} />
             <Route component={NotFound} />
           </Switch>
         </Container>

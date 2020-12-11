@@ -1,10 +1,7 @@
+import axios from "axios";
 const api_url = 'https://heroku-foodies-lovers-app.herokuapp.com';
 
 export default class TuperController {
-
-    /*static getCookie = () => {
-        return cookies.get('token');
-    }*/
 
     static getAll = (token) => {
         let obj = {
@@ -14,7 +11,7 @@ export default class TuperController {
                 'Content-Type': 'application/json',
                 'authorization': token,
                 'Host': 'Host'
-            }),
+            })
         };
         return new Promise(
             (resolve, reject) => {
@@ -37,7 +34,7 @@ export default class TuperController {
                 'Content-Type': 'application/json',
                 'authorization': token,
                 'Host': 'Host'
-            }),
+            })
         };
         return new Promise(
             (resolve, reject) => {
@@ -51,28 +48,16 @@ export default class TuperController {
                     });
             });
     }
-    static insertOne = (tuper, token) => {
-        let obj = {
-            method: "POST",
+
+    static insertOne = async (tuper, token) => {
+        tuper.append('headers')
+        await axios.post(api_url+ "/tupers", tuper, {
             headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'authorization': token,
                 'Host': 'Host'
-
-            }),
-            body: JSON.stringify(tuper)
-        };
-        return new Promise(
-            (resolve, reject) => {
-                fetch(api_url + "/tupers", obj)
-                    .then(data => data.json())
-                    .then(datos => {
-                        resolve(datos);
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
-            });
+            })
+        }).then((res) => res.statusText);        
     }
 }
