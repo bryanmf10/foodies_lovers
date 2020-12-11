@@ -35,11 +35,15 @@ import NewTupper from "./components/NewTupper";
 import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Login from "./components/Login";
+import imagen from './components/Profile/images/images.jpg';
+
+import './components/NewTupper.css';
+
 
 import ContenedorContexto from "./context/ContenedorContexto";
 // import Detalle from "./components/Detalle";
 
-import imagen from './components/Profile/images/images.jpg';
+
 
 const FotoPerfilNav = styled.div`
 border-radius:50%;
@@ -75,21 +79,22 @@ const App = (props) => {
     <ContenedorContexto>
       <BrowserRouter>
         <Container fluid>
-          <Navbar className="fixed-top" light expand="md" style={{ backgroundColor: '#EE5D6E' }}>
+          <Navbar className="fixed-top h-10 p-0 navbarBgColor" light expand="md" >
             <NavbarBrand href="/Tupper">TUPTOK</NavbarBrand>
             <NavbarToggler onClick={toggle} />
-            <Collapse isOpen={isOpen} navbar>
-              <Nav className="ml-auto" navbar  >
+            <Nav className="ml-auto" navbar  >
                 <NavLink to="/NewTupper" >
                   <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: " #E6F8F7" }} ></i>
                 </NavLink>
               </Nav>
+            <Collapse isOpen={isOpen} navbar>
+           
               <Nav className="ml-auto" navbar >
-                <MDBCol md="-4">
+                {/* <MDBCol>
                   <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
-                </MDBCol>
-                <UncontrolledDropdown nav inNavbar className="text-left">
-                  <DropdownToggle nav caret>  Usuario </DropdownToggle>
+                </MDBCol> */}
+                <UncontrolledDropdown nav inNavbar className="text-right">
+                  <DropdownToggle nav>  <FotoPerfilNav imgSrc={imagen} /> </DropdownToggle>
                   <DropdownMenu >
                     <DropdownItem> Ofertas </DropdownItem>
                     <DropdownItem href="/perfil"> Mis tuppers </DropdownItem>

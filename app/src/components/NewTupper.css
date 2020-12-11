@@ -27,3 +27,15 @@ font-family: Londrina Solid ;}
     font-family: Londrina Solid;
     font-size: 20px;
 }
+
+.boton{
+    background-color: #EE5D6E;
+    border: none;
+    color: #E6F8F7;
+    font-Family: Londrina Solid ;
+    
+    
+    }
+    .navbarBgColor{
+        background-color:#EE5D6E;
+    }
