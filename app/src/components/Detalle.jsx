@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import imagen from './Profile/images/images.jpg';
 import Modal from './ModalTupers';
+import { MapContainer, TileLayer } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const Chip = styled.div`
     display: inline-block;
@@ -56,6 +59,31 @@ export default () => {
     const toggle = () => {
         setModal(!modal)
     }
+    const styles = {
+        wrapper: {
+            height: 10,
+            width: '75%',
+            margin: '0 auto',
+            display: 'flex'
+        },
+        map: {
+            flex: 1
+        }
+    }
+    const Mapa = () => {
+        return (
+            
+                <MapContainer style={{ height: '75vh' }} center={[41.392264, 2.202652]} zoom={10} scrollWheelZoom={true}>
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
+            url={'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png'}
+            id="mapbox/light-v10"
+          />
+        </MapContainer>
+                
+            
+          )
+    }
 
     return (
         <Container >
@@ -96,7 +124,7 @@ export default () => {
                     <Col sm='12' lg='6' className="order-1 order-lg-2">
                         <div style={{ padding: '10px' }}>
                             <ContenedorImagen >
-                                <Imagen src="https://i.blogs.es/b4dd5c/maps/1366_2000.png" />
+                                <Mapa />
                             </ContenedorImagen>
                             <hr />
                             <div>
