@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
     Container,
     Row,
@@ -12,9 +12,9 @@ import {
     Input,
     CustomInput
 } from "reactstrap";
+import Context from "../context/Context";
 
 import styled from "styled-components";
-import prueba from "./Prueba.json";
 import StarFixed from "./StarFixed";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -91,7 +91,7 @@ const Tupperparati = styled.h2`
 `;
 
 const Tupper = () => {
-
+    const context = useContext(Context);
     const [listaTupers, setListaTupers] = useState([]);
 
     //Del Dropdown-----------------------
@@ -99,18 +99,17 @@ const Tupper = () => {
     const toggle = () => setDropdownOpen(prevState => !prevState);
     //------------------------------------
 
-    // useEffect(() => {
-    //     TuperController.getAll()
-    //         .then(data => {
-    //             console.log(data);
-    //             if (data.ok === false) {
-    //                 setListaTupers([]);
-    //             } else {
-    //                 setListaTupers(data);
-    //             }
-    //         })
-    //         .catch(err => console.log(err));
-    // }, []);
+    useEffect(() => {
+        TuperController.getAll(context.token)
+            .then(data => {
+                if (data.ok === false) {
+                    setListaTupers([]);
+                } else {
+                    setListaTupers(data.resp);
+                }
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     //del Range-----------------------
     const useStyles = makeStyles({
@@ -126,12 +125,10 @@ const Tupper = () => {
     const classes = useStyles();
 
     //------------------------------------
-    // API SECTION (UNCOMMENT TO USE /* */)
-    // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
-    const tuppers = prueba.map((el) => (
+     const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
         <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-            {/* <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} /> */}
-            <Foto imagSrc={el.url} />
+             <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} /> 
+            
             <Info>
                 <Title>
                     {el.titulo}
@@ -139,7 +136,7 @@ const Tupper = () => {
                 <Usuario >
                     <StarFixed valor={el.rating} />
                     <br />
-                    <span>{el.user}</span>
+                    <span>{el.usuario.email.split('@')[0]}</span>
                 </Usuario>
                 <Description>
                     {el.descripcion}

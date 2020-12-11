@@ -56,7 +56,7 @@ router.put('/foto', (req, res, next) => {
         modelo.usuarios.update({ fotoURL: req.file.filename }, { where: { id: user.id } })
         .then(item => {
             if(item[0] === 0) throw new Error("Error");
-            res.json({ok: true, item: item});
+            res.json({ok: true, resp: item});
         })
         .catch( async err => {
             await unlinkAsync(req.file.path);
@@ -68,30 +68,31 @@ router.put('/foto', (req, res, next) => {
 //devuelve todas los Usuarios
 router.get('/', (req, res, next) => {
     modelo.usuarios.findAll()
-        .then(lista => res.json(lista))
-        .catch(err => res.json({ ok: false, error: err }));
+        .then(lista => res.json({ ok: true, resp: lista }))
+        .catch(err => res.json({ ok: false, error: "Error al devolver los usuarios" }));
 });
 
 //devuelve un Usuarios
 router.get('/:id', (req, res, next) => {
     let idUser = req.params.id;
     selectById(idUser)
-        .then(user => res.json(user));
+        .then(user => res.json({ ok: true, resp: user }))
+        .catch(err => res.json({ ok: false, error: "Error al devolver el usuario" }));
 });
 
 //actualiza ranking
 router.put('/ranking/:id', (req, res, next) => {
     modelo.usuarios.update({ id_ranking: req.body.id_ranking }, { where: { id: req.params.id } })
-        .then(item => res.json({ ok: true, data: item }))
-        .catch(err => res.json({ ok: false, error: err }));
+        .then(item => res.json({ ok: true, resp: item }))
+        .catch(err => res.json({ ok: false, error: "Error al actualizar el ranking" }));
 });
 
 //actualiza tickets
 
 router.put('/tickets/:id', (req, res, next) => {
     modelo.usuarios.update({ tickets: req.body.tickets }, { where: { id: req.params.id } })
-        .then(item => res.json({ ok: true, data: item }))
-        .catch(err => res.json({ ok: false, error: err }));
+        .then(item => res.json({ ok: true, resp: item }))
+        .catch(err => res.json({ ok: false, error: "Error al actualizar los tickets" }));
 });
 
 //intercambia tickets
@@ -108,8 +109,8 @@ router.put('/ticketsUpdate/:id2', (req, res, next) => {
                         selectById(userToken.id)
                             .then(user2 => {
                                 modelo.usuarios.update({ tickets: user2.tickets + req.body.tickets }, { where: { id: user2.id } })
-                                    .then(item2 => res.json({ ok: true, data: { item, item2 } }))
-                                    .catch(err => res.json({ ok: false, error: err }));
+                                    .then(item2 => res.json({ ok: true, resp: { item, item2 } }))
+                                    .catch(err => res.json({ ok: false, error: "Error al intercambiar tickets" }));
                             })
                     })
                     .catch(err => res.json({ ok: false, error: err }));
@@ -124,7 +125,7 @@ router.delete("/logout", (req, res, next) => {
     const token = req.headers.authorization || '';
     let userToken = decoderUserId(token);
     modelo.token_usuario.destroy({ where: { usuarios_id_usuarios: userToken.id, token } })
-        .then(item => res.json({ ok: true, data: "Exito al hacer logout." }))
+        .then(item => res.json({ ok: true, resp: "Exito al hacer logout." }))
         .catch(err => res.json({ ok: false, error: "Error al hacer logout." }));
 });
 
