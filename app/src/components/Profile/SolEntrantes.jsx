@@ -131,53 +131,43 @@ const SolEntrantes = () => {
   //   </Box>
   // ));
 
-  useEffect(() => {
-    console.log("useeffect");
-    const tuppers = listaTupers.map((el) => (
-      // const tuppers = Data.map((el) => (
-      <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-        <Foto imagSrc={el.urlFoto} />
-        <Info>
-          <Title>
-            {el.titulo}
-          </Title>
-          <Usuario >
-            <StarFixed valor={el.id_ranking} />
-            <br />
-            <span>{el.user}</span>
-          </Usuario>
-          <Description>
-            {el.descripcion}
-          </Description>
-          <Botones>
-            <Button color="warning">Aceptar</Button>
-            <Divider />
-            <Button color="danger" onClick={() => hablar(el.id)}>Rechazar</Button>
-          </Botones>
-        </Info>
-      </Box>
-    ));
-    setMostrar(tuppers);
+  const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
+    <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
+      <Foto imagSrc={el.urlFoto} />
+      <Info>
+        <Title>
+          {el.titulo}
+        </Title>
+        <Usuario >
+          <StarFixed valor={el.id_ranking} />
+          <br />
+          <span>{el.user}</span>
+        </Usuario>
+        <Description>
+          {el.descripcion}
+        </Description>
+        <Botones>
+          <Button color="warning">Aceptar</Button>
+          <Divider />
+          <Button color="danger" onClick={() => hablar(el.id)}>Rechazar</Button>
+        </Botones>
+      </Info>
+    </Box>
+  ));
 
-  }, [mostrar]);
-  
   const hablar = (e) => {
-    console.log("before listaTupers");
-    console.log(listaTupers);
-    let removeIndex = listaTupers.map(function (item) { return item.id; }).indexOf(e);
-    listaTupers.splice(removeIndex, 1);
-    console.log("afeter listaTupers");
-    console.log(listaTupers);
+    let newArray = [...listaTupers];
+    let removeIndex = newArray.map(function (item) { return item.id; }).indexOf(e);
+    newArray.splice(removeIndex, 1);
+    setListaTupers(newArray);
   }
-  console.log("listaTupers");
-  console.log(listaTupers);
 
   return (
     <Container>
       <Perfil />
       <Container fluid>
         <Row style={{ paddingTop: "30px" }} className="w-100">
-          {mostrar}
+          {tuppers}
         </Row>
       </Container>
     </Container>

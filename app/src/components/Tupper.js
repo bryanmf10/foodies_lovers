@@ -154,7 +154,7 @@ const Tupper = () => {
                 </Description>
                <Separador/>
                 <Botones>
-                    <Link to="/Detalle/:id">
+                    <Link to={"/detalle/"+el.id}>
                         <i class="fa fa-info-circle fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
                     </Link>
                     <Divider />

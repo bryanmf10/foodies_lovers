@@ -1,12 +1,16 @@
 import { Container, Row, Col, Button } from "reactstrap";
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
+import icono from './Profile/images/icono.png';
 import imagen from './Profile/images/images.jpg';
-import Modal from './ModalTupers';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 
+import Modal from './ModalTupers';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import Leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import TuperController from "../controller/TuperController";
+import Context from "../context/Context";
+import PacmanLoader from "react-spinners/PacmanLoader"; 
 const Chip = styled.div`
     display: inline-block;
     padding: 0 25px;
@@ -51,34 +55,70 @@ const Cabecera = styled.div`
     justify-content: space-between;
 `;
 
-
-
-export default () => {
-
+export default (props) => {
+    
+    const [tuper, setTuper] = useState({});
+    const [loading, setLoading] = useState(true);
     const [modal, setModal] = useState(false);
     const toggle = () => {
         setModal(!modal)
     }
-    const styles = {
-        wrapper: {
-            height: 10,
-            width: '75%',
-            margin: '0 auto',
-            display: 'flex'
-        },
-        map: {
-            flex: 1
-        }
-    }
+    const context = useContext(Context);
+    
+    useEffect(()=> {
+        let { id } = props.match.params;
+        TuperController.getOne(id,context.token)
+        .then(data => {
+            if(data.ok) {
+                let tap = (data.resp);
+                let obj = {
+                    titulo: tap.titulo,
+                    desc: tap.descripcion,
+                    url: tap.urlFoto,
+                    lat: tap.latitud,
+                    lon: tap.longitud,
+                    valor: tap.valor_tamano,
+                    nombreUsuario: tap.usuario.email.split('@')[0],
+                    fotoUsuario: tap.usuario.fotoURL,
+                    ingredientes: tap.ingredientes.split(", ")
+                }
+                setTuper(obj);
+            }
+        })
+        .then(() => setLoading(false))
+        .catch(err => console.log(err));
+    }, [])
 
+    if(loading){
+        return(
+            <Container fluid className="mt-5 justify-content-center d-flex pt-5">
+                <Col sm={9}>
+                <PacmanLoader
+                        size={75}
+                        color={"#ff0080"}
+                        />
+                </Col>
+            </Container>        
+        );
+    }
+    let DefaultIcon = Leaflet.icon({
+        iconUrl: icono,
+        iconSize: [40, 40]
+      });
+    
+      Leaflet.Marker.prototype.options.icon = DefaultIcon;
     const Mapa = () => {
+        let posicion = [tuper.lat, tuper.lon];
         return (
-                <MapContainer style={{ height: '75vh' }} center={[41.392264, 2.202652]} zoom={10} scrollWheelZoom={true}>
+                <MapContainer style={{ height: '75vh' }} center={posicion} zoom={16} scrollWheelZoom={true}>
                     <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap"</a> contributors'
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
                         id="mapbox/light-v10"
                     />
+                    <Marker position={posicion}>
+                        
+                    </Marker>                    
                 </MapContainer>
           )
     }
@@ -91,8 +131,8 @@ export default () => {
             <Contenedor>
                 <Cabecera>
                     <Chip>
-                        <FotoUser src={imagen} width="96" height="96" />
-                        <span>Julio Carpa Por Si Llueve</span>
+                        <FotoUser src={tuper.fotoUsuario !== null ? tuper.fotoUsuario : imagen} width="96" height="96" />
+                        <span>{tuper.nombreUsuario}</span>
                     </Chip>
                     <Button onClick={toggle} style={{ backgroundColor: '#EE5D6E', border: 'none', borderRadius: "5px 20px 5px 5px", color: "#E6F8F7" }}>Ofrecer tupper</Button>
                 </Cabecera>
@@ -100,7 +140,7 @@ export default () => {
                     <Col sm='12' lg='6' className="order-2 order-lg-1">
                         <div style={{ padding: '10px' }}>
                             <ContenedorImagen>
-                                <Imagen src="https://estaticos.miarevista.es/media/cache/1140x_thumb/uploads/images/gallery/59b648f65bafe80ec7221fab/tupperinterior.jpg" />
+                                <Imagen src={TuperController.getUrlFoto(tuper.url)} />
                             </ContenedorImagen>
                             <hr />
                             <div>
@@ -112,9 +152,11 @@ export default () => {
                                 </div>
                                 <h3>INGREDIENTES</h3>
                                 <ul>
-                                    <li>limon</li>
-                                    <li>lechuga</li>
-                                    <li>tomate cherri</li>
+                                {
+                                    tuper.ingredientes.map((el) => {
+                                        return <li key={el}>{el}</li>;
+                                    })
+                                }
                                 </ul>
                             </div>
                         </div>
