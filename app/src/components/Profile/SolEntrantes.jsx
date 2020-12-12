@@ -71,9 +71,6 @@ const Botones = styled.div`
 const SolEntrantes = () => {
   const context = useContext(Context);
   const [listaTupers, setListaTupers] = useState([]);
-  const [mostrar, setMostrar] = useState([]);
-  const [ver, setVer] = useState([]);
-
 
   useEffect(() => {
     TuperController.getAll(context.token)
@@ -87,97 +84,44 @@ const SolEntrantes = () => {
       .catch(err => console.log(err));
   }, []);
 
+  const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
+    <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
+      <Foto imagSrc={el.urlFoto} />
+      <Info>
+        <Title>
+          {el.titulo}
+        </Title>
+        <Usuario >
+          <StarFixed valor={el.id_ranking} />
+          {/* <br /> */}
+          <span>{el.user}</span>
+        </Usuario>
+        <Description>
+          {el.descripcion}
+        </Description>
+        <Botones>
+          <Button color="warning">Aceptar</Button>
+          <Divider />
+          <Button color="danger" onClick={() => hablar(el.id)}>Rechazar</Button>
+        </Botones>
+      </Info>
+    </Box>
+  ));
 
-  console.log("listaTupers");
-  console.log(listaTupers);
-  // API SECTION (UNCOMMENT TO USE /* */)
-  /*const [listaTupers, setListaTupers] = useState([]);
-
-  useEffect(() => {
-    TuperController.getAll()
-      .then(data => {
-        console.log(data);
-        if (data.ok === false) {
-          setListaTupers([]);
-        } else {
-          setListaTupers(data);
-        }
-      })
-      .catch(err => console.log(err));
-  }, []);
-*/
-  // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
-  //   // const tuppers = Data.map((el) => (
-  //   <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-  //     <Foto imagSrc={el.urlFoto} />
-  //     <Info>
-  //       <Title>
-  //         {el.titulo}
-  //       </Title>
-  //       <Usuario >
-  //         <StarFixed valor={el.id_ranking} />
-  //         <br />
-  //         <span>{el.user}</span>
-  //       </Usuario>
-  //       <Description>
-  //         {el.descripcion}
-  //       </Description>
-  //       <Botones>
-  //         <Button color="warning">Aceptar</Button>
-  //         <Divider />
-  //         <Button color="danger" onClick={() => hablar(el.id)}>Rechazar</Button>
-  //       </Botones>
-  //     </Info>
-  //   </Box>
-  // ));
-
-  useEffect(() => {
-    console.log("useeffect");
-    const tuppers = listaTupers.map((el) => (
-      // const tuppers = Data.map((el) => (
-      <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-        <Foto imagSrc={el.urlFoto} />
-        <Info>
-          <Title>
-            {el.titulo}
-          </Title>
-          <Usuario >
-            <StarFixed valor={el.id_ranking} />
-            <br />
-            <span>{el.user}</span>
-          </Usuario>
-          <Description>
-            {el.descripcion}
-          </Description>
-          <Botones>
-            <Button color="warning">Aceptar</Button>
-            <Divider />
-            <Button color="danger" onClick={() => hablar(el.id)}>Rechazar</Button>
-          </Botones>
-        </Info>
-      </Box>
-    ));
-    setMostrar(tuppers);
-
-  }, [mostrar]);
-  
   const hablar = (e) => {
-    console.log("before listaTupers");
-    console.log(listaTupers);
-    let removeIndex = listaTupers.map(function (item) { return item.id; }).indexOf(e);
-    listaTupers.splice(removeIndex, 1);
-    console.log("afeter listaTupers");
-    console.log(listaTupers);
-  }
-  console.log("listaTupers");
-  console.log(listaTupers);
+    let newArray = [...listaTupers];
+    let removeIndex = newArray.map(function (item) { return item.id; }).indexOf(e);
+    newArray.splice(removeIndex, 1);
+    setListaTupers(newArray);
+  };
 
   return (
     <Container>
       <Perfil />
       <Container fluid>
-        <Row style={{ paddingTop: "30px" }} className="w-100">
-          {mostrar}
+        {/* <Row style={{ paddingTop: "30px" }} className="w-100"> */}
+        <Row className="w-100">
+          {tuppers}
         </Row>
       </Container>
     </Container>
