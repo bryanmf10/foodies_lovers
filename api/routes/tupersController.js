@@ -32,6 +32,7 @@ const storage = multer.diskStorage({
     },
     
 });
+const upload = multer({ storage: storage }).single('file');
 
 //devuelve todas los tupers
 router.get('/', (req, res, next) => {
@@ -55,7 +56,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const token = req.headers.authorization || '';
     let user = decoderUserId(token);
-    let body = req.body;
+    
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err)
@@ -64,21 +65,21 @@ router.post('/', (req, res, next) => {
         }
         let dateCooking = new Date();
         modelo.tupers.create({
-            titulo: body.titulo,
-            descripcion: body.descripcion,
-            urlFoto: req.file.originalname,
-            longitud: body.longitud,
-            latitud: body.latitud,
+            titulo: req.body.titulo,
+            descripcion: req.body.descripcion,
+            urlFoto: req.file.filename,
+            longitud: req.body.longitud,
+            latitud: req.body.latitud,
             isSold: 0,
-            vegan: body.vegan,
-            vegetarian: body.vegetarian,
-            hasFrutosSecos: body.hasFrutosSecos,
-            hasLactosa: body.hasLactosa,
-            hasGluten: body.hasGluten,
+            vegan: req.body.vegan,
+            vegetarian: req.body.vegetarian,
+            hasFrutosSecos: req.body.hasFrutosSecos,
+            hasLactosa: req.body.hasLactosa,
+            hasGluten: req.body.hasGluten,
             usuarios_id_usuarios: user.id,
             cooking_date: dateCooking.toISOString().split('T')[0],
-            valor_tamano: body.valor_tamaño,
-            ingredientes: body.ingredientes
+            valor_tamano: req.body.valor_tamaño,
+            ingredientes: req.body.ingredientes
         })
             .then(item => {
                 if(item[0] === 0) throw new Error("Error");

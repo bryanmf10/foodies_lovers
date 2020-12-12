@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './NewTupper.css';
 import styled from "styled-components";
 import AccountController from '../controller/AccountController';
@@ -13,6 +13,17 @@ const Tuptok = styled.h2`
     font-family: Londrina Solid;
     margin-top:60px;
 `;
+const LoginUsuario=styled.h3`
+  font-family: Londrina Solid;
+  font-size: 20px;
+  color:#EE5D6E;
+  text-align: center;
+`;
+const ForgotUsuario=styled.h3`
+font-family: Londrina Solid;
+font-size: 15px;
+color:#EE5D6E;
+text-align: right;`;
 
 const Login = (props) => {
 
@@ -39,14 +50,20 @@ const Login = (props) => {
     
     return (
         <Form onSubmit={(event) => handleSubmit(event)}>
-            <Tuptok>TUPTOK</Tuptok>
+            <Tuptok><i class="fa fa-arrow-right" aria-hidden="true"></i>
+                TUPTOK</Tuptok>
+            <LoginUsuario>Bienvenido de nuevo</LoginUsuario>
             <FormGroup className="col-sm-12 cuerpoRegistro" >
                 <Label for="exampleEmail">Email</Label>
                 <Input type="email" name="email" id="email" placeholder="Introduce tu email" value={email} onChange={(event) => setEmail(event.target.value)} />
+            </FormGroup>          
+            <FormGroup className="col-sm-12 cuerpoRegistro" >    
                 <Label for="examplePassword" styled={{ marginTop: "10px" }}>Contraseña</Label>
                 <Input type="password" name="password" id="password" placeholder="introduce tu contraseña" value={password} onChange={(event) => setPassword(event.target.value)} />
             </FormGroup>
-            <button type="submit" className="col-sm-4 btn btn-success text-center boton ">Log In</button>
+            <ForgotUsuario>¿Has olvidado la contraseña?</ForgotUsuario>
+            <Button type="submit" className="col-sm-4 col-md-4  justify-content-end text-center boton" style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}}>Log In</Button>
+            
         </Form>
     );
 }

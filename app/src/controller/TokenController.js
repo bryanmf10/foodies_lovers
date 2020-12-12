@@ -1,9 +1,8 @@
-const jwt_decode = require('jwt-decode');
+import jwtDecode from 'jwt-decode';
 const api_url = 'https://heroku-foodies-lovers-app.herokuapp.com';
 export default class TokenController{
     
     static authenticateToken = (token) => {
-        
             let obj = {
                 method: "GET",
                 headers: new Headers(
@@ -25,12 +24,11 @@ export default class TokenController{
                            reject(err);
                        });
                });
-        
     }
 
     static getIdUser = (token) => {
-        let decode = jwt_decode(token);
-        console.log(decode);
+        let decode = jwtDecode(token);
+        return decode.id;
     }
 
 }

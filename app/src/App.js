@@ -11,7 +11,8 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Input
 } from "reactstrap";
 
 import {
@@ -19,7 +20,8 @@ import {
   Switch,
   Route,
   NavLink,
-  Link
+  Link,
+  useParams
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
@@ -31,16 +33,18 @@ import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 import NewTupper from "./components/NewTupper";
-//import styled from "styled-components";
+import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
+import imagen from './components/Profile/images/images.jpg';
 
 //import ContenedorContexto from "./context/ContenedorContexto";
 import TokenController from "./controller/TokenController";
 
 import ContainerLogin from "./components/ContainerLogin";
+import Logout from "./components/Logout";
 
-/*const FotoPerfilNav = styled.div`
+const FotoPerfilNav = styled.div`
   border-radius: 50%;
   width: 35px;
   height: 35px;
@@ -48,7 +52,7 @@ import ContainerLogin from "./components/ContainerLogin";
   background-size: cover;
   background-position: center;
   background-image: url( ${props => props.imgSrc});
-`;*/
+`;
 
 const App = (props) => {
   
@@ -61,7 +65,7 @@ const App = (props) => {
   const { cookies } = props;
   useEffect(() => {
     authenticateToken();
-  }, []);
+  }, [authenticated]);
 
   const authenticateToken = () => {
     let token = cookies.get('token');
@@ -72,7 +76,7 @@ const App = (props) => {
           context.setToken(token);
           setAuthenticated(true)
         }else{
-          cookies.set('token',false);
+          cookies.remove('token',false);
         }
       })
       .catch(error => console.log(error));
@@ -80,34 +84,35 @@ const App = (props) => {
   }
 
   const Inicio = () => {
-    if(authenticated || context.token === cookies.get('token') ){
+    if(authenticated && context.token === cookies.get('token') ){
       return(
         <Container fluid>
-          <Navbar className="fixed-top" light expand="md" style={{ backgroundColor: '#EE5D6E' }}>
-            <NavbarBrand><Link to="/">TUPTOK</Link></NavbarBrand>
+          <Navbar className="fixed-top p-0 navbarBgColor" light expand="md">
+            <NavbarBrand className="ml-3 tuptok"><Link to="/">TUPTOK</Link></NavbarBrand>
             <NavbarToggler onClick={toggle} />
-            <Collapse isOpen={isOpen} navbar>
-              <Nav className="ml-auto" navbar  >
+              <Nav className="ml-center" navbar  >
                 <NavLink to="/NewTupper">
-                  <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: " #E6F8F7" }} ></i>
+                  <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{color:"#E6F8F7"}} ></i>
                 </NavLink>
               </Nav>
+              <Collapse isOpen={isOpen} navbar>
               <Nav className="ml-auto" navbar >
-                <MDBCol md="-4">
-                  <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+                <MDBCol className= "d-flex align-items-center">
+                  <Input className="form-control" type="text" placeholder="Search" aria-label="Search" />
                 </MDBCol>
-                <UncontrolledDropdown nav className="text-left">
-                  <DropdownToggle nav caret>Usuario </DropdownToggle>
+                <UncontrolledDropdown nav className="text-left mr-1">
+                  <DropdownToggle nav caret><FotoPerfilNav imgSrc={imagen}></FotoPerfilNav> </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem> Editar </DropdownItem>
-                    <DropdownItem> Cerrar sesión  </DropdownItem>
+                    <DropdownItem><Link to="/logout">Cerrar sesión</Link></DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </Nav>
             </Collapse>
           </Navbar>
+          <div style={{height:"80px"}}></div>
           <Switch>
             <Route exact path="/" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
@@ -117,6 +122,7 @@ const App = (props) => {
             <Route exact path="/perfil/trueques" component={Trueques} />
             <Route exact path="/perfil/opiniones" component={Opiniones} />
             <Route exact path="/detalle" component={Detalle} />
+            <Route exact path="/logout" component={()=><Logout auth={()=>setAuthenticated(false)} />} />
             <Route component={NotFound} />
           </Switch>
         </Container>
