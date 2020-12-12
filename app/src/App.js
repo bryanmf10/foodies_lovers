@@ -112,7 +112,7 @@ const App = (props) => {
               </Nav>
             </Collapse>
           </Navbar>
-          <div style={{height: "100px"}}></div>
+          <div style={{height:"80px"}}></div>
           <Switch>
             <Route exact path="/" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />

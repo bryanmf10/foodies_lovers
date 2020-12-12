@@ -1,17 +1,27 @@
 .cuerpoRegistro{
 
 background-color: #E6F8F7;
-margin-top: 40px;
+margin-top: 10px;
 padding: 30px; 
 font-family: Londrina Solid ;
-border-radius: 20px;
 
 }
 
+.fondoNewTupper{
+    width: 100%;
+    height: 300px;
+    background-color: #E6F8F7;
+    font-family: Londrina Solid;
+    
+}
 .tituloSubirTupper {
     font-size: 30px;
     text-align: center;
     font-family: Londrina Solid;
+}
+
+.textoNewTupper{
+    margin-top:10px;
 }
 
 .filtros {
@@ -20,14 +30,22 @@ border-radius: 20px;
 
 .fototupper {
     width: 250px;
-    
+
     align-items: center;
     justify-content: center;
 }
 
 .precio {
     font-family: Londrina Solid;
-    font-size: 20px;
+    font-size: 15px;
+    margin-left: 15px;
+}
+.alergias{
+    font-family: Londrina Solid;
+    background-color: #E6F8F7;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
 }
 
 .boton{
@@ -70,5 +88,5 @@ border-radius: 20px;
 }
 
 
- 
+
     
