@@ -37,6 +37,7 @@ import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
+import Logo from './img/logo.png';
 
 
 //import ContenedorContexto from "./context/ContenedorContexto";
@@ -90,7 +91,10 @@ const App = (props) => {
         <Container fluid>
           <Navbar className="fixed-top p-0 navbarBgColor" light expand="md">
           <NavbarBrand className="ml-3 tuptok">  <Link to="/">
-          TUPTOK
+          <div style={{display: 'flex', height: '25px', width: '100px'}} >
+                  <img style={{ height: '100%', width: '100%', objectFit: 'cover' }} src={Logo} alt='' />
+                </div>
+          
             </Link></NavbarBrand>
             <NavLink to="/NewTupper">
                 <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: "#E6F8F7" }} ></i>

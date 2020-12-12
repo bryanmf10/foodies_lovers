@@ -244,7 +244,7 @@ const Tupper = () => {
             <Row>
                 <Tupperparati>Tuppers para ti:</Tupperparati>
             </Row>
-            <Row style={{ paddingTop: "30px" }} className="w-100">
+            <Row style={{ paddingTop: "10px" }} className="w-100">
                 {tuppers}
             </Row>
         </Container >
