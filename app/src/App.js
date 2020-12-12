@@ -38,6 +38,7 @@ import Detalle from "./components/Detalle";
 import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
 
+
 //import ContenedorContexto from "./context/ContenedorContexto";
 import TokenController from "./controller/TokenController";
 
@@ -88,13 +89,12 @@ const App = (props) => {
       return(
         <Container fluid>
           <Navbar className="fixed-top p-0 navbarBgColor" light expand="md">
-            <NavbarBrand className="ml-3 tuptok"><Link to="/">TUPTOK</Link></NavbarBrand>
-            <NavbarToggler onClick={toggle} />
-              <Nav className="ml-center" navbar  >
-                <NavLink to="/NewTupper">
-                  <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{color:"#E6F8F7"}} ></i>
-                </NavLink>
-              </Nav>
+          <NavbarBrand className="ml-3 tuptok">  <Link to="/">
+          TUPTOK
+            </Link></NavbarBrand>
+            <NavLink to="/NewTupper">
+                <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: "#E6F8F7" }} ></i>
+              </NavLink>
               <Collapse isOpen={isOpen} navbar>
               <Nav className="ml-auto" navbar >
                 <MDBCol className= "d-flex align-items-center">
@@ -121,7 +121,7 @@ const App = (props) => {
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />
             <Route exact path="/perfil/opiniones" component={Opiniones} />
-            <Route exact path="/detalle" component={Detalle} />
+            <Route exact path="/detalle/:id" component={Detalle} />
             <Route exact path="/logout" component={()=><Logout auth={()=>setAuthenticated(false)} />} />
             <Route component={NotFound} />
           </Switch>

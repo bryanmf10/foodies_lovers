@@ -96,11 +96,11 @@ const SubirTupper = (props) => {
                                     <Label for="file-input">
                                        <i class="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>
                                     </Label>
-                                        <Input id="file-input" type="file" />
+                                        <Input id="file-input" type="file"  name="customFile" onChange={(e) => setSelectedFile(e.target.files[0])} />
                             </FormGroup>
                          </AnadirTupper>     
                     <Row className="justify-content-center ">
-                        <Col sm={6}>
+                        <Col sm={12} md={6}>
                             <Row className="cuerpoNewTupper"> </Row>
                             <Row className="mt-2 ">
                                 <Col sm={6} >
@@ -109,20 +109,20 @@ const SubirTupper = (props) => {
                                     </Row>
                                 </Col>
                                 <Col sm={6} className="fondoNewTupper ">
-                                    <Row >
+                                    <Row>
                                         <FormGroup className="col-12 textoNewTupper" >
                                             <Label for="inputName" >Nombre</Label>
                                             <Input type="text" name="text" id="inputName" placeholder="Introduce el nombre" value={nom} onChange={(event) => setNom(event.target.value)} required />
                                         </FormGroup>
                                     </Row>
-                                    <Row  >
+                                    <Row>
                                         <FormGroup className="col-12 textoNewTupper">
                                             <Label for="exampleText"  >Descripción</Label>
                                             <Input className="input form-control" type="textarea" name="text" id="exampleText" placeholder="Datos relevantes del tupper" maxLength="100" value={des} onChange={(event) => setDes(event.target.value)} required />
                                         </FormGroup>
                                     </Row>
-                                    <Row >
-                                        <FormGroup className="precio textoNewTupper " >
+                                    <Row>
+                                        <FormGroup className="precio textoNewTupper">
                                             <div>
                                                 <CustomInput type="radio" id="tamano1" value="1" onChange={(event) => setValor(event.target.value)} name="customRadio" label="1 TOK" inline  required/>
                                                 <CustomInput type="radio" id="tamano2" value="2" onChange={(event) => setValor(event.target.value)} name="customRadio" label="2 TOK" inline />

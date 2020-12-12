@@ -13,6 +13,7 @@ import {
     CustomInput
 } from "reactstrap";
 import Context from "../context/Context";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 import StarFixed from "./StarFixed";
@@ -44,7 +45,7 @@ const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
     margin-left: 10px;
-    height: 50px;
+    height: 40px;
     font-family: 'Londrina Solid', cursive;
 `;
 
@@ -60,25 +61,32 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow: scroll; 
+    overflow: visible; 
     height: 80px;
 `;
 
 const Usuario = styled.div`
-    text-Align: right;
-    margin: 5px; 
+    display:flex;
+    justify-content:flex-end;
+    margin-right: 5px; 
     font-Size: 13px;
-    scroll-padding-block: 30px;
+ 
+`;
+
+const Separador=styled.div`
+height:5px;
+background-color:white;
 `;
 
 const Divider = styled.div`
-    border-left: 1px solid black;
+    border-left: 3px solid #EE5D6E;
 `;
 
 const Botones = styled.div`
     display: flex;
     justify-Content: space-around;
     margin-Bottom: 20px;
+    margin-top:20px;
 `;
 
 const Titulo = styled.h2`
@@ -106,12 +114,16 @@ const Tupper = () => {
                 if (data.ok === false) {
                     setListaTupers([]);
                 } else {
+                    data.resp.map((el)=>{
+                        el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+                        return el;
+                    })
                     setListaTupers(data.resp);
                 }
             })
             .catch(err => console.log(err));
-    }, []);
 
+    }, []);
     //del Range-----------------------
     const useStyles = makeStyles({
         root: {
@@ -126,33 +138,34 @@ const Tupper = () => {
     const classes = useStyles();
 
     //------------------------------------
-     const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
+    const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
         <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-             <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} /> 
-            
+             <Foto imagSrc={el.urlFoto} /> 
             <Info>
                 <Title>
                     {el.titulo}
                 </Title>
                 <Usuario >
-                    <StarFixed valor={el.rating} />
-                    <br />
                     <span>{el.usuario.email.split('@')[0]}</span>
+                    <StarFixed valor={el.rating} />
                 </Usuario>
                 <Description>
                     {el.descripcion}
                 </Description>
+               <Separador/>
                 <Botones>
-                    <i class="fa fa-info fa-2x" aria-hidden="true"></i>
+                    <Link to={"/detalle/"+el.id}>
+                        <i class="fa fa-info-circle fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                    </Link>
                     <Divider />
-                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#E43333" }}></i>
+                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
                 </Botones>
             </Info>
         </Box>
     ));
 
     return (
-        <Container fluid style={{ marginTop: "80px" }}>
+        <Container fluid >
             <Row>
                 <Titulo>Quiero mi tupper:</Titulo>
             </Row>
