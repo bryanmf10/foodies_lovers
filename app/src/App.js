@@ -121,7 +121,7 @@ const App = (props) => {
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />
             <Route exact path="/perfil/opiniones" component={Opiniones} />
-            <Route exact path="/detalle" component={Detalle} />
+            <Route exact path="/detalle/:id" component={Detalle} />
             <Route exact path="/logout" component={()=><Logout auth={()=>setAuthenticated(false)} />} />
             <Route component={NotFound} />
           </Switch>

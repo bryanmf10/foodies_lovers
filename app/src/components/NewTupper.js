@@ -96,7 +96,7 @@ const SubirTupper = (props) => {
                                     <Label for="file-input">
                                        <i class="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>
                                     </Label>
-                                        <Input id="file-input" type="file" />
+                                        <Input id="file-input" type="file" onChange={(e) => setSelectedFile(e.target.files[0])} />
                             </FormGroup>
                          </AnadirTupper>     
                     <Row className="justify-content-center ">

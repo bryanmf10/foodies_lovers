@@ -70,18 +70,16 @@ export default () => {
             flex: 1
         }
     }
+
     const Mapa = () => {
         return (
-            
                 <MapContainer style={{ height: '75vh' }} center={[41.392264, 2.202652]} zoom={10} scrollWheelZoom={true}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
-            url={'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png'}
-            id="mapbox/light-v10"
-          />
-        </MapContainer>
-                
-            
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap"</a> contributors'
+                        url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
+                        id="mapbox/light-v10"
+                    />
+                </MapContainer>
           )
     }
 

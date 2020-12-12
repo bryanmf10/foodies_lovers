@@ -55,10 +55,14 @@ export default class TuperController {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'authorization': token,
-                'Host': 'Host'
+                'Host': 'Host',
             }
         })
         .then((res) => res)
         .catch((err) => console.log(err))   
+    }
+
+    static getUrlFoto = (foto) => {
+        return api_url+"/img/tupers/"+foto;
     }
 }
