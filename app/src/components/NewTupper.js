@@ -96,11 +96,11 @@ const SubirTupper = (props) => {
                                     <Label for="file-input">
                                        <i class="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>
                                     </Label>
-                                        <Input id="file-input" type="file" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                                        <Input id="file-input" type="file"  name="customFile" onChange={(e) => setSelectedFile(e.target.files[0])} />
                             </FormGroup>
                          </AnadirTupper>     
                     <Row className="justify-content-center ">
-                        <Col sm={6}>
+                        <Col sm={12} md={6}>
                             <Row className="cuerpoNewTupper"> </Row>
                             <Row className="mt-2 ">
                                 <Col sm={6} >
