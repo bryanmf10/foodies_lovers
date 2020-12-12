@@ -61,8 +61,8 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow: scroll; 
-    height: 60px;
+    overflow: visible; 
+    height: 80px;
 `;
 
 const Usuario = styled.div`
@@ -114,12 +114,16 @@ const Tupper = () => {
                 if (data.ok === false) {
                     setListaTupers([]);
                 } else {
+                    data.resp.map((el)=>{
+                        el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+                        return el;
+                    })
                     setListaTupers(data.resp);
                 }
             })
             .catch(err => console.log(err));
-    }, []);
 
+    }, []);
     //del Range-----------------------
     const useStyles = makeStyles({
         root: {
@@ -136,8 +140,7 @@ const Tupper = () => {
     //------------------------------------
     const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
         <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-            <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
-
+             <Foto imagSrc={el.urlFoto} /> 
             <Info>
                 <Title>
                     {el.titulo}

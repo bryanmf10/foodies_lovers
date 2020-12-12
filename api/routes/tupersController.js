@@ -171,5 +171,4 @@ const selectTuperById = (idTuper) => {
     })
 }
 
-
 module.exports = router;
