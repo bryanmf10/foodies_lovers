@@ -123,4 +123,27 @@ export default class TuperController {
                     });
             });
     }
+
+    static getMyTuppers = (idUser, token) => {
+        let obj = {
+            method: "GET",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token,
+                'Host': 'Host'
+            })
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/tupers/userTuper/"+idUser, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
 }

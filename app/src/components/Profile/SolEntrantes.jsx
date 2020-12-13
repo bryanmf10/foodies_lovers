@@ -2,12 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button, Container, Row } from "reactstrap";
 import styled from "styled-components";
 
-import Data from "./data/SolEntrantes.json"
 import Perfil from "./Perfil";
 import StarFixed from "../StarFixed";
 
 import Context from "../../context/Context";
 import TuperController from '../../controller/TuperController';
+import OfertasController from "../../controller/OfertasController";
+import TokenController from "../../controller/TokenController";
 
 const Foto = styled.div`
     width: 90%;
@@ -73,19 +74,17 @@ const SolEntrantes = () => {
   const [listaTupers, setListaTupers] = useState([]);
 
   useEffect(() => {
-    TuperController.getAll(context.token)
-      .then(data => {
-        if (data.ok === false) {
-          setListaTupers([]);
-        } else {
-          setListaTupers(data.resp);
-        }
-      })
-      .catch(err => console.log(err));
+    OfertasController.getMyOfertas(TokenController.getIdUser(context.token),context.token)
+    .then(data => {
+      if (data.ok === false) {
+        setListaTupers([]);
+      } else {
+        console.log(data)
+        setListaTupers(data.resp);
+      }
+    })
+    .catch(err => console.log(err));
   }, []);
-
-  console.log("listaTupers");
-  console.log(listaTupers);
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
@@ -96,7 +95,6 @@ const SolEntrantes = () => {
         </Title>
         <Usuario >
           <StarFixed valor={el.id_ranking} />
-          {/* <br /> */}
           <span>{el.user}</span>
         </Usuario>
         <Description>
@@ -105,13 +103,13 @@ const SolEntrantes = () => {
         <Botones>
           <Button color="warning">Aceptar</Button>
           <Divider />
-          <Button color="danger" onClick={() => descartar(el.id)}>Rechazar</Button>
+          <Button color="danger" onClick={() => refreshTupers(el.id)}>Rechazar</Button>
         </Botones>
       </Info>
     </Box>
   ));
 
-  const descartar = (e) => {
+  const refreshTupers = (e) => {
     let newArray = [...listaTupers];
     let removeIndex = newArray.map(function (item) { return item.id; }).indexOf(e);
     newArray.splice(removeIndex, 1);
@@ -122,7 +120,6 @@ const SolEntrantes = () => {
     <Container>
       <Perfil />
       <Container fluid>
-        {/* <Row style={{ paddingTop: "30px" }} className="w-100"> */}
         <Row className="w-100">
           {tuppers}
         </Row>

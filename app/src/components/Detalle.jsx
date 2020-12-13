@@ -130,8 +130,8 @@ const ofrecerTupperRow = {
 
 
 
-export default (props) => {
-
+const Detalle = (props) => {
+    
     const [tuper, setTuper] = useState({});
     const [loading, setLoading] = useState(true);
     const [modal, setModal] = useState(false);
@@ -162,7 +162,8 @@ export default (props) => {
                         valor: tap.valor_tamano,
                         nombreUsuario: tap.usuario.email.split('@')[0],
                         fotoUsuario: tap.usuario.fotoURL,
-                        ingredientes: tap.ingredientes.split(", ")
+                        ingredientes: tap.ingredientes.split(", "),
+                        fecha: tap.cooking_date
                     }
                     setTuper(obj);
                 }
@@ -170,6 +171,7 @@ export default (props) => {
             .then(() => setLoading(false))
             .catch(err => console.log(err));
     }, [])
+    
 
     if (loading) {
         return (
@@ -187,7 +189,7 @@ export default (props) => {
     const Mapa = () => {
         let posicion = [tuper.lat, tuper.lon];
         return (
-            <MapContainer style={{ height: '64vh', borderRadius: "20px" }} center={posicion} zoom={16} scrollWheelZoom={true}>
+            <MapContainer style={{ height: '100%', borderRadius: "20px" }} center={posicion} zoom={16} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
@@ -216,7 +218,7 @@ export default (props) => {
                     </Row>
 
                     <Row>
-                        <Col md={6} className="order-2 order-lg-1 mt-2">
+                        <Col md={6} className="order-2 order-lg-1 mt-2 mb-3 mh-100 h-100">
 
                             <Row >
 
@@ -261,8 +263,9 @@ export default (props) => {
                                         </ul>
 
                                     </Ingredientes>
+                                    <FechaTuper>Este tupper se creo el {tuper.fecha}</FechaTuper>
                                 </Col>
-                                <FechaTuper>Este tupper se creo el 02/02/1990</FechaTuper>
+                                
                             </Row>
 
 
@@ -276,11 +279,8 @@ export default (props) => {
                 </Col>
 
             </Row>
-
-
-
-
-            {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} />}
+                {modal && <Modal modal={modal} setModal={setModal} pago={tuper.valor} tuperI={props.match.params.id} />}
         </Container >
     );
 }
+export default Detalle;

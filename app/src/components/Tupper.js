@@ -153,7 +153,7 @@ const Tupper = () => {
                     {el.titulo}
                 </Title>
                 <Usuario >
-                    <span>{el.usuario.email.split('@')[0]}</span>
+                    <Link style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</Link>
                     <StarFixed valor={el.rating} />
                 </Usuario>
                 <Description>
@@ -162,7 +162,7 @@ const Tupper = () => {
                <Separador/>
                 <Botones>
                     <Link to={"/detalle/"+el.id}>
-                        <i className="fa fa-info-circle fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                        <i className="fa fa-eye fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
                     </Link>
                     <Divider />
                     <i className="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
