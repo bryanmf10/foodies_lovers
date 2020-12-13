@@ -91,14 +91,14 @@ const App = (props) => {
         <Container fluid>
           <Navbar className="fixed-top p-0 navbarBgColor" light expand="md">
             <Link to="/">
-              <div className="ml-3 tuptok">  
-                TUPTOK
+              <div className="ml-3 tuptok" style={{height: "25px", width: "100px", display: "flex", marginRight: "20px"}}>  
+                <img style={{height: "100%", width: "100%", objectFit: "fill"}} src={Logo} ></img>
               </div>
             </Link>
             <NavLink to="/NewTupper">
                 <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: "#E6F8F7" }} ></i>
               </NavLink>
-              <Collapse isOpen={isOpen} navbar>
+              <Collapse navbar>
               <Nav className="ml-auto" navbar >
                 <MDBCol className= "d-flex align-items-center">
                   <Input className="form-control" type="text" placeholder="Search" aria-label="Search" />
