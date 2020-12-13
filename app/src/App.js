@@ -32,6 +32,7 @@ import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 import NewTupper from "./components/NewTupper";
+import ModTupper from "./components/ModTuper";
 import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
@@ -117,6 +118,7 @@ const App = (props) => {
           <Switch>
             <Route exact path="/" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
+            <Route exact path="/modTuper/:id" component={ModTupper} />
             <Route exact path="/perfil" component={MisTuppers} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />

@@ -65,4 +65,27 @@ export default class TuperController {
     static getUrlFoto = (foto) => {
         return api_url+"/img/tupers/"+foto;
     }
+
+    static removeOne = (idTuper, token) => {
+        let obj = {
+            method: "DELETE",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token,
+                'Host': 'Host'
+            })
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/tupers/" + idTuper, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
 }
