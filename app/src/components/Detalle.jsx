@@ -64,7 +64,14 @@ export default (props) => {
         setModal(!modal)
     }
     const context = useContext(Context);
+
+    const DefaultIcon = Leaflet.icon({
+        iconUrl: icono,
+        iconSize: [40, 40]
+      });
     
+    Leaflet.Marker.prototype.options.icon = DefaultIcon;
+
     useEffect(()=> {
         let { id } = props.match.params;
         TuperController.getOne(id,context.token)
@@ -101,12 +108,7 @@ export default (props) => {
             </Container>        
         );
     }
-    let DefaultIcon = Leaflet.icon({
-        iconUrl: icono,
-        iconSize: [40, 40]
-      });
     
-      Leaflet.Marker.prototype.options.icon = DefaultIcon;
     const Mapa = () => {
         let posicion = [tuper.lat, tuper.lon];
         return (
@@ -116,9 +118,7 @@ export default (props) => {
                         url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
                         id="mapbox/light-v10"
                     />
-                    <Marker position={posicion}>
-                        
-                    </Marker>                    
+                    <Marker position={posicion}></Marker>                    
                 </MapContainer>
           )
     }

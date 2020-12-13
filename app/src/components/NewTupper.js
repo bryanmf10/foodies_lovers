@@ -94,7 +94,7 @@ const SubirTupper = (props) => {
                          <AnadirTupper>¿Qué te apetece subir hoy?
                          <FormGroup className="image-upload mt-1">
                                     <Label for="file-input">
-                                       <i class="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>
+                                       <i className="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>
                                     </Label>
                                         <Input id="file-input" type="file"  name="customFile" onChange={(e) => setSelectedFile(e.target.files[0])} />
                             </FormGroup>

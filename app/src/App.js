@@ -5,7 +5,6 @@ import {
   Container,
   Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   UncontrolledDropdown,
@@ -89,9 +88,11 @@ const App = (props) => {
       return(
         <Container fluid>
           <Navbar className="fixed-top p-0 navbarBgColor" light expand="md">
-          <NavbarBrand className="ml-3 tuptok">  <Link to="/">
-          TUPTOK
-            </Link></NavbarBrand>
+            <Link to="/">
+              <div className="ml-3 tuptok">  
+                TUPTOK
+              </div>
+            </Link>
             <NavLink to="/NewTupper">
                 <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: "#E6F8F7" }} ></i>
               </NavLink>

@@ -6,24 +6,26 @@ import AccountController from '../controller/AccountController';
 import Context from "../context/Context";
 import { withCookies } from 'react-cookie';
 
-
 const Tuptok = styled.h2`
     font-size: 30px;
     text-align: center;
     font-family: Londrina Solid;
     margin-top:60px;
 `;
+
 const LoginUsuario=styled.h3`
   font-family: Londrina Solid;
   font-size: 20px;
   color:#EE5D6E;
   text-align: center;
 `;
+
 const ForgotUsuario=styled.h3`
 font-family: Londrina Solid;
 font-size: 15px;
 color:#EE5D6E;
-text-align: right;`;
+text-align: right;`
+;
 
 const Login = (props) => {
 
@@ -50,7 +52,7 @@ const Login = (props) => {
     
     return (
         <Form onSubmit={(event) => handleSubmit(event)}>
-            <Tuptok><i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <Tuptok><i className="fa fa-arrow-right" aria-hidden="true"></i>
                 TUPTOK</Tuptok>
             <LoginUsuario>Bienvenido de nuevo</LoginUsuario>
             <FormGroup className="col-sm-12 cuerpoRegistro" >
@@ -63,7 +65,6 @@ const Login = (props) => {
             </FormGroup>
             <ForgotUsuario>¿Has olvidado la contraseña?</ForgotUsuario>
             <Button type="submit" className="col-sm-4 col-md-4  justify-content-end text-center boton" style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}}>Log In</Button>
-            
         </Form>
     );
 }

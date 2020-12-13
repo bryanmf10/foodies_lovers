@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Row, Button } from "reactstrap";
 import styled from "styled-components";
 import TuperController from '../../controller/TuperController';
+import Context from "../../context/Context";
+import TokenController from "../../controller/TokenController";
 
-import Data from "./data/MisTuppers.json"
 import Perfil from "./Perfil"
 
 const Foto = styled.div`
@@ -44,7 +45,7 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow: scroll; 
+    overflow: visible; 
     height: 80px;
 `;
 
@@ -60,26 +61,29 @@ const Botones = styled.div`
 
 const MisTuppers = () => {
 
-  // API SECTION (UNCOMMENT TO USE /* */)
-  /*const [listaTupers, setListaTupers] = useState([]);
+  const [listaTupers, setListaTupers] = useState([]);
+  const context = useContext(Context);
 
   useEffect(() => {
-    TuperController.getAll()
-      .then(data => {
-        console.log(data);
-        if (data.ok === false) {
-          setListaTupers([]);
-        } else {
-          setListaTupers(data);
-        }
-      })
-      .catch(err => console.log(err));
+    let idUsuario = TokenController.getIdUser(context.token);
+        TuperController.getAll(context.token)
+            .then(data => {
+                if (data.ok === false) {
+                    setListaTupers([]);
+                } else {
+                    let tupers = data.resp.filter((el) => el.usuarios_id_usuarios === idUsuario).map((el)=>{
+                        el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+                        return el;
+                    })
+                    setListaTupers(tupers);
+                }
+            })
+            .catch(err => console.log(err));
   }, []);
 
-  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
-  const tuppers = Data.map((el) => (
+  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={el.url} />
+      <Foto imagSrc={el.urlFoto} />
       <Info>
         <Title>
           {el.titulo}
