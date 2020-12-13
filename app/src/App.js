@@ -39,7 +39,8 @@ import imagen from './components/Profile/images/images.jpg';
 import TokenController from "./controller/TokenController";
 import ContainerLogin from "./components/ContainerLogin";
 import Logout from "./components/Logout";
-import Logo from './img/logo.png';
+import Logo from './img/logo.png'
+
 const FotoPerfilNav = styled.div`
   border-radius: 50%;
   width: 35px;
