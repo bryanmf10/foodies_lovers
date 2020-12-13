@@ -88,4 +88,39 @@ export default class TuperController {
                     });
             });
     }
+
+    static updateFoto = async(foto,idTuper,token) => {
+        await axios.put(api_url+ "/tupers/foto/"+idTuper, foto, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token,
+            }
+        })
+        .then((res) => {return res})
+        .catch((err) => console.log(err))  
+    }
+
+    static updateInfo = (tuper,idTuper,token) => {
+        let obj = {
+            method: "put",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token
+            }),
+            body: JSON.stringify(tuper)
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/tupers/" + idTuper, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
 }

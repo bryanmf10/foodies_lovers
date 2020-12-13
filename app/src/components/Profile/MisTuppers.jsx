@@ -88,7 +88,6 @@ const MisTuppers = () => {
   const deleteTupper = (idTuper) => {
     TuperController.removeOne(idTuper, context.token)
     .then(data => {
-      console.log(data)
       if(data.ok){
         setRemoveFlag(true);
       }

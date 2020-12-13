@@ -5,7 +5,6 @@ import { geolocated } from "react-geolocated";
 import styled from 'styled-components';
 import TupperController from '../controller/TuperController';
 import Context from "../context/Context";
-import TokenController from "../controller/TokenController";
 import { Redirect } from "react-router-dom";
 import TuperController from "../controller/TuperController";
 
@@ -55,7 +54,6 @@ const ModTuper = (props) => {
         let {id} = props.match.params;
         TuperController.getOne(id,context.token)
         .then(data => {
-            console.log(data);
             let tuper = data.resp;
             setNom(tuper.titulo);
             setDes(tuper.descripcion);
@@ -80,23 +78,40 @@ const ModTuper = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        let {id} = props.match.params;
+        let token = context.token;
+        const tuperMod = {
+            titulo: nom,
+            descripcion: des,
+            longitud: props.coords !== null ? props.coords.longitude : 0,
+            latitud: props.coords !== null ? props.coords.latitude : 0,
+            vegan: vegan,
+            vegetarian: vegetarian,
+            hasFrutosSecos: hasFrutosSecos,
+            hasLactosa: hasLactosa,
+            hasGluten: hasGluten,
+            valor_tamano: valor,
+            ingredientes: ingredientes.join(",")
+        }
+        selectedFile === false ? subeOnlyInfo(tuperMod,id,token) : subeFotoInfo(tuperMod,id,token);
+      }
+
+      const subeFotoInfo = (tuperMod,id,token) => {
         const tuper = new FormData();
             tuper.append("file", selectedFile);
-            tuper.append("titulo", nom);
-            tuper.append("descripcion", des);
-            tuper.append("longitud", props.coords.longitude);
-            tuper.append("latitud", props.coords.latitude);
-            tuper.append("isSold", 0);
-            tuper.append("vegan", vegan);
-            tuper.append("vegetarian", vegetarian);
-            tuper.append("hasFrutosSecos", hasFrutosSecos);
-            tuper.append("hasLactosa", hasLactosa);
-            tuper.append("hasGluten", hasGluten);
-            tuper.append("usuarios_id_usuarios", TokenController.getIdUser(context.token));
-            tuper.append("cooking_date", new Date().toISOString().split('T')[0]);
-            tuper.append("valor_tamano", valor);
-            tuper.append("ingredientes", ingredientes.join(","));
-        
+        TupperController.updateFoto(tuper,id,token)
+        .then(data => {
+            TuperController.updateInfo(tuperMod,id,token)
+            .then((data) => setLoading(true))
+            .catch(error => console.log(error));
+          })
+        .catch(error => console.log(error));
+      }
+
+      const subeOnlyInfo = (tuperMod,id,token) => {
+        TuperController.updateInfo(tuperMod,id,token)
+            .then((data) => setLoading(true))
+            .catch(error => console.log(error));
       }
 
     const añadeIngrediente = (ingr) => {
@@ -110,11 +125,6 @@ const ModTuper = (props) => {
         }
         setIngredientes(newArray);
       }
-      
-      if(loading){
-          return <Redirect to="/" />;
-      }
-
       const DisplayIngredientes = () => {
         return (ingredientesDisplay.length === 0 ? null : 
                 ingredientesDisplay.map((el)=>{
@@ -128,7 +138,9 @@ const ModTuper = (props) => {
                 })
             )
       }
-      
+    if(loading){
+        return <Redirect to="/perfil" />;
+    }
     return (
         <>
             <Container fluid >
@@ -167,10 +179,10 @@ const ModTuper = (props) => {
                                     <Row>
                                         <FormGroup className="precio textoNewTupper" required>
                                             <div>
-                                                <CustomInput type="radio" id="tamano1" value="1" checked={valor === 1} onChange={(event) => setValor(event.target.value)} name="customRadio" label="1 TOK" inline/>
-                                                <CustomInput type="radio" id="tamano2" value="2" checked={valor === 2} onChange={(event) => setValor(event.target.value)} name="customRadio" label="2 TOK" inline />
-                                                <CustomInput type="radio" id="tamano3" value="3" checked={valor === 3} onChange={(event) => setValor(event.target.value)} name="customRadio" label="3 TOK" inline />
-                                                <CustomInput type="radio" id="tamano0" value="0" checked={valor === 0} onChange={(event) => setValor(event.target.value)} name="customRadio" label="Solo acepto TUP" inline />
+                                                <CustomInput type="radio" id="tamano1" value="1" checked={valor === 1} onChange={(event) => setValor(1)} name="customRadio" label="1 TOK" inline/>
+                                                <CustomInput type="radio" id="tamano2" value="2" checked={valor === 2} onChange={(event) => setValor(2)} name="customRadio" label="2 TOK" inline />
+                                                <CustomInput type="radio" id="tamano3" value="3" checked={valor === 3} onChange={(event) => setValor(3)} name="customRadio" label="3 TOK" inline />
+                                                <CustomInput type="radio" id="tamano0" value="0" checked={valor === 0} onChange={(event) => setValor(0)} name="customRadio" label="Solo acepto TUP" inline />
                                             </div>
                                         </FormGroup>
                                     </Row>
@@ -181,7 +193,7 @@ const ModTuper = (props) => {
                             <Col sm={6}>
                                 <FormGroup>
                                          <div>
-                                                <CustomInput type="switch" id="vegano" checked={vegan} onChange={(event) => setVegan(event.target.checked)} name="customSwitch" label="Vegano" required />
+                                                <CustomInput type="switch" id="vegano" checked={vegan} onChange={(event) => setVegan(event.target.checked)} name="customSwitch" label="Vegano" />
                                                 <CustomInput type="switch" id="vegetarian" checked={vegetarian} onChange={(event) => setVegetarian(event.target.checked)} name="customSwitch" label="Vegetariano" />
                                                 <CustomInput type="switch" id="hasGluten" checked={hasGluten} onChange={(event) => setHasGluten(event.target.checked)} name="customSwitch" label=" Sin gluten" />
                                                 <CustomInput type="switch" id="hasLactosa" checked={hasLactosa} onChange={(event) => setHasLactosa(event.target.checked)} name="customSwitch" label=" Sin lactosa" />
