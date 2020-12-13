@@ -30,6 +30,7 @@ const Imagen = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
+    border-radius:20px 0 0 0;
 `;
 
 const FotoUser = styled.img`
@@ -92,6 +93,7 @@ font-size: 17px;
 font-family: Londrina Solid ;
 margin:10px;
 margin-left:20px;
+
 
 `;
 
@@ -160,7 +162,7 @@ export default (props) => {
     const Mapa = () => {
         let posicion = [tuper.lat, tuper.lon];
         return (
-        <MapContainer style={{ height: '64vh' }} center={posicion} zoom={16} scrollWheelZoom={true}>
+        <MapContainer style={{ height: '64vh', borderRadius:"20px"}} center={posicion} zoom={16} scrollWheelZoom={true}>
         <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
@@ -180,7 +182,7 @@ export default (props) => {
             <AnadirTupper>Todo sobre el tupper </AnadirTupper>
             <Row className="justify-content-center">
                 <Col md={10}>
-                        <Row className="p-1"style={{ backgroundColor: "#E6F8F7", postition: "relative" }}>
+                        <Row className="p-1"style={{ backgroundColor: "#E6F8F7", postition: "relative", borderRadius:"20px" }}>
                             <Chip>
                                 <FotoUser src={tuper.fotoUsuario !== null ? tuper.fotoUsuario : imagen} width="96" height="96" />
                                 <span>{tuper.nombreUsuario}</span>
@@ -197,7 +199,7 @@ export default (props) => {
                                         <Imagen  imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
 
                                     </Col>
-                                    <Col md={6} style={{ backgroundColor: "#E6F8F7" }}>
+                                    <Col md={6} style={{ backgroundColor: "#E6F8F7",borderRadius:"0 20px 0 0" }}>
                                         <Nombre>{tuper.titulo}</Nombre>
 
                                         <Descripcion>{tuper.desc} </Descripcion>
@@ -209,7 +211,7 @@ export default (props) => {
                         </Row>
                         <Row className="mt-2" >
 
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px" }}>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px" ,borderRadius:"0 0 0 20px" }}>
                                 <Ingredientes>
                                 <NombreIng>APTO PARA:</NombreIng> 
                                     <ul>
@@ -222,7 +224,7 @@ export default (props) => {
                                 </Ingredientes>
                             
                                 </Col>
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px"}}>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px",borderRadius:"0 0 20px 0"}}>
                                 <Ingredientes>
                                 <NombreIng>INGREDIENTES:</NombreIng> 
                                     <ul>

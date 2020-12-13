@@ -4,6 +4,8 @@ background-color: #E6F8F7;
 margin-top: 10px;
 padding: 30px; 
 font-family: Londrina Solid ;
+border-radius:20px;
+
 
 }
 
@@ -12,7 +14,16 @@ font-family: Londrina Solid ;
     height: 300px;
     background-color: #E6F8F7;
     font-family: Londrina Solid;
-    
+    border-radius:0 20px 0 0;
+
+}
+.fondoIngredientes{
+    width: 100%;
+    height: 300px;
+    background-color: #E6F8F7;
+    font-family: Londrina Solid;
+    border-radius:0 0 20px 20px;
+
 }
 .tituloSubirTupper {
     font-size: 30px;
@@ -26,6 +37,7 @@ font-family: Londrina Solid ;
 
 .filtros {
     background-color: #E6F8F7;
+    border-radius:20px;
 }
 
 .fototupper {

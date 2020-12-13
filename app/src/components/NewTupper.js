@@ -15,6 +15,7 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
+    border-radius:20px 0 0 0;
 
    
 `;
@@ -156,7 +157,7 @@ const SubirTupper = (props) => {
                                  </Col>
                             </Row>
                             <Row>
-                            <Col className="fondoNewTupper">
+                            <Col className="fondoIngredientes">
                             <NombreIng for="exampleText" sm={2} >Ingredientes</NombreIng>
                                     <FormGroup check >
                                         <Label check>
