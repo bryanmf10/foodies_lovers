@@ -1,12 +1,16 @@
 import { Container, Row, Col, Button } from "reactstrap";
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
+import icono from './Profile/images/icono.png';
 import imagen from './Profile/images/images.jpg';
-import Modal from './ModalTupers';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 
+import Modal from './ModalTupers';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import Leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import TuperController from "../controller/TuperController";
+import Context from "../context/Context";
+import PacmanLoader from "react-spinners/PacmanLoader"; 
 const Chip = styled.div`
     display: inline-block;
     padding: 0 25px;
@@ -39,13 +43,13 @@ const FotoUser = styled.img`
     border: solid 1px #EE5D6E;
 `;
 
-const Cabecera = styled.div`
+// const Cabecera = styled.div`
    
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    background-color: #E6F8F7;
-`;
+//     padding: 10px;
+//     display: flex;
+//     justify-content: space-between;
+//     background-color: #E6F8F7;
+// `;
 const TituloSubirTupper = styled.h2`
     font-size: 30px;
     text-align: center;
@@ -59,10 +63,10 @@ const AnadirTupper = styled.h3`
   color:#EE5D6E;
   text-align: center;
 `;
-const Titulo = styled.h4`
-font-size: 15px;
-font-family: Londrina Solid;
-`;
+// const Titulo = styled.h4`
+// font-size: 15px;
+// font-family: Londrina Solid;
+// `;
 const Nombre = styled.h4`
 font-size: 20px;
 font-family: Londrina Solid ;
@@ -83,33 +87,72 @@ margin:10px;
 `;
 
 
-export default () => {
 
+export default (props) => {
+    
+    const [tuper, setTuper] = useState({});
+    const [loading, setLoading] = useState(true);
     const [modal, setModal] = useState(false);
     const toggle = () => {
         setModal(!modal)
     }
-    const styles = {
-        wrapper: {
-            height: 10,
-            width: '75%',
-            margin: '0 auto',
-            display: 'flex'
-        },
-        map: {
-            flex: 1
-        }
-    }
+    const context = useContext(Context);
+    
+    useEffect(()=> {
+        let { id } = props.match.params;
+        TuperController.getOne(id,context.token)
+        .then(data => {
+            if(data.ok) {
+                let tap = (data.resp);
+                let obj = {
+                    titulo: tap.titulo,
+                    desc: tap.descripcion,
+                    url: tap.urlFoto,
+                    lat: tap.latitud,
+                    lon: tap.longitud,
+                    valor: tap.valor_tamano,
+                    nombreUsuario: tap.usuario.email.split('@')[0],
+                    fotoUsuario: tap.usuario.fotoURL,
+                    ingredientes: tap.ingredientes.split(", ")
+                }
+                setTuper(obj);
+            }
+        })
+        .then(() => setLoading(false))
+        .catch(err => console.log(err));
+    }, [])
 
+    if(loading){
+        return(
+            <Container fluid className="mt-5 justify-content-center d-flex pt-5">
+                <Col sm={9}>
+                <PacmanLoader
+                        size={75}
+                        color={"#ff0080"}
+                        />
+                </Col>
+            </Container>        
+        );
+    }
+    let DefaultIcon = Leaflet.icon({
+        iconUrl: icono,
+        iconSize: [40, 40]
+      });
+    
+      Leaflet.Marker.prototype.options.icon = DefaultIcon;
     const Mapa = () => {
+        let posicion = [tuper.lat, tuper.lon];
         return (
-            <MapContainer style={{ height: '70vh' }} center={[41.392264, 2.202652]} zoom={10} scrollWheelZoom={true}>
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap"</a> contributors'
-                    url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
-                    id="mapbox/light-v10"
-                />
-            </MapContainer>
+        <MapContainer style={{ height: '75vh' }} center={posicion} zoom={16} scrollWheelZoom={true}>
+        <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
+            id="mapbox/light-v10"
+        />
+        <Marker position={posicion}>
+            
+        </Marker>                    
+        </MapContainer>
         )
     }
 
@@ -122,8 +165,8 @@ export default () => {
                 <Col md={10}>
                         <Row className="p-1"style={{ backgroundColor: "#E6F8F7", postition: "relative" }}>
                             <Chip>
-                                <FotoUser src={imagen} width="96" height="96" />
-                                <span>Julio Carpa Por Si Llueve</span>
+                                <FotoUser src={tuper.fotoUsuario !== null ? tuper.fotoUsuario : imagen} width="96" height="96" />
+                                <span>{tuper.nombreUsuario}</span>
                             </Chip>
                             <Button onClick={toggle} style={{ position: 'absolute', top: 0, right: "10px", backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center", height: "50px" }}>Ofrecer tupper</Button>
                         </Row>
@@ -134,7 +177,7 @@ export default () => {
                                 <Row >
 
                                     <Col sm={6} >
-                                        <Imagen imagSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRbSLn5hADjA9nhV-6E6akJEj8EcyuyQbvGg&usqp=CAU" ></Imagen>
+                                        <Imagen  imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
 
                                     </Col>
                                     <Col md={6} style={{ backgroundColor: "#E6F8F7" }}>
@@ -156,10 +199,12 @@ export default () => {
 
                                     <Nombre>INGREDIENTES</Nombre>
                                     <ul>
-                                        <li>limon</li>
-                                        <li>lechuga</li>
-                                        <li>tomate cherri</li>
-                                    </ul>
+                                {
+                                    tuper.ingredientes.map((el) => {
+                                        return <li key={el}>{el}</li>;
+                                    })
+                                }
+                                </ul>
 
                                 </Ingredientes>
                         </Row>
