@@ -1,4 +1,4 @@
-import { Container, Row, Input, FormGroup, Col, Form, Label, CustomInput, Button } from "reactstrap";
+import { Container, Row, Input, FormGroup, Col, Form, Label, CustomInput, Button} from "reactstrap";
 import React, { useState, useContext } from "react";
 import './NewTupper.css';
 import { geolocated } from "react-geolocated";
@@ -15,6 +15,7 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
+    border-radius:20px 0 0 0;
 
    
 `;
@@ -31,7 +32,14 @@ const AnadirTupper=styled.h3`
   color:#EE5D6E;
   text-align: center;
 `;
+const NombreIng = styled.h4`
+font-size: 20px;
+font-family: Londrina Solid ;
+font-weight: bold;
+margin-top:10px;
+justify-content:flex-center;
 
+`;
 
 
 const SubirTupper = (props) => {
@@ -93,15 +101,16 @@ const SubirTupper = (props) => {
                      <TituloSubirTupper>NEW TUPPER</TituloSubirTupper>
                          <AnadirTupper>¿Qué te apetece subir hoy?
                          <FormGroup className="image-upload mt-1">
-                                    <Label for="file-input">
-                                       <i className="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>
+                                    <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
+                                        
+                                       <i className="fa fa-camera-retro fa-2x " aria-hidden="true" ></i>
                                     </Label>
                                         <Input id="file-input" type="file"  name="customFile" onChange={(e) => setSelectedFile(e.target.files[0])} />
                             </FormGroup>
                          </AnadirTupper>     
-                    <Row className="justify-content-center ">
+                    <Row className="justify-content-center">
                         <Col sm={12} md={6}>
-                            <Row className="cuerpoNewTupper"> </Row>
+
                             <Row className="mt-2 ">
                                 <Col sm={6} >
                                     <Row className="justify-content-center">
@@ -148,8 +157,8 @@ const SubirTupper = (props) => {
                                  </Col>
                             </Row>
                             <Row>
-                            <Col className="fondoNewTupper">
-                            <Label for="exampleText" sm={2} >Ingredientes</Label>
+                            <Col className="fondoIngredientes">
+                            <NombreIng for="exampleText" sm={2} >Ingredientes</NombreIng>
                                     <FormGroup check >
                                         <Label check>
                                             <Input type="checkbox" value="Huevos" onChange={(event) => { añadeIngrediente(event.target.value) }} /> Huevos

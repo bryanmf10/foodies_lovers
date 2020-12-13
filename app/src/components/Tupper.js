@@ -31,6 +31,8 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
+    border-radius:20px 20px 0 0;
+
 `;
 
 const Box = styled.div`
@@ -55,6 +57,7 @@ const Info = styled.div`
     background-color: #E6F8F7;
     width: 90%;
     margin-bottom: 15px;
+    border-radius: 0 0 20px 20px;
 `;
 
 const Description = styled.div`
@@ -64,6 +67,7 @@ const Description = styled.div`
     font-weight: bold;
     overflow: visible; 
     height: 80px;
+    
 `;
 
 const Usuario = styled.div`
@@ -174,7 +178,7 @@ const Tupper = () => {
             <Row className="filtros">
                 <Col className="col-md-3 col-sm-12 col-12 text-center p-3" style={{ display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
                     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                        <DropdownToggle caret style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" }}>
+                        <DropdownToggle caret style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" ,borderRadius:"5px"}}>
                             Alimentación
                         </DropdownToggle>
                         <DropdownMenu className="p-2">
@@ -246,7 +250,7 @@ const Tupper = () => {
             <Row>
                 <Tupperparati>Tuppers para ti:</Tupperparati>
             </Row>
-            <Row style={{ paddingTop: "30px" }} className="w-100">
+            <Row style={{ paddingTop: "10px" }} className="w-100">
                 {tuppers}
             </Row>
         </Container >

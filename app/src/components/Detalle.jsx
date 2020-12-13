@@ -11,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 import TuperController from "../controller/TuperController";
 import Context from "../context/Context";
 import PacmanLoader from "react-spinners/PacmanLoader"; 
+
 const Chip = styled.div`
     display: inline-block;
     padding: 0 25px;
@@ -18,21 +19,18 @@ const Chip = styled.div`
     font-size: 16px;
     line-height: 50px;
     border-radius: 25px;
-    background-color: black;
+    background-color: #EE5D6E ;
     color: white;
 `;
 
-const ContenedorImagen = styled.div`
-    height: 50%;
+const Imagen = styled.div`
     width: 100%;
-`;
-
-const Imagen = styled.img`
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 20px;
-    border: 3px pink solid;
+    height: 200px;
+    display: flex;
+    background-image: url(${props => props.imagSrc});
+    background-size: cover;
+    background-position: center;
+    border-radius:20px 0 0 0;
 `;
 
 const FotoUser = styled.img`
@@ -40,20 +38,74 @@ const FotoUser = styled.img`
     margin: 0 10px 0 -25px;
     height: 50px;
     width: 50px;
-    border-radius: 50%;
-`;
-const Contenedor = styled.div`
-    background-color: #E6F8F7;
-    border-radius: 30px;
+    border-radius: 50% ;
+    border: solid 1px #EE5D6E;
 `;
 
-const Cabecera = styled.div`
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
+
+const TituloSubirTupper = styled.h2`
+    font-size: 30px;
+    text-align: center;
+    font-family: Londrina Solid;
 `;
+
+
+const AnadirTupper = styled.h3`
+  font-family: Londrina Solid;
+  font-size: 20px;
+  color:#EE5D6E;
+  text-align: center;
+`;
+// const Titulo = styled.h4`
+// font-size: 15px;
+// font-family: Londrina Solid;
+// `;
+const Nombre = styled.h4`
+font-size: 20px;
+font-family: Londrina Solid ;
+font-weight: bold;
+text-align:center;
+margin-top:10px;
+`;
+const NombreIng = styled.h4`
+font-size: 20px;
+font-family: Londrina Solid ;
+font-weight: bold;
+margin-top:10px;
+justify-content:flex-center;
+
+`;
+const Descripcion = styled.h4`
+font-size: 17px;
+font-family: Londrina Solid ;
+text-align:justify;
+
+
+
+`;
+const Precio = styled.h4`
+font-size: 17px;
+font-family: Londrina Solid ;
+margin-top:30px;
+`;
+const Ingredientes = styled.h4`
+font-size: 17px;
+font-family: Londrina Solid ;
+margin:10px;
+margin-left:20px;
+
+
+`;
+
+const FechaTuper=styled.h4`
+font-size: 15px;
+font-family: Londrina Solid ;
+color:#EE5D6E;
+
+
+`;
+
+
 
 export default (props) => {
     
@@ -102,7 +154,7 @@ export default (props) => {
                 <Col sm={9}>
                 <PacmanLoader
                         size={75}
-                        color={"#ff0080"}
+                        color={"#EE5D6E"}
                         />
                 </Col>
             </Container>        
@@ -112,69 +164,100 @@ export default (props) => {
     const Mapa = () => {
         let posicion = [tuper.lat, tuper.lon];
         return (
-                <MapContainer style={{ height: '75vh' }} center={posicion} zoom={16} scrollWheelZoom={true}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
-                        id="mapbox/light-v10"
-                    />
-                    <Marker position={posicion}></Marker>                    
-                </MapContainer>
-          )
+        <MapContainer style={{ height: '64vh', borderRadius:"20px"}} center={posicion} zoom={16} scrollWheelZoom={true}>
+        <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
+            id="mapbox/light-v10"
+        />
+        <Marker position={posicion}>
+            
+        </Marker>                    
+        </MapContainer>
+        )
     }
 
     return (
-        <Container >
-            <div style={{ height: '50px' }}>
-            </div>
-            <br />
-            <Contenedor>
-                <Cabecera>
-                    <Chip>
-                        <FotoUser src={tuper.fotoUsuario !== null ? tuper.fotoUsuario : imagen} width="96" height="96" />
-                        <span>{tuper.nombreUsuario}</span>
-                    </Chip>
-                    <Button onClick={toggle} style={{ backgroundColor: '#EE5D6E', border: 'none', borderRadius: "5px 20px 5px 5px", color: "#E6F8F7" }}>Ofrecer tupper</Button>
-                </Cabecera>
-                <Row>
-                    <Col sm='12' lg='6' className="order-2 order-lg-1">
-                        <div style={{ padding: '10px' }}>
-                            <ContenedorImagen>
-                                <Imagen src={TuperController.getUrlFoto(tuper.url)} />
-                            </ContenedorImagen>
-                            <hr />
-                            <div>
-                                <h3>INTOLERANCIAS</h3>
-                                <div>
-                                    <i className="fas fa-circle"></i>
-                                    <i className="fas fa-circle"></i>
-                                    <i className="fas fa-circle"></i>
-                                </div>
-                                <h3>INGREDIENTES</h3>
-                                <ul>
+        <Container fuid >
+            <TituloSubirTupper><i class="fa fa-info-circle" aria-hidden="true"></i>
+                          DETALLE TUPPER </TituloSubirTupper>
+            <AnadirTupper>Todo sobre el tupper </AnadirTupper>
+            <Row className="justify-content-center">
+                <Col md={10}>
+                        <Row className="p-1"style={{ backgroundColor: "#E6F8F7", postition: "relative", borderRadius:"20px" }}>
+                            <Chip>
+                                <FotoUser src={tuper.fotoUsuario !== null ? tuper.fotoUsuario : imagen} width="96" height="96" />
+                                <span>{tuper.nombreUsuario}</span>
+                            </Chip>
+                            <Button onClick={toggle} style={{ position: 'absolute', top: 0, right: "10px", backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center", height: "50px" }}>Ofrecer tupper</Button>
+                        </Row>
+
+                        <Row>
+                            <Col md={6} className="order-2 order-lg-1 mt-2">
+
+                                <Row >
+
+                                    <Col md={6} >
+                                        <Imagen  imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
+
+                                    </Col>
+                                    <Col md={6} style={{ backgroundColor: "#E6F8F7",borderRadius:"0 20px 0 0" }}>
+                                        <Nombre>{tuper.titulo}</Nombre>
+
+                                        <Descripcion>{tuper.desc} </Descripcion>
+
+                                       
+                                        <Precio>{tuper.valor}TOK</Precio>
+                                    </Col>
+
+                        </Row>
+                        <Row className="mt-2" >
+
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px" ,borderRadius:"0 0 0 20px" }}>
+                                <Ingredientes>
+                                <NombreIng>APTO PARA:</NombreIng> 
+                                    <ul>
+                                    veganos
+                                    </ul>
+                                    <ul>
+                                   Sin lactosa
+                                    </ul>
+
+                                </Ingredientes>
+                            
+                                </Col>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px",borderRadius:"0 0 20px 0"}}>
+                                <Ingredientes>
+                                <NombreIng>INGREDIENTES:</NombreIng> 
+                                    <ul>
                                 {
                                     tuper.ingredientes.map((el) => {
                                         return <li key={el}>{el}</li>;
                                     })
                                 }
                                 </ul>
-                            </div>
-                        </div>
+
+                                </Ingredientes>
+                                </Col>
+                                <FechaTuper>Este tupper se creo el 02/02/1990</FechaTuper>
+                        </Row>
+
+
                     </Col>
-                    <Col sm='12' lg='6' className="order-1 order-lg-2">
-                        <div style={{ padding: '10px' }}>
-                            <ContenedorImagen >
-                                <Mapa />
-                            </ContenedorImagen>
-                            <hr />
-                            <div>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur quo, corrupti praesentium iure odit in veritatis incidunt aperiam atque ea at culpa hic nostrum sint reprehenderit optio sapiente impedit vero.</p>
-                            </div>
-                        </div>
+                        <Col md={6} className="order-1 order-lg-2 mt-2 mb-3">
+                            <Mapa />
+                        </Col>
+                    </Row>
+                    
+                       
                     </Col>
-                </Row>
-            </Contenedor>
-            {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} />}
-        </Container>
+                
+            </Row>
+
+
+
+
+                {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} />}
+        </Container >
     );
 }

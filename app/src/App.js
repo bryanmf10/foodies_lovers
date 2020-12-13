@@ -37,6 +37,7 @@ import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
+import Logo from './img/logo.png';
 
 
 //import ContenedorContexto from "./context/ContenedorContexto";
