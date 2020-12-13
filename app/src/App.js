@@ -5,8 +5,6 @@ import {
   Container,
   Collapse,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
   UncontrolledDropdown,
   DropdownToggle,
@@ -20,31 +18,28 @@ import {
   Switch,
   Route,
   NavLink,
-  Link,
-  useParams
+  Link
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
 import Tupper from "./components/Tupper";
 import NotFound from "./components/P404";
 import MisTuppers from "./components/Profile/MisTuppers";
+import Editar from "./components/Profile/Editar";
 import SolEntrantes from "./components/Profile/SolEntrantes";
 import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 import NewTupper from "./components/NewTupper";
+import ModTupper from "./components/ModTuper";
 import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
-import Logo from './img/logo.png';
-
-
-//import ContenedorContexto from "./context/ContenedorContexto";
 import TokenController from "./controller/TokenController";
-
 import ContainerLogin from "./components/ContainerLogin";
 import Logout from "./components/Logout";
+import Logo from './img/logo.png'
 
 const FotoPerfilNav = styled.div`
   border-radius: 50%;
@@ -90,16 +85,15 @@ const App = (props) => {
       return(
         <Container fluid>
           <Navbar className="fixed-top p-0 navbarBgColor" light expand="md">
-          <NavbarBrand className="ml-3 tuptok">  <Link to="/">
-          <div style={{display: 'flex', height: '25px', width: '100px'}} >
-                  <img style={{ height: '100%', width: '100%', objectFit: 'cover' }} src={Logo} alt='' />
-                </div>
-          
-            </Link></NavbarBrand>
+            <Link to="/">
+              <div className="ml-3 tuptok" style={{height: "25px", width: "100px", display: "flex", marginRight: "20px"}}>  
+                <img style={{height: "100%", width: "100%", objectFit: "fill"}} src={Logo} ></img>
+              </div>
+            </Link>
             <NavLink to="/NewTupper">
                 <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: "#E6F8F7" }} ></i>
               </NavLink>
-              <Collapse isOpen={isOpen} navbar>
+              <Collapse navbar>
               <Nav className="ml-auto" navbar >
                 <MDBCol className= "d-flex align-items-center">
                   <Input className="form-control" type="text" placeholder="Search" aria-label="Search" />
@@ -109,7 +103,7 @@ const App = (props) => {
                   <DropdownMenu>
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem> Editar </DropdownItem>
+                    <DropdownItem><Link to="/perfil/editar">Editar</Link> </DropdownItem>
                     <DropdownItem><Link to="/logout">Cerrar sesión</Link></DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -120,7 +114,9 @@ const App = (props) => {
           <Switch>
             <Route exact path="/" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
+            <Route exact path="/modTuper/:id" component={ModTupper} />
             <Route exact path="/perfil" component={MisTuppers} />
+            <Route exact path="/perfil/editar" component={Editar} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />

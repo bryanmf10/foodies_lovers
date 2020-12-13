@@ -22,6 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import TuperController from '../controller/TuperController';
 import './NewTupper.css';
+import TokenController from "../controller/TokenController";
 
 const Foto = styled.div`
     width: 90%;
@@ -57,6 +58,7 @@ const Info = styled.div`
     width: 90%;
     margin-bottom: 15px;
     border-radius: 0 0 20px 20px;
+    padding: 20px;
 `;
 
 const Description = styled.div`
@@ -113,16 +115,17 @@ const Tupper = () => {
     //------------------------------------
 
     useEffect(() => {
+        let idUsuario = TokenController.getIdUser(context.token);
         TuperController.getAll(context.token)
             .then(data => {
                 if (data.ok === false) {
                     setListaTupers([]);
                 } else {
-                    data.resp.map((el)=>{
+                    let tupers = data.resp.filter((el) => el.usuarios_id_usuarios !== idUsuario).map((el)=>{
                         el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
                         return el;
                     })
-                    setListaTupers(data.resp);
+                    setListaTupers(tupers);
                 }
             })
             .catch(err => console.log(err));
@@ -150,7 +153,7 @@ const Tupper = () => {
                     {el.titulo}
                 </Title>
                 <Usuario >
-                    <span>{el.usuario.email.split('@')[0]}</span>
+                    <Link style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</Link>
                     <StarFixed valor={el.rating} />
                 </Usuario>
                 <Description>
@@ -159,10 +162,10 @@ const Tupper = () => {
                <Separador/>
                 <Botones>
                     <Link to={"/detalle/"+el.id}>
-                        <i class="fa fa-info-circle fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                        <i className="fa fa-eye fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
                     </Link>
                     <Divider />
-                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                    <i className="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
                 </Botones>
             </Info>
         </Box>

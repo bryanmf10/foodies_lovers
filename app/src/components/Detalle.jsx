@@ -10,7 +10,7 @@ import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import TuperController from "../controller/TuperController";
 import Context from "../context/Context";
-import PacmanLoader from "react-spinners/PacmanLoader"; 
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Chip = styled.div`
     display: inline-block;
@@ -31,6 +31,12 @@ const Imagen = styled.div`
     background-size: cover;
     background-position: center;
     border-radius:20px 0 0 0;
+`;
+
+const Foto = styled.img`
+height: 100%;
+width: 100%;
+object-fit: cover;
 `;
 
 const FotoUser = styled.img`
@@ -97,17 +103,34 @@ margin-left:20px;
 
 `;
 
-const FechaTuper=styled.h4`
+const FechaTuper = styled.h4`
 font-size: 15px;
 font-family: Londrina Solid ;
 color:#EE5D6E;
 
 
 `;
+const ofrecerTupperButton = {
+    backgroundColor: '#EE5D6E',
+    border: "none",
+    color: "#E6F8F7",
+    fontFamily: "Londrina Solid",
+    textAlign: "center",
+    height: "50px",
+    borderRadius: "30px"
+}
+
+const ofrecerTupperRow = {
+    backgroundColor: "#E6F8F7",
+    postition: "relative",
+    borderRadius: "30px",
+    display: "flex",
+    justifyContent: "space-between"
+}
 
 
 
-export default (props) => {
+const Detalle = (props) => {
     
     const [tuper, setTuper] = useState({});
     const [loading, setLoading] = useState(true);
@@ -116,62 +139,66 @@ export default (props) => {
         setModal(!modal)
     }
     const context = useContext(Context);
-    
-    useEffect(()=> {
-        let { id } = props.match.params;
-        TuperController.getOne(id,context.token)
-        .then(data => {
-            if(data.ok) {
-                let tap = (data.resp);
-                let obj = {
-                    titulo: tap.titulo,
-                    desc: tap.descripcion,
-                    url: tap.urlFoto,
-                    lat: tap.latitud,
-                    lon: tap.longitud,
-                    valor: tap.valor_tamano,
-                    nombreUsuario: tap.usuario.email.split('@')[0],
-                    fotoUsuario: tap.usuario.fotoURL,
-                    ingredientes: tap.ingredientes.split(", ")
-                }
-                setTuper(obj);
-            }
-        })
-        .then(() => setLoading(false))
-        .catch(err => console.log(err));
-    }, [])
 
-    if(loading){
-        return(
-            <Container fluid className="mt-5 justify-content-center d-flex pt-5">
-                <Col sm={9}>
-                <PacmanLoader
-                        size={75}
-                        color={"#EE5D6E"}
-                        />
-                </Col>
-            </Container>        
-        );
-    }
-    let DefaultIcon = Leaflet.icon({
+    const DefaultIcon = Leaflet.icon({
         iconUrl: icono,
         iconSize: [40, 40]
-      });
+    });
+
+    Leaflet.Marker.prototype.options.icon = DefaultIcon;
+
+    useEffect(() => {
+        let { id } = props.match.params;
+        TuperController.getOne(id, context.token)
+            .then(data => {
+                if (data.ok) {
+                    let tap = (data.resp);
+                    let obj = {
+                        titulo: tap.titulo,
+                        desc: tap.descripcion,
+                        url: tap.urlFoto,
+                        lat: tap.latitud,
+                        lon: tap.longitud,
+                        valor: tap.valor_tamano,
+                        nombreUsuario: tap.usuario.email.split('@')[0],
+                        fotoUsuario: tap.usuario.fotoURL,
+                        ingredientes: tap.ingredientes.split(", "),
+                        fecha: tap.cooking_date
+                    }
+                    setTuper(obj);
+                }
+            })
+            .then(() => setLoading(false))
+            .catch(err => console.log(err));
+    }, [])
     
-      Leaflet.Marker.prototype.options.icon = DefaultIcon;
+
+    if (loading) {
+        return (
+            <Container fluid className="mt-5 justify-content-center d-flex pt-5">
+                <Col sm={9}>
+                    <PacmanLoader
+                        size={75}
+                        color={"#EE5D6E"}
+                    />
+                </Col>
+            </Container>
+        );
+    }
+
     const Mapa = () => {
         let posicion = [tuper.lat, tuper.lon];
         return (
-        <MapContainer style={{ height: '64vh', borderRadius:"20px"}} center={posicion} zoom={16} scrollWheelZoom={true}>
-        <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
-            id="mapbox/light-v10"
-        />
-        <Marker position={posicion}>
-            
-        </Marker>                    
-        </MapContainer>
+            <MapContainer style={{ height: '100%', borderRadius: "20px" }} center={posicion} zoom={16} scrollWheelZoom={true}>
+                <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
+                    id="mapbox/light-v10"
+                />
+                <Marker position={posicion}>
+
+                </Marker>
+            </MapContainer>
         )
     }
 
@@ -182,80 +209,78 @@ export default (props) => {
             <AnadirTupper>Todo sobre el tupper </AnadirTupper>
             <Row className="justify-content-center">
                 <Col md={10}>
-                        <Row className="p-1"style={{ backgroundColor: "#E6F8F7", postition: "relative", borderRadius:"20px" }}>
-                            <Chip>
-                                <FotoUser src={tuper.fotoUsuario !== null ? tuper.fotoUsuario : imagen} width="96" height="96" />
-                                <span>{tuper.nombreUsuario}</span>
-                            </Chip>
-                            <Button onClick={toggle} style={{ position: 'absolute', top: 0, right: "10px", backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center", height: "50px" }}>Ofrecer tupper</Button>
-                        </Row>
+                    <Row className="p-1" style={ofrecerTupperRow}>
+                        <Chip>
+                            <FotoUser src={tuper.fotoUsuario !== null ? tuper.fotoUsuario : imagen} width="96" height="96" />
+                            <span>{tuper.nombreUsuario}</span>
+                        </Chip>
+                        <Button onClick={toggle} style={ofrecerTupperButton}>Ofrecer tupper</Button>
+                    </Row>
 
-                        <Row>
-                            <Col md={6} className="order-2 order-lg-1 mt-2">
+                    <Row>
+                        <Col md={6} className="order-2 order-lg-1 mt-2 mb-3 mh-100 h-100">
 
-                                <Row >
+                            <Row >
 
-                                    <Col md={6} >
-                                        <Imagen  imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "20px 0 0 0" }} >
+                                    <Imagen imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
 
-                                    </Col>
-                                    <Col md={6} style={{ backgroundColor: "#E6F8F7",borderRadius:"0 20px 0 0" }}>
-                                        <Nombre>{tuper.titulo}</Nombre>
-
-                                        <Descripcion>{tuper.desc} </Descripcion>
-
-                                       
-                                        <Precio>{tuper.valor}TOK</Precio>
-                                    </Col>
-
-                        </Row>
-                        <Row className="mt-2" >
-
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px" ,borderRadius:"0 0 0 20px" }}>
-                                <Ingredientes>
-                                <NombreIng>APTO PARA:</NombreIng> 
-                                    <ul>
-                                    veganos
-                                    </ul>
-                                    <ul>
-                                   Sin lactosa
-                                    </ul>
-
-                                </Ingredientes>
-                            
                                 </Col>
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px",borderRadius:"0 0 20px 0"}}>
-                                <Ingredientes>
-                                <NombreIng>INGREDIENTES:</NombreIng> 
-                                    <ul>
-                                {
-                                    tuper.ingredientes.map((el) => {
-                                        return <li key={el}>{el}</li>;
-                                    })
-                                }
-                                </ul>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 20px 0 0" }}>
+                                    <Nombre>{tuper.titulo}</Nombre>
 
-                                </Ingredientes>
+                                    <Descripcion>{tuper.desc} </Descripcion>
+
+
+                                    <Precio>{tuper.valor}TOK</Precio>
                                 </Col>
-                                <FechaTuper>Este tupper se creo el 02/02/1990</FechaTuper>
-                        </Row>
+
+                            </Row>
+                            <Row className="mt-2" >
+
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px", borderRadius: "0 0 0 20px" }}>
+                                    <Ingredientes>
+                                        <NombreIng>APTO PARA:</NombreIng>
+                                        <ul>
+                                            veganos
+                                    </ul>
+                                        <ul>
+                                            Sin lactosa
+                                    </ul>
+
+                                    </Ingredientes>
+
+                                </Col>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px", borderRadius: "0 0 20px 0" }}>
+                                    <Ingredientes>
+                                        <NombreIng>INGREDIENTES:</NombreIng>
+                                        <ul>
+                                            {
+                                                tuper.ingredientes.map((el) => {
+                                                    return <li key={el}>{el}</li>;
+                                                })
+                                            }
+                                        </ul>
+
+                                    </Ingredientes>
+                                    <FechaTuper>Este tupper se creo el {tuper.fecha}</FechaTuper>
+                                </Col>
+                                
+                            </Row>
 
 
-                    </Col>
+                        </Col>
                         <Col md={6} className="order-1 order-lg-2 mt-2 mb-3">
                             <Mapa />
                         </Col>
                     </Row>
-                    
-                       
-                    </Col>
-                
+
+
+                </Col>
+
             </Row>
-
-
-
-
-                {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} />}
+                {modal && <Modal modal={modal} setModal={setModal} pago={tuper.valor} tuperI={props.match.params.id} />}
         </Container >
     );
 }
+export default Detalle;

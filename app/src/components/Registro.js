@@ -42,7 +42,7 @@ const Registro = (props) => {
   return (
     <Form onSubmit={(event) => handleSubmit(event)}>
       <Tuptok> 
-      <i class="fa fa-plus" aria-hidden="true"></i>
+      <i className="fa fa-plus" aria-hidden="true"></i>
          TUPTOK REGISTRO</Tuptok>
          <AnadirUsuario>¿No tienes cuenta?</AnadirUsuario>
       <FormGroup className="col-12 cuerpoRegistro" >
