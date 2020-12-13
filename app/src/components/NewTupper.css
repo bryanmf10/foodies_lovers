@@ -79,12 +79,16 @@ font-family: Londrina Solid ;
 .image-upload img
 {
     width: 30px;
-    cursor: pointer;
+    cursor: hand;
 }
 .camera{
    position: absolute;
    left: 0;
    top: 0;
+   
+}
+.camera:hover{
+    background-color: aqua;
 }
 
 

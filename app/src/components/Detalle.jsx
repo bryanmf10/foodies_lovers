@@ -11,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 import TuperController from "../controller/TuperController";
 import Context from "../context/Context";
 import PacmanLoader from "react-spinners/PacmanLoader"; 
+
 const Chip = styled.div`
     display: inline-block;
     padding: 0 25px;
@@ -22,8 +23,6 @@ const Chip = styled.div`
     color: white;
 `;
 
-
-
 const Imagen = styled.div`
     width: 100%;
     height: 200px;
@@ -31,7 +30,6 @@ const Imagen = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
-
 `;
 
 const FotoUser = styled.img`
@@ -43,13 +41,7 @@ const FotoUser = styled.img`
     border: solid 1px #EE5D6E;
 `;
 
-// const Cabecera = styled.div`
-   
-//     padding: 10px;
-//     display: flex;
-//     justify-content: space-between;
-//     background-color: #E6F8F7;
-// `;
+
 const TituloSubirTupper = styled.h2`
     font-size: 30px;
     text-align: center;
@@ -71,19 +63,44 @@ const Nombre = styled.h4`
 font-size: 20px;
 font-family: Londrina Solid ;
 font-weight: bold;
+text-align:center;
+margin-top:10px;
+`;
+const NombreIng = styled.h4`
+font-size: 20px;
+font-family: Londrina Solid ;
+font-weight: bold;
+margin-top:10px;
+justify-content:flex-center;
+
 `;
 const Descripcion = styled.h4`
 font-size: 17px;
 font-family: Londrina Solid ;
+text-align:justify;
+
+
+
 `;
 const Precio = styled.h4`
 font-size: 17px;
 font-family: Londrina Solid ;
+margin-top:30px;
 `;
-const Ingredientes = styled.p`
+const Ingredientes = styled.h4`
 font-size: 17px;
 font-family: Londrina Solid ;
 margin:10px;
+margin-left:20px;
+
+`;
+
+const FechaTuper=styled.h4`
+font-size: 15px;
+font-family: Londrina Solid ;
+color:#EE5D6E;
+
+
 `;
 
 
@@ -128,7 +145,7 @@ export default (props) => {
                 <Col sm={9}>
                 <PacmanLoader
                         size={75}
-                        color={"#ff0080"}
+                        color={"#EE5D6E"}
                         />
                 </Col>
             </Container>        
@@ -143,7 +160,7 @@ export default (props) => {
     const Mapa = () => {
         let posicion = [tuper.lat, tuper.lon];
         return (
-        <MapContainer style={{ height: '75vh' }} center={posicion} zoom={16} scrollWheelZoom={true}>
+        <MapContainer style={{ height: '64vh' }} center={posicion} zoom={16} scrollWheelZoom={true}>
         <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
@@ -160,7 +177,7 @@ export default (props) => {
         <Container fuid >
             <TituloSubirTupper><i class="fa fa-info-circle" aria-hidden="true"></i>
                           DETALLE TUPPER </TituloSubirTupper>
-            <AnadirTupper>Todo sobre tu tupper </AnadirTupper>
+            <AnadirTupper>Todo sobre el tupper </AnadirTupper>
             <Row className="justify-content-center">
                 <Col md={10}>
                         <Row className="p-1"style={{ backgroundColor: "#E6F8F7", postition: "relative" }}>
@@ -176,28 +193,38 @@ export default (props) => {
 
                                 <Row >
 
-                                    <Col sm={6} >
+                                    <Col md={6} >
                                         <Imagen  imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
 
                                     </Col>
                                     <Col md={6} style={{ backgroundColor: "#E6F8F7" }}>
-                                        <Nombre>croquetas</Nombre>
+                                        <Nombre>{tuper.titulo}</Nombre>
 
-                                        <Descripcion>croquetas de jamon hechas por mi abuela </Descripcion>
+                                        <Descripcion>{tuper.desc} </Descripcion>
 
-                                        <div>
-                                            <i className="fas fa-circle"></i>
-                                            <i className="fas fa-circle"></i>
-                                            <i className="fas fa-circle"></i>
-                                        </div>
-                                        <Precio>3 TOK</Precio>
+                                       
+                                        <Precio>{tuper.valor}TOK</Precio>
                                     </Col>
 
                         </Row>
-                        <Row className="mt-2 " style={{ backgroundColor: "#E6F8F7", height: "240px" }}>
-                                <Ingredientes>
+                        <Row className="mt-2" >
 
-                                    <Nombre>INGREDIENTES</Nombre>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px" }}>
+                                <Ingredientes>
+                                <NombreIng>APTO PARA:</NombreIng> 
+                                    <ul>
+                                    veganos
+                                    </ul>
+                                    <ul>
+                                   Sin lactosa
+                                    </ul>
+
+                                </Ingredientes>
+                            
+                                </Col>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px"}}>
+                                <Ingredientes>
+                                <NombreIng>INGREDIENTES:</NombreIng> 
                                     <ul>
                                 {
                                     tuper.ingredientes.map((el) => {
@@ -207,6 +234,8 @@ export default (props) => {
                                 </ul>
 
                                 </Ingredientes>
+                                </Col>
+                                <FechaTuper>Este tupper se creo el 02/02/1990</FechaTuper>
                         </Row>
 
 
