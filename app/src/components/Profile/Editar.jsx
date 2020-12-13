@@ -1,11 +1,7 @@
-import { Container, Row, Input, FormGroup, Col, Form, Label, Button } from "reactstrap";
-import React, { useState, useContext } from "react";
+import { Container, Row, Input, FormGroup, Col, Label, Button } from "reactstrap";
+import React, { useState } from "react";
 import '../NewTupper.css';
 import styled from 'styled-components';
-import TupperController from '../../controller/TuperController';
-import Context from "../../context/Context";
-import TokenController from "../../controller/TokenController";
-import { Redirect, Link } from "react-router-dom";
 import imagen from './images/images.jpg';
 
 const Foto = styled.div`
@@ -31,36 +27,12 @@ const AnadirTupper = styled.h3`
 `;
 
 const Editar = (props) => {
-    const [nom, setNom] = useState("");
-    const [des, setDes] = useState("");
+    const [tel, setTel] = useState("");
+    const [pass, setPass] = useState("");
     const [selectedFile, setSelectedFile] = useState(false);
-    const [loading, setLoading] = useState(null);
-    const context = useContext(Context);
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     const tuper = new FormData();
-    //     tuper.append("file", selectedFile);
-    //     tuper.append("titulo", nom);
-    //     tuper.append("descripcion", des);
-    //     tuper.append("longitud", props.coords.longitude);
-    //     tuper.append("latitud", props.coords.latitude);
-    //     tuper.append("isSold", 0);
-    //     tuper.append("usuarios_id_usuarios", TokenController.getIdUser(context.token));
-    //     tuper.append("cooking_date", new Date().toISOString().split('T')[0]);
-    //     TupperController.insertOne(tuper, context.token)
-    //         .then(data => setLoading(true))
-    //         .catch(error => console.log(error));
-    // }
-
-
-    // if (loading) {
-    //     return <Redirect to="/" />;
-    // }
 
     return (
         <Container fluid >
-            {/* <Form onSubmit={(event) => handleSubmit(event)} > */}
                 <TituloSubirTupper>Editar</TituloSubirTupper>
                 <AnadirTupper>¿Quieres modificar tu foto de perfíl?
                         <FormGroup className="image-upload mt-1">
@@ -83,13 +55,13 @@ const Editar = (props) => {
                                 <Row>
                                     <FormGroup className="col-12 textoNewTupper" >
                                         <Label for="inputName" >Teléfono</Label>
-                                        <Input type="text" name="text" id="inputName" placeholder="Introduce el teléfono" value={nom} onChange={(event) => setNom(event.target.value)} />
+                                        <Input type="text" name="text" id="inputName" placeholder="Introduce el teléfono" value={tel} onChange={(event) => setTel(event.target.value)} />
                                     </FormGroup>
                                 </Row>
                                 <Row>
                                     <FormGroup className="col-12 textoNewTupper" >
                                         <Label for="inputName" >Password</Label>
-                                        <Input type="text" name="text" id="inputName" placeholder="Introduce el password" value={nom} onChange={(event) => setNom(event.target.value)} />
+                                        <Input type="text" name="text" id="inputName" placeholder="Introduce el password" value={pass} onChange={(event) => setPass(event.target.value)} />
                                     </FormGroup>
                                 </Row>
                             </Col>
@@ -100,7 +72,6 @@ const Editar = (props) => {
                         </Row>
                     </Col>
                 </Row>
-            {/* </Form> */}
         </Container>
     );
 }
