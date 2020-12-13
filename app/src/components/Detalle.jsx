@@ -107,7 +107,7 @@ color:#EE5D6E;
 
 
 
-export default (props) => {
+const Detalle = (props) => {
     
     const [tuper, setTuper] = useState({});
     const [loading, setLoading] = useState(true);
@@ -147,6 +147,7 @@ export default (props) => {
         .then(() => setLoading(false))
         .catch(err => console.log(err));
     }, [])
+    
 
     if(loading){
         return(
@@ -253,11 +254,8 @@ export default (props) => {
                     </Col>
                 
             </Row>
-
-
-
-
-                {modal && <Modal modal={modal} setModal={setModal} buttonLabel={'hola'} />}
+                {modal && <Modal modal={modal} setModal={setModal} pago={tuper.valor} tuperI={props.match.params.id} />}
         </Container >
     );
 }
+export default Detalle;

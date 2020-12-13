@@ -69,13 +69,12 @@ const MisTuppers = () => {
   useEffect(() => {
     let idUsuario = TokenController.getIdUser(context.token);
         if(removeFlag === true) setRemoveFlag(false);
-        TuperController.getAll(context.token)
+        TuperController.getMyTuppers(idUsuario,context.token)
             .then(data => {
                 if (data.ok === false) {
                     setListaTupers([]);
                 } else {
-                  console.log(data);
-                    let tupers = data.resp.filter((el) => el.usuarios_id_usuarios === idUsuario).map((el)=>{
+                    let tupers = data.resp.map((el)=>{
                         el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
                         return el;
                     })

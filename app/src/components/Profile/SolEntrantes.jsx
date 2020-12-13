@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button, Container, Row } from "reactstrap";
 import styled from "styled-components";
 
-import Data from "./data/SolEntrantes.json"
 import Perfil from "./Perfil";
 import StarFixed from "../StarFixed";
 
@@ -88,48 +87,8 @@ const SolEntrantes = () => {
   }, []);
 
 
-  console.log("listaTupers");
-  console.log(listaTupers);
-  // API SECTION (UNCOMMENT TO USE /* */)
-  /*const [listaTupers, setListaTupers] = useState([]);
-
-  useEffect(() => {
-    TuperController.getAll()
-      .then(data => {
-        console.log(data);
-        if (data.ok === false) {
-          setListaTupers([]);
-        } else {
-          setListaTupers(data);
-        }
-      })
-      .catch(err => console.log(err));
-  }, []);
-*/
-  // const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
-  //   // const tuppers = Data.map((el) => (
-  //   <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-  //     <Foto imagSrc={el.urlFoto} />
-  //     <Info>
-  //       <Title>
-  //         {el.titulo}
-  //       </Title>
-  //       <Usuario >
-  //         <StarFixed valor={el.id_ranking} />
-  //         <br />
-  //         <span>{el.user}</span>
-  //       </Usuario>
-  //       <Description>
-  //         {el.descripcion}
-  //       </Description>
-  //       <Botones>
-  //         <Button color="warning">Aceptar</Button>
-  //         <Divider />
-  //         <Button color="danger" onClick={() => hablar(el.id)}>Rechazar</Button>
-  //       </Botones>
-  //     </Info>
-  //   </Box>
-  // ));
+  
+  
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
@@ -155,7 +114,7 @@ const SolEntrantes = () => {
     </Box>
   ));
 
-  const hablar = (e) => {
+  const refreshTupers = (e) => {
     let newArray = [...listaTupers];
     let removeIndex = newArray.map(function (item) { return item.id; }).indexOf(e);
     newArray.splice(removeIndex, 1);

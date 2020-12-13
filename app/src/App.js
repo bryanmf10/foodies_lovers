@@ -5,7 +5,6 @@ import {
   Container,
   Collapse,
   Navbar,
-  NavbarBrand,
   Nav,
   UncontrolledDropdown,
   DropdownToggle,
@@ -19,8 +18,7 @@ import {
   Switch,
   Route,
   NavLink,
-  Link,
-  useParams
+  Link
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
@@ -37,12 +35,7 @@ import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
-import Logo from './img/logo.png';
-
-
-//import ContenedorContexto from "./context/ContenedorContexto";
 import TokenController from "./controller/TokenController";
-
 import ContainerLogin from "./components/ContainerLogin";
 import Logout from "./components/Logout";
 
