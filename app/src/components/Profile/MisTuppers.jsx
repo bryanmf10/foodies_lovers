@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Row, Button } from "reactstrap";
 import styled from "styled-components";
 import TuperController from '../../controller/TuperController';
+import Context from "../../context/Context";
+import TokenController from "../../controller/TokenController";
 
-import Data from "./data/MisTuppers.json"
 import Perfil from "./Perfil"
+import { Link } from "react-router-dom";
 
 const Foto = styled.div`
     width: 90%;
@@ -44,7 +46,7 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow: scroll; 
+    overflow: visible; 
     height: 80px;
 `;
 
@@ -60,26 +62,42 @@ const Botones = styled.div`
 
 const MisTuppers = () => {
 
-  // API SECTION (UNCOMMENT TO USE /* */)
-  /*const [listaTupers, setListaTupers] = useState([]);
+  const [listaTupers, setListaTupers] = useState([]);
+  const [removeFlag, setRemoveFlag] = useState(false);
+  const context = useContext(Context);
 
   useEffect(() => {
-    TuperController.getAll()
-      .then(data => {
-        console.log(data);
-        if (data.ok === false) {
-          setListaTupers([]);
-        } else {
-          setListaTupers(data);
-        }
-      })
-      .catch(err => console.log(err));
-  }, []);
+    let idUsuario = TokenController.getIdUser(context.token);
+        if(removeFlag === true) setRemoveFlag(false);
+        TuperController.getAll(context.token)
+            .then(data => {
+                if (data.ok === false) {
+                    setListaTupers([]);
+                } else {
+                  console.log(data);
+                    let tupers = data.resp.filter((el) => el.usuarios_id_usuarios === idUsuario).map((el)=>{
+                        el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+                        return el;
+                    })
+                    setListaTupers(tupers);
+                }
+            })
+            .catch(err => console.log(err));
+  }, [removeFlag]);
 
-  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
-  const tuppers = Data.map((el) => (
+  const deleteTupper = (idTuper) => {
+    TuperController.removeOne(idTuper, context.token)
+    .then(data => {
+      if(data.ok){
+        setRemoveFlag(true);
+      }
+    })
+    .catch(err => console.log(err))
+  }
+
+  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={el.url} />
+      <Foto imagSrc={el.urlFoto} />
       <Info>
         <Title>
           {el.titulo}
@@ -88,9 +106,9 @@ const MisTuppers = () => {
           {el.descripcion}
         </Description>
         <Botones>
-          <Button color="warning">Editar</Button>
+          <Link to={"/modTuper/"+el.id}><Button color="warning">Editar</Button></Link>
           <Divider />
-          <Button color="danger">Eliminar</Button>
+          <Button color="danger" onClick={()=> deleteTupper(el.id)}>Eliminar</Button>
         </Botones>
       </Info>
     </Box>

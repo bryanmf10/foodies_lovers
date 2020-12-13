@@ -5,7 +5,6 @@ import {
   Container,
   Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   UncontrolledDropdown,
@@ -34,10 +33,12 @@ import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
 import Opiniones from "./components/Profile/Opiniones";
 import NewTupper from "./components/NewTupper";
+import ModTupper from "./components/ModTuper";
 import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
+import Logo from './img/logo.png';
 
 
 //import ContenedorContexto from "./context/ContenedorContexto";
@@ -90,9 +91,11 @@ const App = (props) => {
       return(
         <Container fluid>
           <Navbar className="fixed-top p-0 navbarBgColor" light expand="md">
-          <NavbarBrand className="ml-3 tuptok">  <Link to="/">
-          TUPTOK
-            </Link></NavbarBrand>
+            <Link to="/">
+              <div className="ml-3 tuptok">  
+                TUPTOK
+              </div>
+            </Link>
             <NavLink to="/NewTupper">
                 <i className="fa fa-plus-circle fa-2x" aria-hidden="true" style={{ color: "#E6F8F7" }} ></i>
               </NavLink>
@@ -117,6 +120,7 @@ const App = (props) => {
           <Switch>
             <Route exact path="/" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
+            <Route exact path="/modTuper/:id" component={ModTupper} />
             <Route exact path="/perfil" component={MisTuppers} />
             <Route exact path="/perfil/editar" component={Editar} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />

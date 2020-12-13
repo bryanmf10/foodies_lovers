@@ -22,6 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import TuperController from '../controller/TuperController';
 import './NewTupper.css';
+import TokenController from "../controller/TokenController";
 
 const Foto = styled.div`
     width: 90%;
@@ -30,6 +31,8 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
+    border-radius:20px 20px 0 0;
+
 `;
 
 const Box = styled.div`
@@ -54,6 +57,7 @@ const Info = styled.div`
     background-color: #E6F8F7;
     width: 90%;
     margin-bottom: 15px;
+    border-radius: 0 0 20px 20px;
 `;
 
 const Description = styled.div`
@@ -63,6 +67,7 @@ const Description = styled.div`
     font-weight: bold;
     overflow: visible; 
     height: 80px;
+    
 `;
 
 const Usuario = styled.div`
@@ -109,16 +114,17 @@ const Tupper = () => {
     //------------------------------------
 
     useEffect(() => {
+        let idUsuario = TokenController.getIdUser(context.token);
         TuperController.getAll(context.token)
             .then(data => {
                 if (data.ok === false) {
                     setListaTupers([]);
                 } else {
-                    data.resp.map((el)=>{
+                    let tupers = data.resp.filter((el) => el.usuarios_id_usuarios !== idUsuario).map((el)=>{
                         el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
                         return el;
                     })
-                    setListaTupers(data.resp);
+                    setListaTupers(tupers);
                 }
             })
             .catch(err => console.log(err));
@@ -155,10 +161,10 @@ const Tupper = () => {
                <Separador/>
                 <Botones>
                     <Link to={"/detalle/"+el.id}>
-                        <i class="fa fa-info-circle fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                        <i className="fa fa-info-circle fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
                     </Link>
                     <Divider />
-                    <i class="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                    <i className="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
                 </Botones>
             </Info>
         </Box>
@@ -172,7 +178,7 @@ const Tupper = () => {
             <Row className="filtros">
                 <Col className="col-md-3 col-sm-12 col-12 text-center p-3" style={{ display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
                     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                        <DropdownToggle caret style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" }}>
+                        <DropdownToggle caret style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" ,borderRadius:"5px"}}>
                             Alimentación
                         </DropdownToggle>
                         <DropdownMenu className="p-2">
@@ -244,7 +250,7 @@ const Tupper = () => {
             <Row>
                 <Tupperparati>Tuppers para ti:</Tupperparati>
             </Row>
-            <Row style={{ paddingTop: "30px" }} className="w-100">
+            <Row style={{ paddingTop: "10px" }} className="w-100">
                 {tuppers}
             </Row>
         </Container >
