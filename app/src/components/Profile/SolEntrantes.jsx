@@ -84,6 +84,9 @@ const SolEntrantes = () => {
       .catch(err => console.log(err));
   }, []);
 
+  console.log("listaTupers");
+  console.log(listaTupers);
+
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
       <Foto imagSrc={el.urlFoto} />
@@ -102,13 +105,13 @@ const SolEntrantes = () => {
         <Botones>
           <Button color="warning">Aceptar</Button>
           <Divider />
-          <Button color="danger" onClick={() => hablar(el.id)}>Rechazar</Button>
+          <Button color="danger" onClick={() => descartar(el.id)}>Rechazar</Button>
         </Botones>
       </Info>
     </Box>
   ));
 
-  const hablar = (e) => {
+  const descartar = (e) => {
     let newArray = [...listaTupers];
     let removeIndex = newArray.map(function (item) { return item.id; }).indexOf(e);
     newArray.splice(removeIndex, 1);

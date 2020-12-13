@@ -28,6 +28,7 @@ import { withCookies } from 'react-cookie';
 import Tupper from "./components/Tupper";
 import NotFound from "./components/P404";
 import MisTuppers from "./components/Profile/MisTuppers";
+import Editar from "./components/Profile/Editar";
 import SolEntrantes from "./components/Profile/SolEntrantes";
 import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
@@ -105,7 +106,7 @@ const App = (props) => {
                   <DropdownMenu>
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem> Editar </DropdownItem>
+                    <DropdownItem><Link to="/perfil/editar">Editar</Link> </DropdownItem>
                     <DropdownItem><Link to="/logout">Cerrar sesión</Link></DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -117,6 +118,7 @@ const App = (props) => {
             <Route exact path="/" component={Tupper} />
             <Route exact path="/NewTupper" component={NewTupper} />
             <Route exact path="/perfil" component={MisTuppers} />
+            <Route exact path="/perfil/editar" component={Editar} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />
