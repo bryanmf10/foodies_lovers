@@ -111,7 +111,7 @@ const SubirTupper = (props) => {
                          <FormGroup className="image-upload mt-1">
                                     <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
                                         
-                                       <i className="fa fa-camera-retro fa-2x " aria-hidden="true" ></i>
+                                       <i className="fa fa-camera-retro fa-2x " aria-hidden="true" style={{"cursor": "cell"}}></i>
                                     </Label>
                                         <Input id="file-input" type="file"  name="customFile" onChange={(e) => handleImageChange(e)} />
                             </FormGroup>

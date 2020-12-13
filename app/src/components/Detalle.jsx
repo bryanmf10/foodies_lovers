@@ -179,7 +179,7 @@ const Detalle = (props) => {
                 <Col sm={9}>
                     <PacmanLoader
                         size={75}
-                        color={"#EE5D6E"}
+                        color={"#ff0070"}
                     />
                 </Col>
             </Container>
