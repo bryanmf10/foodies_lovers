@@ -54,7 +54,9 @@ const SubirTupper = (props) => {
     const [valor, setValor] = useState("");
     const [selectedFile, setSelectedFile] = useState(false);
     const [urlFoto, setUrlFoto] = useState("https://www.eluniversal.com.mx/sites/default/files/u15544/las_mejores_comidas_del_mundo_menu_el_universal_0.jpg");
-
+    const [fotoFlag, setFotoFlag] = useState(false);
+    const [ingredientesDisplay, setIngredientesDisplay] = useState(["Tomates", "Perejil", "Huevos", "Patata", "Esmegma"]);
+    const [addIngrediente, setAddIngrediente] = useState("");
     const [loading, setLoading] = useState(null);
     const context = useContext(Context);
 
@@ -83,23 +85,54 @@ const SubirTupper = (props) => {
 
       const handleImageChange = (event) => {
         let file = event.target.files[0];
+        setFotoFlag(true);
         setSelectedFile(file);
         setUrlFoto(URL.createObjectURL(file));
     }
 
     const añadeIngrediente = (ingr) => {
-        let newArray = [...ingredientes];
-        if (newArray.includes(ingr)) {
-            let arrayIndex = newArray.indexOf(ingr);
-            if (arrayIndex !== -1) newArray.splice(arrayIndex, 1);
-        } else if (!newArray.includes(ingr)) {
-            newArray.push(ingr);
+        let newArrayIngredientes = [...ingredientes];
+        let newArrayIngredientesDisplay = [...ingredientesDisplay];
+        if (newArrayIngredientes.includes(ingr)) {
+            let arrayIndex = newArrayIngredientes.indexOf(ingr);
+            if (arrayIndex !== -1) newArrayIngredientes.splice(arrayIndex, 1);
+        } else if (!newArrayIngredientes.includes(ingr)) {
+            newArrayIngredientes.push(ingr);
         }
-        setIngredientes(newArray);
+        if(!newArrayIngredientesDisplay.includes(ingr)) {
+            newArrayIngredientesDisplay.push(ingr);
+            setIngredientesDisplay(newArrayIngredientesDisplay);
+        }
+
+        setIngredientes(newArrayIngredientes);
       }
       
       if(loading){
           return <Redirect to="/" />;
+      }
+      const FotoOrIcon = () => {
+          return fotoFlag ? <Foto imagSrc={urlFoto}></Foto>: 
+            <FormGroup className="image-upload mt-1">
+                                                <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
+                                                    
+                                                <i className="fa fa-camera-retro fa-2x " aria-hidden="true" style={{"cursor": "cell"}}></i>
+                                                </Label>
+                                                    <Input id="file-input" type="file"  name="customFile" onChange={(e) => handleImageChange(e)} />
+                                        </FormGroup>;
+      }
+      
+      const DisplayIngredientes = () => {
+        return (ingredientesDisplay.length === 0 ? null : 
+                ingredientesDisplay.map((el)=>{
+                    return(
+                        <FormGroup key={el+"-id"} check>
+                            <Label check>
+                                <Input type="checkbox" value={el} checked={ingredientes.includes(el)} onChange={(event) => { añadeIngrediente(event.target.value) }} /> {el}
+                            </Label>
+                        </FormGroup>
+                    )
+                })
+            )
       }
 
     return (
@@ -108,21 +141,19 @@ const SubirTupper = (props) => {
                 <Form onSubmit={(event) => handleSubmit(event)} >
                      <TituloSubirTupper>NEW TUPPER</TituloSubirTupper>
                          <AnadirTupper>¿Qué te apetece subir hoy?
-                         <FormGroup className="image-upload mt-1">
-                                    <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
-                                        
-                                       <i className="fa fa-camera-retro fa-2x " aria-hidden="true" ></i>
-                                    </Label>
-                                        <Input id="file-input" type="file"  name="customFile" onChange={(e) => handleImageChange(e)} />
-                            </FormGroup>
+                         
                          </AnadirTupper>     
                     <Row className="justify-content-center">
                         <Col sm={12} md={6}>
 
                             <Row className="mt-2 ">
                                 <Col sm={6} >
-                                    <Row className="justify-content-center">
-                                        <Foto imagSrc={urlFoto}></Foto>
+                                    <Row className="justify-content-center h-100 align-items-center">
+
+                                        
+                                        <FotoOrIcon />
+                                        
+                                        
                                     </Row>
                                 </Col>
                                 <Col sm={6} className="fondoNewTupper ">
@@ -167,35 +198,11 @@ const SubirTupper = (props) => {
                             <Row>
                             <Col className="fondoIngredientes">
                             <NombreIng for="exampleText" sm={2} >Ingredientes</NombreIng>
-                                    <FormGroup check >
-                                        <Label check>
-                                            <Input type="checkbox" value="Huevos" onChange={(event) => { añadeIngrediente(event.target.value) }} /> Huevos
-                                                    </Label>
-                                    </FormGroup>
-                                    <FormGroup check >
-                                        <Label check>
-                                            <Input type="checkbox" value="Patata" onChange={(event) => { añadeIngrediente(event.target.value) }} /> Patata
-                                        </Label>
-                                    </FormGroup>
-                                    <FormGroup check >
-                                        <Label check>
-                                            <Input type="checkbox" value="Chocolate" onChange={(event) => { añadeIngrediente(event.target.value) }} /> chocolate
-                                        </Label>
-                                    </FormGroup>
-                                    <FormGroup check >
-                                        <Label check>
-                                            <Input type="checkbox" value="Pasta" onChange={(event) => { añadeIngrediente(event.target.value) }} /> Pasta
-                                        </Label>
-                                    </FormGroup>
-                                    <FormGroup check >
-                                        <Label check>
-                                            <Input type="checkbox" value="Tomates" onChange={(event) => { añadeIngrediente(event.target.value) }} /> Tomates
-                                                    </Label>
-                                    </FormGroup>
+                                    <DisplayIngredientes />
                                     <FormGroup >
                                       
-                                            <Input type="text" name="text" id="inputingrediente" placeholder="Añade ingrediente"  />
-                                            <Button  style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}}>Añadir</Button>
+                                            <Input type="text" value={addIngrediente} name="text" id="inputingrediente" placeholder="Añade ingrediente" onChange={(e) => setAddIngrediente(e.target.value)}  />
+                                            <Button  style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}} onClick={() => añadeIngrediente(addIngrediente)}>Añadir</Button>
                                     
 
                                     </FormGroup>
@@ -204,7 +211,7 @@ const SubirTupper = (props) => {
       
                             <Row className="justify-content-center">
                           
-                                    <Button  className="col-sm-12 col-md-4 text-center boton mt-2 " style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}}>Añadir</Button>
+                                    <Button type="submit"  className="col-sm-12 col-md-4 text-center boton mt-2 " style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid",  textAlign: "center"}}>Añadir</Button>
                                 
                             </Row>
                         </Col> 

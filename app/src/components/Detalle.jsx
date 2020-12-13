@@ -179,7 +179,7 @@ const Detalle = (props) => {
                 <Col sm={9}>
                     <PacmanLoader
                         size={75}
-                        color={"#EE5D6E"}
+                        color={"#ff0070"}
                     />
                 </Col>
             </Container>
@@ -203,11 +203,11 @@ const Detalle = (props) => {
     }
 
     return (
-        <Container fuid >
+        <Container fluid >
             <TituloSubirTupper><i class="fa fa-info-circle" aria-hidden="true"></i>
                           DETALLE TUPPER </TituloSubirTupper>
             <AnadirTupper>Todo sobre el tupper </AnadirTupper>
-            <Row className="justify-content-center">
+            <Row className="justify-content-center w-100">
                 <Col md={10}>
                     <Row className="p-1" style={ofrecerTupperRow}>
                         <Chip>
@@ -222,7 +222,7 @@ const Detalle = (props) => {
 
                             <Row >
 
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "20px 0 0 0" }} >
+                                <Col md={6} className={'p-0'} style={{ backgroundColor: "#E6F8F7", borderRadius: "20px 0 0 0" }} >
                                     <Imagen imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
 
                                 </Col>
