@@ -24,4 +24,26 @@ export default class OfertasController {
                     });
             });
     }
+
+    static getMyOfertas = (idUser,token) => {
+        let obj = {
+            method: "GET",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token
+            })
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/ofertas/user/"+idUser, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
 }

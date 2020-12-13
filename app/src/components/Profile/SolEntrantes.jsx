@@ -7,6 +7,8 @@ import StarFixed from "../StarFixed";
 
 import Context from "../../context/Context";
 import TuperController from '../../controller/TuperController';
+import OfertasController from "../../controller/OfertasController";
+import TokenController from "../../controller/TokenController";
 
 const Foto = styled.div`
     width: 90%;
@@ -72,15 +74,16 @@ const SolEntrantes = () => {
   const [listaTupers, setListaTupers] = useState([]);
 
   useEffect(() => {
-    TuperController.getAll(context.token)
-      .then(data => {
-        if (data.ok === false) {
-          setListaTupers([]);
-        } else {
-          setListaTupers(data.resp);
-        }
-      })
-      .catch(err => console.log(err));
+    OfertasController.getMyOfertas(TokenController.getIdUser(context.token),context.token)
+    .then(data => {
+      if (data.ok === false) {
+        setListaTupers([]);
+      } else {
+        console.log(data)
+        setListaTupers(data.resp);
+      }
+    })
+    .catch(err => console.log(err));
   }, []);
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
@@ -100,7 +103,7 @@ const SolEntrantes = () => {
         <Botones>
           <Button color="warning">Aceptar</Button>
           <Divider />
-          <Button color="danger" onClick={() => descartar(el.id)}>Rechazar</Button>
+          <Button color="danger" onClick={() => refreshTupers(el.id)}>Rechazar</Button>
         </Botones>
       </Info>
     </Box>

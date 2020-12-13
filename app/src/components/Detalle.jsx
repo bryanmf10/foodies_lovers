@@ -162,7 +162,8 @@ const Detalle = (props) => {
                         valor: tap.valor_tamano,
                         nombreUsuario: tap.usuario.email.split('@')[0],
                         fotoUsuario: tap.usuario.fotoURL,
-                        ingredientes: tap.ingredientes.split(", ")
+                        ingredientes: tap.ingredientes.split(", "),
+                        fecha: tap.cooking_date
                     }
                     setTuper(obj);
                 }
@@ -188,7 +189,7 @@ const Detalle = (props) => {
     const Mapa = () => {
         let posicion = [tuper.lat, tuper.lon];
         return (
-            <MapContainer style={{ height: '64vh', borderRadius: "20px" }} center={posicion} zoom={16} scrollWheelZoom={true}>
+            <MapContainer style={{ height: '100%', borderRadius: "20px" }} center={posicion} zoom={16} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url={'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'}
@@ -217,7 +218,7 @@ const Detalle = (props) => {
                     </Row>
 
                     <Row>
-                        <Col md={6} className="order-2 order-lg-1 mt-2">
+                        <Col md={6} className="order-2 order-lg-1 mt-2 mb-3 mh-100 h-100">
 
                             <Row >
 
@@ -262,8 +263,9 @@ const Detalle = (props) => {
                                         </ul>
 
                                     </Ingredientes>
+                                    <FechaTuper>Este tupper se creo el {tuper.fecha}</FechaTuper>
                                 </Col>
-                                <FechaTuper>Este tupper se creo el 02/02/1990</FechaTuper>
+                                
                             </Row>
 
 
