@@ -87,7 +87,7 @@ const SolEntrantes = () => {
   }, []);
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
-    <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
+    <Box key={el.id} className="col-lg-3 col-sm-6 col-12">
       <Foto imagSrc={el.urlFoto} />
       <Info>
         <Title>

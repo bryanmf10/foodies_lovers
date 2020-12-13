@@ -10,7 +10,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Input
+  Input,
+  Col
 } from "reactstrap";
 
 import {
@@ -21,7 +22,8 @@ import {
   Link
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
-
+import UserController from "./controller/UserController";
+import PacmanLoader from "react-spinners/PacmanLoader";
 import Tupper from "./components/Tupper";
 import NotFound from "./components/P404";
 import MisTuppers from "./components/Profile/MisTuppers";
@@ -38,7 +40,6 @@ import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
 import TokenController from "./controller/TokenController";
 import ContainerLogin from "./components/ContainerLogin";
-import Logout from "./components/Logout";
 import Logo from './img/logo.png'
 
 const FotoPerfilNav = styled.div`
@@ -57,7 +58,7 @@ const App = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   const [authenticated, setAuthenticated] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const context = useContext(Context);
   const { cookies } = props;
   useEffect(() => {
@@ -78,6 +79,23 @@ const App = (props) => {
       })
       .catch(error => console.log(error));
     }
+  }
+
+  const logout = () => {
+    setLoading(true);
+    UserController.logout(cookies.get('token'))
+        .then(data => {         
+            cookies.remove('token');
+            context.setToken('');
+        })
+        .then(() => {
+          setAuthenticated(false);
+          setLoading(false);
+        })
+        .catch(error => {
+            setLoading(false);       
+            console.log(error);     
+        })
   }
 
   const Inicio = () => {
@@ -104,7 +122,7 @@ const App = (props) => {
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem><Link to="/perfil/editar">Editar</Link> </DropdownItem>
-                    <DropdownItem><Link to="/logout">Cerrar sesión</Link></DropdownItem>
+                    <DropdownItem onClick={() => logout()}>Cerrar sesión</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </Nav>
@@ -122,7 +140,6 @@ const App = (props) => {
             <Route exact path="/perfil/trueques" component={Trueques} />
             <Route exact path="/perfil/opiniones" component={Opiniones} />
             <Route exact path="/detalle/:id" component={Detalle} />
-            <Route exact path="/logout" component={()=><Logout auth={()=>setAuthenticated(false)} />} />
             <Route component={NotFound} />
           </Switch>
         </Container>
@@ -131,7 +148,18 @@ const App = (props) => {
       return <ContainerLogin onLogin={(value) => setAuthenticated(value)} />
     }
   }
-
+  if(loading){
+      return(
+          <Container fluid className="mt-5 justify-content-center d-flex pt-5">
+              <Col sm={9}>
+              <PacmanLoader
+                      size={75}
+                      color={"#ff0080"}
+                      />
+              </Col>
+          </Container>        
+      );
+  }
   return (
       <BrowserRouter>
         <Inicio />
