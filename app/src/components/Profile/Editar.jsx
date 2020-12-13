@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import TupperController from '../../controller/TuperController';
 import Context from "../../context/Context";
 import TokenController from "../../controller/TokenController";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import imagen from './images/images.jpg';
 
 const Foto = styled.div`
@@ -37,26 +37,26 @@ const Editar = (props) => {
     const [loading, setLoading] = useState(null);
     const context = useContext(Context);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const tuper = new FormData();
-        tuper.append("file", selectedFile);
-        tuper.append("titulo", nom);
-        tuper.append("descripcion", des);
-        tuper.append("longitud", props.coords.longitude);
-        tuper.append("latitud", props.coords.latitude);
-        tuper.append("isSold", 0);
-        tuper.append("usuarios_id_usuarios", TokenController.getIdUser(context.token));
-        tuper.append("cooking_date", new Date().toISOString().split('T')[0]);
-        TupperController.insertOne(tuper, context.token)
-            .then(data => setLoading(true))
-            .catch(error => console.log(error));
-    }
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const tuper = new FormData();
+    //     tuper.append("file", selectedFile);
+    //     tuper.append("titulo", nom);
+    //     tuper.append("descripcion", des);
+    //     tuper.append("longitud", props.coords.longitude);
+    //     tuper.append("latitud", props.coords.latitude);
+    //     tuper.append("isSold", 0);
+    //     tuper.append("usuarios_id_usuarios", TokenController.getIdUser(context.token));
+    //     tuper.append("cooking_date", new Date().toISOString().split('T')[0]);
+    //     TupperController.insertOne(tuper, context.token)
+    //         .then(data => setLoading(true))
+    //         .catch(error => console.log(error));
+    // }
 
 
-    if (loading) {
-        return <Redirect to="/" />;
-    }
+    // if (loading) {
+    //     return <Redirect to="/" />;
+    // }
 
     return (
         <Container fluid >
@@ -82,12 +82,6 @@ const Editar = (props) => {
                             <Col sm={6} className="fondoNewTupper ">
                                 <Row>
                                     <FormGroup className="col-12 textoNewTupper" >
-                                        <Label for="inputName" >Nombre</Label>
-                                        <Input type="text" name="text" id="inputName" placeholder="Introduce el nombre" value={nom} onChange={(event) => setNom(event.target.value)} />
-                                    </FormGroup>
-                                </Row>
-                                <Row>
-                                    <FormGroup className="col-12 textoNewTupper" >
                                         <Label for="inputName" >Teléfono</Label>
                                         <Input type="text" name="text" id="inputName" placeholder="Introduce el teléfono" value={nom} onChange={(event) => setNom(event.target.value)} />
                                     </FormGroup>
@@ -102,7 +96,7 @@ const Editar = (props) => {
                         </Row>
                         <Row className="justify-content-center">
                             <Button className="col-sm-12 col-md-4 text-center boton mt-2 " style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center" }}>Guardar</Button>
-                            <Button className="col-sm-12 col-md-4 text-center boton mt-2 " style={{ backgroundColor: '#5b4dda', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center" }} to='/perfil'>Cancelar</Button>
+                            <a className="btn col-sm-12 col-md-4 text-center boton mt-2 " href="/perfil" style={{ backgroundColor: '#5b4dda', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center" }} >Cancelar</a>
                         </Row>
                     </Col>
                 </Row>

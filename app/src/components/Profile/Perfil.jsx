@@ -5,20 +5,20 @@ import styled from 'styled-components';
 
 import Description from "./Description";
 
-const activeClassNameNavLink = 'nav-item-active'
-const activeClassNameNav = 'nav-item-active'
+const activeclassnamenavlink = 'nav-item-active'
+const activeclassnamenav = 'nav-item-active'
 
 
-const StyledNav = styled(Nav).attrs({ activeClassNameNav })`
-  &.${activeClassNameNav} {
+const StyledNav = styled(Nav).attrs({ activeclassnamenav })`
+  &.${activeclassnamenav} {
     height: 100px;
     display: flex;
     justifyContent: space-around;
     fontSize: 2em;
 `;
 
-const StyledLink = styled(NavLink).attrs({ activeClassNameNavLink })`
-  &.${activeClassNameNavLink} {
+const StyledLink = styled(NavLink).attrs({ activeclassnamenavlink })`
+  &.${activeclassnamenavlink} {
     width: 300px;
     textAlign: center;
     fontFamily: Bahnschrift, Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif;
