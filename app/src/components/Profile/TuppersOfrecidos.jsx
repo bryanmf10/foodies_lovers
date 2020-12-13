@@ -80,6 +80,7 @@ const TuppersOfrecidos = () => {
       </Info>
     </Box>
   ));
+  
   return (
     <Container>
       <Perfil />

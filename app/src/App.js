@@ -5,7 +5,6 @@ import {
   Container,
   Collapse,
   Navbar,
-  NavbarBrand,
   Nav,
   UncontrolledDropdown,
   DropdownToggle,
@@ -19,14 +18,14 @@ import {
   Switch,
   Route,
   NavLink,
-  Link,
-  useParams
+  Link
 } from "react-router-dom";
 import { withCookies } from 'react-cookie';
 
 import Tupper from "./components/Tupper";
 import NotFound from "./components/P404";
 import MisTuppers from "./components/Profile/MisTuppers";
+import Editar from "./components/Profile/Editar";
 import SolEntrantes from "./components/Profile/SolEntrantes";
 import TuppersOfrecidos from "./components/Profile/TuppersOfrecidos";
 import Trueques from "./components/Profile/Trueques";
@@ -37,12 +36,7 @@ import styled from "styled-components";
 import Detalle from "./components/Detalle";
 import Context from "./context/Context";
 import imagen from './components/Profile/images/images.jpg';
-import Logo from './img/logo.png';
-
-
-//import ContenedorContexto from "./context/ContenedorContexto";
 import TokenController from "./controller/TokenController";
-
 import ContainerLogin from "./components/ContainerLogin";
 import Logout from "./components/Logout";
 
@@ -108,7 +102,7 @@ const App = (props) => {
                   <DropdownMenu>
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem> Editar </DropdownItem>
+                    <DropdownItem><Link to="/perfil/editar">Editar</Link> </DropdownItem>
                     <DropdownItem><Link to="/logout">Cerrar sesión</Link></DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -121,6 +115,7 @@ const App = (props) => {
             <Route exact path="/NewTupper" component={NewTupper} />
             <Route exact path="/modTuper/:id" component={ModTupper} />
             <Route exact path="/perfil" component={MisTuppers} />
+            <Route exact path="/perfil/editar" component={Editar} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />

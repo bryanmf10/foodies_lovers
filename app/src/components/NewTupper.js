@@ -53,6 +53,8 @@ const SubirTupper = (props) => {
     const [hasGluten, setHasGluten] = useState(false);
     const [valor, setValor] = useState("");
     const [selectedFile, setSelectedFile] = useState(false);
+    const [urlFoto, setUrlFoto] = useState("https://www.eluniversal.com.mx/sites/default/files/u15544/las_mejores_comidas_del_mundo_menu_el_universal_0.jpg");
+
     const [loading, setLoading] = useState(null);
     const context = useContext(Context);
 
@@ -78,6 +80,12 @@ const SubirTupper = (props) => {
           .then(data => setLoading(true))
           .catch(error => console.log(error));
       }
+
+      const handleImageChange = (event) => {
+        let file = event.target.files[0];
+        setSelectedFile(file);
+        setUrlFoto(URL.createObjectURL(file));
+    }
 
     const añadeIngrediente = (ingr) => {
         let newArray = [...ingredientes];
@@ -105,7 +113,7 @@ const SubirTupper = (props) => {
                                         
                                        <i className="fa fa-camera-retro fa-2x " aria-hidden="true" ></i>
                                     </Label>
-                                        <Input id="file-input" type="file"  name="customFile" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                                        <Input id="file-input" type="file"  name="customFile" onChange={(e) => handleImageChange(e)} />
                             </FormGroup>
                          </AnadirTupper>     
                     <Row className="justify-content-center">
@@ -114,7 +122,7 @@ const SubirTupper = (props) => {
                             <Row className="mt-2 ">
                                 <Col sm={6} >
                                     <Row className="justify-content-center">
-                                        <Foto imagSrc="https://www.eluniversal.com.mx/sites/default/files/u15544/las_mejores_comidas_del_mundo_menu_el_universal_0.jpg"></Foto>
+                                        <Foto imagSrc={urlFoto}></Foto>
                                     </Row>
                                 </Col>
                                 <Col sm={6} className="fondoNewTupper ">
