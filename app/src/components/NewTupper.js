@@ -16,6 +16,7 @@ const Foto = styled.div`
     background-size: cover;
     background-position: center;
     border-radius:20px 0 0 0;
+    border:1px #E6F8F7;
 
    
 `;
@@ -112,10 +113,9 @@ const SubirTupper = (props) => {
       }
       const FotoOrIcon = () => {
           return fotoFlag ? <Foto imagSrc={urlFoto}></Foto>: 
-            <FormGroup className="image-upload mt-1">
+            <FormGroup className="image-upload mt-1" >
                                                 <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
-                                                    
-                                                <i className="fa fa-camera-retro fa-2x " aria-hidden="true" style={{"cursor": "cell"}}></i>
+                                                <i className="fa fa-camera-retro fa-4x " aria-hidden="true" style={{"cursor": "cell", color:"#EE5D6E"}}></i>
                                                 </Label>
                                                     <Input id="file-input" type="file"  name="customFile" onChange={(e) => handleImageChange(e)} />
                                         </FormGroup>;
@@ -146,17 +146,15 @@ const SubirTupper = (props) => {
                     <Row className="justify-content-center">
                         <Col sm={12} md={6}>
 
-                            <Row className="mt-2 ">
+                            <Row className="mt-2">
                                 <Col sm={6} >
-                                    <Row className="justify-content-center h-100 align-items-center">
+                                    <Row className="justify-content-center h-100 align-items-center" style={{border:"2px solid #E6F8F7",borderRadius:"20px 0 0 0"}}>
 
-                                        
                                         <FotoOrIcon />
-                                        
                                         
                                     </Row>
                                 </Col>
-                                <Col sm={6} className="fondoNewTupper ">
+                                <Col sm={6} className="fondoNewTupper">
                                     <Row>
                                         <FormGroup className="col-12 textoNewTupper" >
                                             <Label for="inputName" >Nombre</Label>
@@ -184,7 +182,7 @@ const SubirTupper = (props) => {
                             <Row className="alergias">
                             <Col sm={6}></Col>
                             <Col sm={6}>
-                                <FormGroup  required >
+                                <FormGroup required >
                                          <div>
                                                 <CustomInput type="switch" id="vegano" checked={vegan} onChange={(event) => setVegan(event.target.checked)} name="customSwitch" label="Vegano" required />
                                                 <CustomInput type="switch" id="vegetarian" checked={vegetarian} onChange={(event) => setVegetarian(event.target.checked)} name="customSwitch" label="Vegetariano" />
