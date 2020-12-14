@@ -84,8 +84,11 @@ const SolEntrantes = () => {
         if (data.ok === false) {
           setListaTupers([]);
         } else {
-          console.log(data)
-          setListaTupers(data.resp);
+          let tupers = data.resp.map((el)=>{
+            el.urlFoto = TuperController.getUrlFoto(el.tuper.urlFoto);
+            return el;
+          })
+          setListaTupers(tupers);
         }
       })
       .catch(err => console.log(err));
@@ -93,8 +96,7 @@ const SolEntrantes = () => {
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3 col-sm-6 col-12">
-      {/* <Foto imagSrc={el.urlFoto} /> */}
-      <Foto imagSrc="https://www.ecestaticos.com/image/clipping/bb50de49b6df856a70062fad7cb388b7/made-in-spain-prepara-el-autentico-gazpacho-andaluz.jpg"/>
+      <Foto imagSrc={el.urlFoto}/>
       <Info>
         <Title>
           {el.tuper.titulo}

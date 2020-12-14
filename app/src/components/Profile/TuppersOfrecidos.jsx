@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Button } from "reactstrap";
 import styled from "styled-components";
+import OfertasController from "../../controller/OfertasController";
 import TuperController from '../../controller/TuperController';
 
-import Prueba from "../Prueba.json"
 import Perfil from "./Perfil"
 
 const Foto = styled.div`
@@ -50,26 +50,29 @@ const Description = styled.div`
 
 const TuppersOfrecidos = () => {
 
-  // API SECTION (UNCOMMENT TO USE /* */)
-  /*const [listaTupers, setListaTupers] = useState([]);
+  
+  const [listaTupers, setListaTupers] = useState([]);
 
   useEffect(() => {
-    TuperController.getAll()
+    OfertasController.getMyOfertas()
       .then(data => {
         console.log(data);
         if (data.ok === false) {
           setListaTupers([]);
         } else {
-          setListaTupers(data);
+          let tupers = data.resp.map((el)=>{
+            el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+            return el;
+          })
+          setListaTupers(tupers);
         }
       })
       .catch(err => console.log(err));
   }, []);
 
-  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (*/
-  const tuppers = Prueba.map((el) => (
+  const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRkmQWnBItsHZQnSceNTIjUpk4PaH7NnUC8w&usqp=CAU"} />
+      <Foto imagSrc={el.urlFoto} />
       <Info>
         <Title>
           {el.titulo}
