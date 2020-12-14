@@ -121,7 +121,7 @@ const App = (props) => {
                   <DropdownMenu>
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem><Link to="/perfil/editar">Editar</Link> </DropdownItem>
+                    <DropdownItem><Link to={"/perfil/editar/"+TokenController.getIdUser(context.token)}>Editar</Link> </DropdownItem>
                     <DropdownItem onClick={() => logout()}>Cerrar sesión</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -134,7 +134,7 @@ const App = (props) => {
             <Route exact path="/NewTupper" component={NewTupper} />
             <Route exact path="/modTuper/:id" component={ModTupper} />
             <Route exact path="/perfil" component={MisTuppers} />
-            <Route exact path="/perfil/editar" component={Editar} />
+            <Route exact path="/perfil/editar/:id" component={Editar} />
             <Route exact path="/perfil/solEntrantes" component={SolEntrantes} />
             <Route exact path="/perfil/tuppersOfrecidos" component={TuppersOfrecidos} />
             <Route exact path="/perfil/trueques" component={Trueques} />

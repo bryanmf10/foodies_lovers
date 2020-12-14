@@ -22,7 +22,7 @@ import PeanutFree from "./imgAler/peanutFree.png";
 
 const Chip = styled.div`
     display: inline-block;
-    padding: 0 25px;
+    padding: 0 25px;                                                                    
     height: 50px;
     font-size: 16px;
     line-height: 50px;
