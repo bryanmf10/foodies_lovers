@@ -93,8 +93,8 @@ const SolEntrantes = () => {
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3 col-sm-6 col-12">
-      {/* <Foto imagSrc={el.urlFoto} /> */}
-      <Foto imagSrc="https://www.ecestaticos.com/image/clipping/bb50de49b6df856a70062fad7cb388b7/made-in-spain-prepara-el-autentico-gazpacho-andaluz.jpg"/>
+      <Foto imagSrc={el.urlFoto} />
+      {/* <Foto imagSrc="https://www.ecestaticos.com/image/clipping/bb50de49b6df856a70062fad7cb388b7/made-in-spain-prepara-el-autentico-gazpacho-andaluz.jpg"/> */}
       <Info>
         <Title>
           {el.tuper.titulo}
@@ -103,7 +103,7 @@ const SolEntrantes = () => {
           <StarFixed valor={el.id_ranking} />
           <span>{el.usuario.email.split('@')[0]}</span>
           <a onClick={toggle}><i className="fa fa-eye fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i></a>
-          {el.comentario}
+          <b><i>{el.comentario}</i></b>
         </Usuario>
         <Description>
           {el.tuper.descripcion}

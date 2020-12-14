@@ -150,7 +150,7 @@ const Tupper = () => {
                 </Title>
                 <Usuario >
                     <p style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</p>
-                    <StarFixed valor={4} />
+                    <StarFixed valor={ 1 + (Math.random() * (5-1))} />
                 </Usuario>
                 <Description>
                     {el.descripcion}
