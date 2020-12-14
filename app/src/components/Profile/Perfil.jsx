@@ -17,7 +17,10 @@ const StyledNav = styled(Nav).attrs({ activeclassnamenav })`
 
 const style = {
     textAlign: "center",
-    fontFamily: "Bahnschrift, Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif"
+    fontFamily: "Londrina Solid",
+    color:"#EE5D6E",
+    fontSize:"20px"
+
 }
 
 const Perfil = () => {
@@ -25,8 +28,8 @@ const Perfil = () => {
   return (
     <>
       <Description />
-        <Container className="mt-5">
-          <StyledNav tabs className="justify-content-around">
+        <Container className=" filtros mt-5">
+          <StyledNav tabs className="justify-content-around" >
             <NavItem>
              <Link to="/perfil" style={style} className="nav-link" activeclassnamenavlink="nav-item-active">Mis Tuppers</Link>
             </NavItem>

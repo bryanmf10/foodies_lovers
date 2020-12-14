@@ -15,6 +15,7 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
+    border-radius:20px 20px 0 0;
 `;
 
 const Box = styled.div`
@@ -39,6 +40,7 @@ const Info = styled.div`
     background-color: #E6F8F7;
     width: 90%;
     margin-bottom: 15px;
+    border-radius: 0 0 20px 20px;
 `;
 
 const Description = styled.div`
@@ -51,13 +53,18 @@ const Description = styled.div`
 `;
 
 const Divider = styled.div`
-    border-left: 1px solid black;
+  border-left: 3px solid #EE5D6E; 
 `;
 
 const Botones = styled.div`
-    display: flex;
-    justify-Content: space-around;
-    margin-Bottom: 20px;
+display: flex;
+justify-Content: space-around;
+margin-Bottom: 20px;
+margin-top:20px;
+`;
+const Separador=styled.div`
+    height:5px;
+    background-color:white;
 `;
 
 const MisTuppers = () => {
@@ -104,10 +111,13 @@ const MisTuppers = () => {
         <Description>
           {el.descripcion}
         </Description>
+        <Separador/>
         <Botones>
-          <Link to={"/modTuper/"+el.id}><Button color="warning">Editar</Button></Link>
+          <Link to={"/modTuper/"+el.id}><i class="fa fa-pencil fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+      </Link>
           <Divider />
-          <Button color="danger" onClick={()=> deleteTupper(el.id)}>Eliminar</Button>
+          <div  onClick={()=> deleteTupper(el.id)}><i class="fa fa-trash fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+        </div>
         </Botones>
       </Info>
     </Box>

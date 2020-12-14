@@ -40,16 +40,25 @@ const Saldo = styled.div`
     display: flex;
 `;
 
+const Usuario= styled.h1`
+    font-family: Londrina Solid;
+    font-size: 33px;
+    background-color:#E6F8F7;
+    color:#EE5D6E;
+    text-align: center;
+    border-radius: 10px;
+`;
 const Description = () => {
 
   return (
     <Centro>
       <Perfil src={imagen}></Perfil>
-      <Descripcion>
-        <h6>Pedro</h6>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, explicabo itaque totam modi, velit, atque delectus aliquam sed neque culpa rerum illo quibusdam numquam officiis inventore aliquid! Doloremque, tempora voluptate.</p>
-      </Descripcion>
+      {/* <Descripcion>
+       
+        {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, explicabo itaque totam modi, velit, atque delectus aliquam sed neque culpa rerum illo quibusdam numquam officiis inventore aliquid! Doloremque, tempora voluptate.</p> */}
+      {/* </Descripcion> */} 
       <Rango>
+        <Usuario>Pedro</Usuario>
         <h6>Rango: "Abuela"</h6>
         <StarFixed valor={2}/>
         <Saldo>

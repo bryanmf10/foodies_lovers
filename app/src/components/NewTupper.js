@@ -184,7 +184,7 @@ const SubirTupper = (props) => {
                             <Col sm={6}>
                                 <FormGroup required >
                                          <div>
-                                                <CustomInput type="switch" id="vegano" checked={vegan} onChange={(event) => setVegan(event.target.checked)} name="customSwitch" label="Vegano" required />
+                                                <CustomInput type="switch" id="vegano" checked={vegan} onChange={(event) => setVegan(event.target.checked)} name="customSwitch" label="Vegano"  />
                                                 <CustomInput type="switch" id="vegetarian" checked={vegetarian} onChange={(event) => setVegetarian(event.target.checked)} name="customSwitch" label="Vegetariano" />
                                                 <CustomInput type="switch" id="hasGluten" checked={hasGluten} onChange={(event) => setHasGluten(event.target.checked)} name="customSwitch" label=" Sin gluten" />
                                                 <CustomInput type="switch" id="hasLactosa" checked={hasLactosa} onChange={(event) => setHasLactosa(event.target.checked)} name="customSwitch" label=" Sin lactosa" />
@@ -194,7 +194,7 @@ const SubirTupper = (props) => {
                                  </Col>
                             </Row>
                             <Row>
-                            <Col className="fondoIngredientes">
+                            <Col className="fondoIngredientes col flex">
                             <NombreIng for="exampleText" sm={2} >Ingredientes</NombreIng>
                                     <DisplayIngredientes />
                                     <FormGroup >
