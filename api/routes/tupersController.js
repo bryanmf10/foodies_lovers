@@ -47,7 +47,17 @@ router.get('/', (req, res, next) => {
 //devuelve un tuper por id
 router.get('/:id', (req, res, next) => {
     let idTupers = req.params.id;
-    modelo.tupers.findByPk(idTupers)
+    modelo.usuarios.hasOne(modelo.tupers, {foreignKey: 'id'})
+    modelo.tupers.belongsTo(modelo.usuarios, {foreignKey: 'usuarios_id_usuarios'})
+    modelo.tupers.findByPk(idTupers,{include: [{model: modelo.usuarios, attributes: ['email', 'fotoURL']}]})
+        .then(lista => res.json({ ok: true, resp: lista }))
+        .catch(err => res.json({ ok: false, error: "Error al devolver el tuper" }));
+});
+
+//devuelve tupers de un usuario por id
+router.get('/userTuper/:id', (req, res, next) => {
+    let idUser = req.params.id;
+    modelo.tupers.findAll({where: {'usuarios_id_usuarios': idUser}})
         .then(lista => res.json({ ok: true, resp: lista }))
         .catch(err => res.json({ ok: false, error: "Error al devolver el tuper" }));
 });
@@ -92,9 +102,32 @@ router.post('/', (req, res, next) => {
     });
 });
 
-//modifica tupper
+//modifica tupper menos foto
 router.put('/:id', (req, res, next) => {
-    let body = req.body;
+    modelo.tupers.update({
+        titulo: req.body.titulo,
+        descripcion: req.body.descripcion,
+        longitud: req.body.longitud,
+        latitud: req.body.latitud,
+        vegan: req.body.vegan,
+        vegetarian: req.body.vegetarian,
+        hasFrutosSecos: req.body.hasFrutosSecos,
+        hasLactosa: req.body.hasLactosa,
+        hasGluten: req.body.hasGluten,
+        valor_tamano: req.body.valor_tamano,
+        ingredientes: req.body.ingredientes
+    }, { where: { id: req.params.id } })
+        .then(item => {
+            console.log(item);
+            res.json({ok: true, resp: item});
+        })
+        .catch( async err => {
+            res.json({ok: false, error: "Error al modificar tupper"})
+        });
+});
+
+// modifica foto tupper
+router.put('/foto/:id', (req, res, next) => {
     let idTuper = req.params.id;
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -111,19 +144,8 @@ router.put('/:id', (req, res, next) => {
             }
         })
         modelo.tupers.update({
-            titulo: body.titulo,
-            descripcion: body.descripcion,
-            urlFoto: body.urlFoto,
-            longitud: body.longitud,
-            latitud: body.latitud,
-            vegan: body.vegan,
-            vegetarian: body.vegetarian,
-            hasFrutosSecos: body.hasFrutosSecos,
-            hasLactosa: body.hasLactosa,
-            hasGluten: body.hasGluten,
-            valor_tamano: body.valor_tamaño,
-            ingredientes: body.ingredientes
-        }, { where: { id: user.id } })
+            urlFoto: req.file.filename
+        }, { where: { id: req.params.id } })
             .then(item => {
                 if(item[0] === 0) throw new Error("Error");
                 res.json({ok: true, resp: item});
@@ -133,18 +155,6 @@ router.put('/:id', (req, res, next) => {
                 res.json({ok: false, error: "Error al subir la foto"})
             });
     });
-    
-});
-
-// modifica foto tupper
-router.put('/foto/:id', (req, res, next) => {
-    modelo.tupers.update({
-        
-        urlFoto: req.body.urlFoto,
-        
-    }, { where: { id: req.params.id } })
-        .then(item => res.json({ ok: true, resp: item }))
-        .catch(err => res.json({ ok: false, error: "Error al modificar la foto del tupper" }));
 });
 
 
@@ -170,5 +180,6 @@ const selectTuperById = (idTuper) => {
             .catch(err => reject({ ok: false, error: err }));
     })
 }
+
 
 module.exports = router;

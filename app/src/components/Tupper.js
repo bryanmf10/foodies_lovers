@@ -3,13 +3,8 @@ import {
     Container,
     Row,
     Col,
-    Button,
     FormGroup,
     Label,
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    Input,
     CustomInput
 } from "reactstrap";
 import Context from "../context/Context";
@@ -123,13 +118,11 @@ const Iconos =styled.div`
 const Tupper = () => {
     const context = useContext(Context);
     const [listaTupers, setListaTupers] = useState([]);
-
-    //Del Dropdown-----------------------
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggle = () => setDropdownOpen(prevState => !prevState);
-    //------------------------------------
+    const [filtroAlergias, setFiltroAlergias] = useState("false");
+    const [filtroTok, setFiltroTok] = useState("false");
 
     useEffect(() => {
+        console.log("sfds");
         let idUsuario = TokenController.getIdUser(context.token);
         TuperController.getAll(context.token)
             .then(data => {
@@ -140,13 +133,16 @@ const Tupper = () => {
                         el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
                         return el;
                     })
+                    if(filtroAlergias !== "false") tupers= tupers.filter(el => el[filtroAlergias] === true);
+                    if(filtroTok !== "false") tupers = tupers.filter(el => el.valor_tamano === parseInt(filtroTok));
                     setListaTupers(tupers);
                 }
             })
             .catch(err => console.log(err));
 
-    }, []);
-    //del Range-----------------------
+    }, [filtroAlergias, filtroTok]);
+
+    //del Range----------------------- Slider
     const useStyles = makeStyles({
         root: {
             width: 300,
@@ -168,8 +164,8 @@ const Tupper = () => {
                     {el.titulo}
                 </Title>
                 <Usuario >
-                    <Link style={{marginRight: '5px', color:"#EE5D6E"}}>{el.usuario.email.split('@')[0]}</Link>
-                    <StarFixed valor={el.rating} />
+                    <p style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</p>
+                    <StarFixed valor={4} />
                 </Usuario>
                 <Description>
                     {el.descripcion}
@@ -194,6 +190,10 @@ const Tupper = () => {
             </Info>
         </Box>
     ));
+    console.log("listaTupers");
+    console.log(listaTupers);
+    console.log("tuppers");
+    console.log(tuppers);
 
     return (
         <Container fluid >
@@ -202,52 +202,27 @@ const Tupper = () => {
             </Row>
             <Row className="filtros">
                 <Col className="col-md-3 col-sm-12 col-12 text-center p-3" style={{ display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
-                    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                        <DropdownToggle caret style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" ,borderRadius:"5px"}}>
-                            Alimentación
-                        </DropdownToggle>
-                        <DropdownMenu className="p-2">
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" id="checkbox2" />{' '}
-                                    Vegano
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" id="checkbox2" />{' '}
-                                    Vegetariano
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" id="checkbox2" />{' '}
-                                    Sin Frutos Secos
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" id="checkbox2" />{' '}
-                                    Sin Lactosa
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" id="checkbox2" />{' '}
-                                    Sin Gluten
-                                </Label>
-                            </FormGroup>
-                        </DropdownMenu>
-                    </Dropdown>
+                    <FormGroup>
+                        <Label for="exampleCustomSelect">Apto para:</Label>
+                        <CustomInput type="select" onChange={(e) => setFiltroAlergias(e.target.value)} id="exampleCustomSelect" name="customSelect" style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" ,borderRadius:"5px"}}>
+                            <option value="false">Sin Filtro</option>
+                            <option value="vegan">Vegano</option>
+                            <option value="vegetarian">Vegetariano</option>
+                            <option value="hasFrutosSecos">Sin Frutos Secos</option>
+                            <option value="hasLactosa">Sin Lactosa</option>
+                            <option value="hasGluten">Sin Gluten</option>
+                        </CustomInput>
+                    </FormGroup>
                 </Col>
                 <Col className="col-md-3 col-sm-12 col-12 text-center" style={{ fontFamily: "Londrina Solid " }}>
-                    <FormGroup>
-                        <Label for="exampleCheckbox" />
+                    <FormGroup onChange={(e) => setFiltroTok(e.target.value)}>
+                        <Label for="customRadio"  />
                         <div>
-                            <CustomInput type="radio" id="exampleCustomRadio1" name="customRadio" label="1 Tok" inline />
-                            <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="2 Tok" inline />
-                            <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label="3 Tok" inline />
-                            <CustomInput type="radio" id="exampleCustomRadio4" name="customRadio" label="Solo acepto Tup" inline />
+                            <CustomInput type="radio" value={1} id="exampleCustomRadio1" name="customRadio" label="1 Tok" inline />
+                            <CustomInput type="radio" value={2} id="exampleCustomRadio2" name="customRadio" label="2 Tok" inline />
+                            <CustomInput type="radio" value={3} id="exampleCustomRadio3" name="customRadio" label="3 Tok" inline />
+                            <CustomInput type="radio" value={0} id="exampleCustomRadio4" name="customRadio" label="Solo acepto Tup" inline />
+                            <CustomInput type="radio" value={false} id="exampleCustomRadio5" name="customRadio" label="Sin filtro" inline />
                         </div>
                     </FormGroup>
                 </Col>
@@ -267,9 +242,6 @@ const Tupper = () => {
                             max={110}
                         />
                     </div>
-                </Col>
-                <Col className="col-md-3 col-sm-12 p-3 col-12 text-center" style={{ display: "flex", justifyContent: "center", alignItems: "center", }}>
-                    <Button className="boton" style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid " }}>Go</Button>
                 </Col>
             </Row>
             <Row>

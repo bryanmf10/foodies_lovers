@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Nav, NavItem, NavLink } from "reactstrap";
+import { Container, Nav, NavItem } from "reactstrap";
 import styled from 'styled-components';
 
 import Description from "./Description";
 
-const activeclassnamenavlink = 'nav-item-active'
 const activeclassnamenav = 'nav-item-active'
-
 
 const StyledNav = styled(Nav).attrs({ activeclassnamenav })`
   &.${activeclassnamenav} {
@@ -17,39 +15,32 @@ const StyledNav = styled(Nav).attrs({ activeclassnamenav })`
     fontSize: 2em;
 `;
 
-const StyledLink = styled(NavLink).attrs({ activeclassnamenavlink })`
-  &.${activeclassnamenavlink} {
-    width: 300px;
-    textAlign: center;
-    fontFamily: Bahnschrift, Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif;
-  }
-`;
+const style = {
+    textAlign: "center",
+    fontFamily: "Bahnschrift, Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif"
+}
 
 const Perfil = () => {
 
   return (
     <>
-      <br/>
-      <br/>
-      <br/>
       <Description />
-      <br/>
-        <Container>
-          <StyledNav tabs>
+        <Container className="mt-5">
+          <StyledNav tabs className="justify-content-around">
             <NavItem>
-              <StyledLink><Link to="/perfil">Mis Tuppers</Link></StyledLink>
+             <Link to="/perfil" style={style} className="nav-link" activeclassnamenavlink="nav-item-active">Mis Tuppers</Link>
             </NavItem>
             <NavItem>
-              <StyledLink><Link to="/perfil/solEntrantes">Solicitudes entrantes</Link></StyledLink>
+              <Link to="/perfil/solEntrantes" style={style} className="nav-link" activeclassnamenavlink="nav-item-active">Solicitudes entrantes</Link>
             </NavItem>
             <NavItem>
-              <StyledLink><Link to="/perfil/tuppersOfrecidos">Tuppers ofrecidos</Link></StyledLink>
+              <Link to="/perfil/tuppersOfrecidos" style={style} className="nav-link" activeclassnamenavlink="nav-item-active">Tuppers ofrecidos</Link>
             </NavItem>
             <NavItem>
-              <StyledLink><Link to="/perfil/trueques">Trueques</Link></StyledLink>
+              <Link to="/perfil/trueques" style={style} className="nav-link" activeclassnamenavlink="nav-item-active">Trueques</Link>
             </NavItem>
             <NavItem>
-              <StyledLink><Link to="/perfil/opiniones">Opiniones</Link></StyledLink>
+              <Link to="/perfil/opiniones" style={style} className="nav-link" activeclassnamenavlink="nav-item-active">Opiniones</Link>
             </NavItem>
           </StyledNav>
         </Container>

@@ -11,15 +11,15 @@ const accountRouter = require('./routes/accountController');
 const { verifyToken } = authMiddleware;
 const { port } = Config;
 const app = express();
-
 app.use(cors());
 
 app.use(express.json());
 
+
 app.use("/account", accountRouter);
 app.use("/img", express.static('uploads'));
-app.use("/", express.static('public'), verifyToken);
 
+app.use("/", express.static('public'), verifyToken);
 app.use('/users', usersRouter);
 app.use('/ranking', rankingRouter);
 app.use('/tupers', tupersRouter);
