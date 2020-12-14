@@ -170,6 +170,10 @@ const Tupper = () => {
             </Info>
         </Box>
     ));
+    console.log("listaTupers");
+    console.log(listaTupers);
+    console.log("tuppers");
+    console.log(tuppers);
 
     return (
         <Container fluid >
