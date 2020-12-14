@@ -9,7 +9,6 @@ import Context from "../../context/Context";
 import TuperController from '../../controller/TuperController';
 import OfertasController from "../../controller/OfertasController";
 import TokenController from "../../controller/TokenController";
-import Detalle from "../Detalle";
 
 const Foto = styled.div`
     width: 90%;
@@ -72,14 +71,10 @@ const Botones = styled.div`
     margin-Bottom: 20px;
 `;
 
-const SolEntrantes = (props) => {
+const SolEntrantes = () => {
   const context = useContext(Context);
   const [listaTupers, setListaTupers] = useState([]);
 
-  const {
-    buttonLabel,
-    className
-  } = props;
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -97,14 +92,9 @@ const SolEntrantes = (props) => {
   }, []);
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
-<<<<<<< HEAD
-    <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      {/* <Foto imagSrc={el.tuper.urlFoto} /> */}
-      <Foto imagSrc="https://www.lavanguardia.com/files/article_main_microformat/uploads/2018/06/01/5e99784964d1d.jpeg" />
-=======
     <Box key={el.id} className="col-lg-3 col-sm-6 col-12">
-      <Foto imagSrc={el.urlFoto} />
->>>>>>> 23f3194ebd665a2f648f2159975f02ca23af4d51
+      {/* <Foto imagSrc={el.urlFoto} /> */}
+      <Foto imagSrc="https://www.ecestaticos.com/image/clipping/bb50de49b6df856a70062fad7cb388b7/made-in-spain-prepara-el-autentico-gazpacho-andaluz.jpg"/>
       <Info>
         <Title>
           {el.tuper.titulo}
@@ -123,19 +113,22 @@ const SolEntrantes = (props) => {
           <Divider />
           <Button color="danger" onClick={() => refreshTupers(el.id)}>Rechazar</Button>
         </Botones>
-        <Modal isOpen={modal} toggle={toggle} className={className}>
+        
+        <Modal isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>{el.tuper.titulo}</ModalHeader>
           <ModalBody>
-              <p>{el.tuper.descripcion}</p>
-              <h6>Ingredientes:</h6>
-              {el.tuper.ingredientes}
-              <br/>
-              <h6>El plato fue preparado el:</h6>
-              {el.tuper.cooking_date}
-              <h6>Lactosa:</h6>
-              { el.tuper.hasLactosa && <h1>verdadero: {el.tuper.hasLactosa}</h1>}
-              {/* {el.tuper.hasLactosa} === 0 ? <h2>falso</h2> : <h2>verdadero</h2>} */}
-        </ModalBody>
+            <p>{el.tuper.descripcion}</p>
+            <h6>Ingredientes:</h6>
+            <p>{el.tuper.ingredientes}</p>
+            <h6>El plato fue preparado el:</h6>
+            <p>{el.tuper.cooking_date}</p>
+            <h6>Información nutricional:</h6>
+            {el.tuper.hasFrutosSecos && <p>Tiene frutos secos {el.tuper.hasFrutosSecos}</p>}
+            {el.tuper.hasGluten && <p>Tiene gluten {el.tuper.hasGluten}</p>}
+            {el.tuper.hasLactosa && <p>Tiene gluten {el.tuper.hasLactosa}</p>}
+            {el.tuper.vegan && <p>Apta para veganos {el.tuper.vegan}</p>}
+            {el.tuper.vegetarian && <p>Apta para vegetarianos {el.tuper.vegetarian}</p>}
+          </ModalBody>
         </Modal>
       </Info>
     </Box>
