@@ -1,9 +1,10 @@
-import { Container, Row, Input, FormGroup, Col, Label, Button } from "reactstrap";
-import React, { useState } from "react";
+import { Container, Row, Input, FormGroup, Col, Label, Button, Form } from "reactstrap";
+import React, { useEffect, useState, useContext } from "react";
 import '../NewTupper.css';
 import styled from 'styled-components';
-import imagen from './images/images.jpg';
-
+import UserController from "../../controller/UserController";
+import Context from "../../context/Context";
+import TupperController from "../../controller/TuperController";
 const Foto = styled.div`
     width: 100%;
     height: 300px;
@@ -29,49 +30,82 @@ const AnadirTupper = styled.h3`
 const Editar = (props) => {
     const [tel, setTel] = useState("");
     const [pass, setPass] = useState("");
+    const [urlFoto, setUrlFoto] = useState("https://www.eluniversal.com.mx/sites/default/files/u15544/las_mejores_comidas_del_mundo_menu_el_universal_0.jpg");
+    const [fotoFlag, setFotoFlag] = useState(false);
+    const [loading, setLoading] = useState(null);
     const [selectedFile, setSelectedFile] = useState(false);
+
+    const context = useContext(Context);
+
+
+    useEffect(()=>{
+        let {id} = props.match.params;
+        UserController.getUser(id,context.token)
+        .then((data) => console.log(data.resp))
+        .catch(err => console.log(err))
+    },[]);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const profilePic = new FormData();
+            profilePic.append("file", selectedFile);
+        TupperController.insertOne(profilePic,context.token)
+          .then(data => setLoading(true))
+          .catch(error => console.log(error));
+      }
+
+    const handleImageChange = (event) => {
+        let file = event.target.files[0];
+        setFotoFlag(true);
+        setUrlFoto(URL.createObjectURL(file));
+    }
+    const FotoOrIcon = () => {
+        return fotoFlag ? <Foto imagSrc={urlFoto}></Foto> :
+            <FormGroup className="image-upload mt-1 ">
+                <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
+
+                    <i className="fa fa-camera-retro fa-4x " aria-hidden="true" style={{color: "#EE5D6E", cursor: "cell" }}></i>
+                </Label>
+                <Input id="file-input" type="file" name="customFile" onChange={(e) => handleImageChange(e)} />
+            </FormGroup>;
+    }
 
     return (
         <Container fluid >
-                <TituloSubirTupper>Editar</TituloSubirTupper>
-                <AnadirTupper>¿Quieres modificar tu foto de perfíl?
-                        <FormGroup className="image-upload mt-1">
-                        <Label for="file-input">
-                            <i class="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>
-                        </Label>
-                        <Input id="file-input" type="file" name="customFile" onChange={(e) => setSelectedFile(e.target.files[0])} />
-                    </FormGroup>
-                </AnadirTupper>
-                <Row className="justify-content-center ">
-                    <Col sm={12} md={6}>
-                        <Row className="cuerpoNewTupper"> </Row>
-                        <Row className="mt-2 ">
-                            <Col sm={6} >
-                                <Row className="justify-content-center">
-                                    <Foto imagSrc={imagen}></Foto>
-                                </Row>
-                            </Col>
-                            <Col sm={6} className="fondoNewTupper ">
-                                <Row>
-                                    <FormGroup className="col-12 textoNewTupper" >
-                                        <Label for="inputName" >Teléfono</Label>
-                                        <Input type="text" name="text" id="inputName" placeholder="Introduce el teléfono" value={tel} onChange={(event) => setTel(event.target.value)} />
-                                    </FormGroup>
-                                </Row>
-                                <Row>
-                                    <FormGroup className="col-12 textoNewTupper" >
-                                        <Label for="inputName" >Password</Label>
-                                        <Input type="text" name="text" id="inputName" placeholder="Introduce el password" value={pass} onChange={(event) => setPass(event.target.value)} />
-                                    </FormGroup>
-                                </Row>
-                            </Col>
-                        </Row>
-                        <Row className="justify-content-center">
-                            <Button className="col-sm-12 col-md-4 text-center boton mt-2 " style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center" }}>Guardar</Button>
-                            <a className="btn col-sm-12 col-md-4 text-center boton mt-2 " href="/perfil" style={{ backgroundColor: '#5b4dda', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center" }} >Cancelar</a>
-                        </Row>
-                    </Col>
-                </Row>
+             <Form onSubmit={(event) => handleSubmit(event)} >
+            <TituloSubirTupper>Editar perfil</TituloSubirTupper>
+            
+            <Row className="justify-content-center ">
+                <Col sm={12} md={6}>
+                    <Row className="cuerpoNewTupper"> </Row>
+                    <Row className="mt-2 ">
+                        <Col sm={6} >
+                            <Row  style={{border: "1px solid #E6F8F7", borderRadius:"20px 0 0 20px"}} className="justify-content-center h-100 align-items-center">
+                                <FotoOrIcon />
+                            </Row>
+                        </Col>
+                        <Col  style={{borderRadius:"0 20px 20px 0 "}} sm={6} className="fondoNewTupper ">
+                            <Row>
+                                <FormGroup className="col-12 textoNewTupper" >
+                                    <Label for="inputName" >Teléfono</Label>
+                                    <Input type="text" name="text" id="inputName" placeholder="Introduce el teléfono" value={tel} onChange={(event) => setTel(event.target.value)} />
+                                </FormGroup>
+                            </Row>
+                            <Row>
+                                <FormGroup className="col-12 textoNewTupper" >
+                                    <Label for="inputName" >Password</Label>
+                                    <Input type="text" name="text" id="inputName" placeholder="Introduce el password" value={pass} onChange={(event) => setPass(event.target.value)} />
+                                </FormGroup>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Button className="col-sm-12 col-md-4 text-center boton mt-2 " style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center" }}>Guardar</Button>
+                        <a className="btn col-sm-12 col-md-4 text-center boton mt-2 " href="/perfil" style={{ backgroundColor: '#5b4dda', border: "none", color: "#E6F8F7", fontFamily: "Londrina Solid", textAlign: "center" }} >Cancelar</a>
+                    </Row>
+                </Col>
+            </Row>
+            </Form>
         </Container>
     );
 }
