@@ -122,7 +122,6 @@ const Tupper = () => {
     const [filtroTok, setFiltroTok] = useState("false");
 
     useEffect(() => {
-        console.log("sfds");
         let idUsuario = TokenController.getIdUser(context.token);
         TuperController.getAll(context.token)
             .then(data => {
@@ -165,7 +164,7 @@ const Tupper = () => {
                 </Title>
                 <Usuario>
                     <p style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</p>
-                    <StarFixed valor={4} />
+                    <StarFixed valor={ 1 + (Math.random() * (5-1))} />
                 </Usuario>
                 <Description>
                     {el.descripcion}
@@ -190,18 +189,13 @@ const Tupper = () => {
             </Info>
         </Box>
     ));
-    console.log("listaTupers");
-    console.log(listaTupers);
-    console.log("tuppers");
-    console.log(tuppers);
-
     return (
         <Container fluid >
             <Row>
                 <Titulo>Quiero mi tupper:</Titulo>
             </Row>
-            <Row className="filtros">
-                <Col className="col-md-3 col-sm-12 col-12 text-center p-3" style={{ display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
+            <Row className="filtros Justify-content-around">
+                <Col className="col-md-4 col-sm-12 col-12 text-center p-3" style={{ display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Londrina Solid " }}>
                     <FormGroup>
                         <Label for="exampleCustomSelect">Apto para:</Label>
                         <CustomInput type="select" onChange={(e) => setFiltroAlergias(e.target.value)} id="exampleCustomSelect" name="customSelect" style={{ backgroundColor: '#EE5D6E', border: "none", color: "#E6F8F7" ,borderRadius:"5px"}}>
@@ -214,7 +208,7 @@ const Tupper = () => {
                         </CustomInput>
                     </FormGroup>
                 </Col>
-                <Col className="col-md-3 col-sm-12 col-12 text-center" style={{ fontFamily: "Londrina Solid " }}>
+                <Col className="col-md-4 col-sm-12 col-12 text-center" style={{ fontFamily: "Londrina Solid " }}>
                     <FormGroup onChange={(e) => setFiltroTok(e.target.value)}>
                         <Label for="customRadio"  />
                         <div>

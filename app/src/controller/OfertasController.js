@@ -46,4 +46,27 @@ export default class OfertasController {
                     });
             });
     }
+
+    // Comentario para pla, comeme los huevos
+    static getMyOffers = (idUser, token) => {
+        let obj = {
+            method: "GET",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token
+            })
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/ofertas/offers/"+idUser, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
 }

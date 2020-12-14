@@ -18,6 +18,11 @@ router.get('/:id', (req, res, next) => {
         .catch(err => res.json({ ok: false, error: "No se encuentra la oferta" }));
 });
 
+router.get('/offers/:id', (req,res,next)=>{
+    let idOfertas = req.params.id;
+    
+});
+
 //devuelve todas las ofertas de un user
 router.get('/user/:id', (req, res, next) => {
     let idUsuario = req.params.id;
