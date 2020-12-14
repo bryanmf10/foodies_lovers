@@ -19,4 +19,21 @@ export default class UserController{
             .catch(error => reject(error))
         })
     }
+    static getUser = (id,token) => {
+        let obj = {
+            method: "GET",
+            headers: new Headers(
+                {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                })
+            };
+        return new Promise((resolve, reject) => {
+            fetch(api_url+"/users/"+id, obj)
+            .then(resp => resp.json())
+            .then(resp => resolve(resp))
+            .catch(error => reject(error))
+        })
+    }  
 }

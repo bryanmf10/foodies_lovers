@@ -19,6 +19,13 @@ import TuperController from '../controller/TuperController';
 import './NewTupper.css';
 import TokenController from "../controller/TokenController";
 
+// ----- iconos alergias ----//
+import Vegan from "./imgAler/vegan.png";
+import Vegetarian from "./imgAler/vegetarian.png";
+import LactosaFree from "./imgAler/lactosaFree.png";
+import SinGluten from "./imgAler/sinGluten.png";
+import PeanutFree from "./imgAler/peanutFree.png";
+
 const Foto = styled.div`
     width: 90%;
     height: 200px;
@@ -42,7 +49,7 @@ const Box = styled.div`
 const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
-    margin-left: 10px;
+    margin-left: 20px;
     height: 40px;
     font-family: 'Londrina Solid', cursive;
 `;
@@ -53,7 +60,7 @@ const Info = styled.div`
     width: 90%;
     margin-bottom: 15px;
     border-radius: 0 0 20px 20px;
-    padding: 20px;
+   
 `;
 
 const Description = styled.div`
@@ -63,6 +70,7 @@ const Description = styled.div`
     font-weight: bold;
     overflow: visible; 
     height: 80px;
+    margin-left: 20px;
     
 `;
 
@@ -71,12 +79,13 @@ const Usuario = styled.div`
     justify-content:flex-end;
     margin-right: 5px; 
     font-Size: 13px;
+    color: #EE5D6E;
  
 `;
 
 const Separador=styled.div`
-height:5px;
-background-color:white;
+    height:5px;
+    background-color:white;
 `;
 
 const Divider = styled.div`
@@ -92,14 +101,20 @@ const Botones = styled.div`
 
 const Titulo = styled.h2`
     font-Family: 'Londrina Solid', cursive;
-`;
+   
+    `;
 
 const Tupperparati = styled.h2`
     font-Family: 'Londrina Solid', cursive;
     margin-top: 20px;
     text-align: center;
 `;
+const Iconos =styled.div`
+    text-align:right;
+    margin-bottom:10px;
+    margin-right:10px;
 
+`;
 const Tupper = () => {
     const context = useContext(Context);
     const [listaTupers, setListaTupers] = useState([]);
@@ -147,13 +162,22 @@ const Tupper = () => {
                 <Title>
                     {el.titulo}
                 </Title>
-                <Usuario >
+                <Usuario>
                     <p style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</p>
-                    <StarFixed valor={4} />
+                    <StarFixed valor={ 1 + (Math.random() * (5-1))} />
                 </Usuario>
                 <Description>
                     {el.descripcion}
                 </Description>
+            {/* ------iconos alergias------- */}
+            <Iconos>
+                {el.vegetarian ? <img  style={{width:"25px",height:"25px",marginRight:"5px"}} src={Vegetarian}></img> : null}
+               {el.vegan ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={Vegan}></img> : null}
+                {el.hasGluten ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={SinGluten}></img> : null}
+                {el.hasLactosa ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={LactosaFree}></img> : null}
+               {el.hasFrutosSecos ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={PeanutFree}></img> : null}
+            </Iconos>
+             
                <Separador/>
                 <Botones>
                     <Link to={"/detalle/"+el.id}>
