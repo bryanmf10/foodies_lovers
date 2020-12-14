@@ -11,6 +11,14 @@ import 'leaflet/dist/leaflet.css';
 import TuperController from "../controller/TuperController";
 import Context from "../context/Context";
 import PacmanLoader from "react-spinners/PacmanLoader";
+import moneda from "./imgAler/moneda.png";
+
+// ----- iconos alergias ----//
+import Vegan from "./imgAler/vegan.png";
+import Vegetarian from "./imgAler/vegetarian.png";
+import LactosaFree from "./imgAler/lactosaFree.png";
+import SinGluten from "./imgAler/sinGluten.png";
+import PeanutFree from "./imgAler/peanutFree.png";
 
 const Chip = styled.div`
     display: inline-block;
@@ -93,6 +101,7 @@ const Precio = styled.h4`
 font-size: 17px;
 font-family: Londrina Solid ;
 margin-top:30px;
+
 `;
 const Ingredientes = styled.h4`
 font-size: 17px;
@@ -127,6 +136,12 @@ const ofrecerTupperRow = {
     display: "flex",
     justifyContent: "space-between"
 }
+const Iconos =styled.div`
+    text-align:right;
+    margin-bottom:10px;
+    margin-right:10px;
+
+`;
 
 
 
@@ -163,7 +178,12 @@ const Detalle = (props) => {
                         nombreUsuario: tap.usuario.email.split('@')[0],
                         fotoUsuario: tap.usuario.fotoURL,
                         ingredientes: tap.ingredientes.split(", "),
-                        fecha: tap.cooking_date
+                        fecha: tap.cooking_date,
+                        vegetarian:tap.vegetarian,
+                        vegan:tap.vegan,
+                        gluten:tap.hasGluten,
+                        frutosSecos:tap.hasFrutosSecos,
+                        lactosa:tap.hasLactosa
                     }
                     setTuper(obj);
                 }
@@ -226,13 +246,21 @@ const Detalle = (props) => {
                                     <Imagen imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
 
                                 </Col>
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 20px 0 0" }}>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 20px 0 0",textAlign:"end" }}>
                                     <Nombre>{tuper.titulo}</Nombre>
 
                                     <Descripcion>{tuper.desc} </Descripcion>
+                                      {/* ------iconos alergias------- */}
+                                      <Iconos>
+                                                {tuper.vegetarian ? <img  style={{width:"25px",height:"25px",marginRight:"5px"}} src={Vegetarian}></img> : null}
+                                                {tuper.vegan? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={Vegan}></img> : null}
+                                                {tuper.gluten ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={SinGluten}></img> : null}
+                                                {tuper.lactosa ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={LactosaFree}></img> : null}
+                                                {tuper.frutosSecos ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={PeanutFree}></img> : null}
+                                            </Iconos>
 
 
-                                    <Precio>{tuper.valor}TOK</Precio>
+                                <Precio>{tuper.valor} <img style={{width:"30px",height:"30px"}}src={moneda}></img></Precio>
                                 </Col>
 
                             </Row>
@@ -240,18 +268,12 @@ const Detalle = (props) => {
 
                                 <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px", borderRadius: "0 0 0 20px" }}>
                                     <Ingredientes>
-                                        <NombreIng>APTO PARA:</NombreIng>
-                                        <ul>
-                                            veganos
-                                    </ul>
-                                        <ul>
-                                            Sin lactosa
-                                    </ul>
+                                   
 
                                     </Ingredientes>
 
                                 </Col>
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px", borderRadius: "0 0 20px 0" }}>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px", borderRadius: "0 0 20px 0",position:"relative" }}>
                                     <Ingredientes>
                                         <NombreIng>INGREDIENTES:</NombreIng>
                                         <ul>
@@ -263,7 +285,7 @@ const Detalle = (props) => {
                                         </ul>
 
                                     </Ingredientes>
-                                    <FechaTuper>Este tupper se creo el {tuper.fecha}</FechaTuper>
+                                    <FechaTuper styled={{position:"absolute", left:"0",top:"0"}}>Este tupper se creo el {tuper.fecha}</FechaTuper>
                                 </Col>
                                 
                             </Row>
