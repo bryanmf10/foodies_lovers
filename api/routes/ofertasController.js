@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { Op } = require("sequelize");
 const modelo = require('../models/index.js');
 
 //devuelve todas los ofertas
@@ -16,6 +16,27 @@ router.get('/:id', (req, res, next) => {
     modelo.ofertas.findByPk(idOfertas)
         .then(lista => res.json({ ok: true, resp: lista }))
         .catch(err => res.json({ ok: false, error: "No se encuentra la oferta" }));
+});
+
+//devuelve todas las ofertas de un user
+router.get('/user/:id', (req, res, next) => {
+    let idUsuario = req.params.id;
+    modelo.tupers.findAll({attributes: ['id'],where: {'usuarios_id_usuarios': idUsuario}})
+        .then(lista => {
+            if(lista.length > 0){
+                let newArray = lista.map((el) => {return {"tupers_id_tupers":el.dataValues.id}});  
+                modelo.usuarios.hasOne(modelo.ofertas, {foreignKey: 'id'})
+                modelo.ofertas.belongsTo(modelo.usuarios, {foreignKey: 'usuarios_id_usuarios'})
+                modelo.tupers.hasOne(modelo.ofertas, {foreignKey: 'id'})
+                modelo.ofertas.belongsTo(modelo.tupers, {foreignKey: 'tupers_id_tupers'})
+                modelo.ofertas.findAll({where: {[Op.or]:newArray}, include: [{model: modelo.tupers}, {model: modelo.usuarios, attributes: ['email', 'id', 'fotoURL']}]})
+                    .then(lista => res.json({ ok: true, resp: lista }))
+                    .catch(err => res.json({ ok: false, error: "No se encuentra la oferta" }));
+            }else{
+                res.json({ ok: false, resp: "No hay tupers" }) 
+            }
+        })
+        .catch(err => res.json({ ok: false, error: "Error al devolver el tuper" }));
 });
 
 
