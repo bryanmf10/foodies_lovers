@@ -79,7 +79,7 @@ const Usuario = styled.div`
     justify-content:flex-end;
     margin-right: 5px; 
     font-Size: 13px;
-    color: #E6F8F7;
+    color: #EE5D6E;
  
 `;
 
@@ -163,7 +163,7 @@ const Tupper = () => {
                 <Title>
                     {el.titulo}
                 </Title>
-                <Usuario >
+                <Usuario>
                     <p style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</p>
                     <StarFixed valor={4} />
                 </Usuario>

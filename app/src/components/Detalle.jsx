@@ -100,7 +100,9 @@ text-align:justify;
 const Precio = styled.h4`
 font-size: 17px;
 font-family: Londrina Solid ;
-margin-top:30px;
+margin-right:5px;
+margin-bottom:0;
+
 
 `;
 const Ingredientes = styled.h4`
@@ -109,15 +111,12 @@ font-family: Londrina Solid ;
 margin:10px;
 margin-left:20px;
 
-
 `;
 
 const FechaTuper = styled.h4`
 font-size: 15px;
 font-family: Londrina Solid ;
 color:#EE5D6E;
-
-
 `;
 const ofrecerTupperButton = {
     backgroundColor: '#EE5D6E',
@@ -137,9 +136,7 @@ const ofrecerTupperRow = {
     justifyContent: "space-between"
 }
 const Iconos =styled.div`
-    text-align:right;
-    margin-bottom:10px;
-    margin-right:10px;
+    text-align:center;    
 
 `;
 
@@ -247,42 +244,30 @@ const Detalle = (props) => {
 
                                 </Col>
                                 <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 20px 0 0",textAlign:"end" }}>
-                                    <Nombre>{tuper.titulo}</Nombre>
+                                    <Row style={{"height" : "20%"}} className={"p-2"}><Nombre>{tuper.titulo}</Nombre></Row>
 
-                                    <Descripcion>{tuper.desc} </Descripcion>
+                                    <Row style={{"height": "20%"}} className={"p-2"}><Descripcion>{tuper.desc} </Descripcion></Row>
+                                    <Row className="flex-row p-2" style={{"height": "60%", "align-items": "flex-end"}}>
                                       {/* ------iconos alergias------- */}
-                                      <Iconos>
-                                                {tuper.vegetarian ? <img  style={{width:"25px",height:"25px",marginRight:"5px"}} src={Vegetarian}></img> : null}
-                                                {tuper.vegan? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={Vegan}></img> : null}
-                                                {tuper.gluten ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={SinGluten}></img> : null}
-                                                {tuper.lactosa ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={LactosaFree}></img> : null}
-                                                {tuper.frutosSecos ? <img style={{width:"25px",height:"25px",marginRight:"5px"}} src={PeanutFree}></img> : null}
-                                            </Iconos>
-
-
-                                <Precio>{tuper.valor} <img style={{width:"30px",height:"30px"}}src={moneda}></img></Precio>
+                                      <Iconos className="col-9">
+                                                {tuper.vegetarian ? <img  style={{width:"25px",height:"25px",marginRight:"3px"}} src={Vegetarian}></img> : null}
+                                                {tuper.vegan? <img style={{width:"25px",height:"25px",marginRight:"3px"}} src={Vegan}></img> : null}
+                                                {tuper.gluten ? <img style={{width:"25px",height:"25px",marginRight:"3px"}} src={SinGluten}></img> : null}
+                                                {tuper.lactosa ? <img style={{width:"25px",height:"25px",marginRight:"3px"}} src={LactosaFree}></img> : null}
+                                                {tuper.frutosSecos ? <img style={{width:"25px",height:"25px",marginRight:"3px"}} src={PeanutFree}></img> : null}
+                                     </Iconos>
+                                     <Col sm={3} className="p-0">
+                                     <Precio>{tuper.valor} <img style={{width:"30px",height:"30px"}}src={moneda}></img></Precio>
+                                     </Col>
+                                  </Row>
                                 </Col>
 
                             </Row>
                             <Row className="mt-2" >
 
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 0 0 20px" }}>
+                                <Col md={12} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 0 20px 20px" }}>
                                     <Ingredientes>
-                                        <NombreIng>APTO PARA:</NombreIng>
-                                        <ul>
-                                            <li><i className="fas fa-seedling"></i></li>
-                                            <li><i className="fas fa-leaf"></i></li>
-                                            <li><i className="fas fa-bread-slice"></i></li>
-                                            <li></li>
-                                            <li></li>
-                                        </ul>
-                                    </Ingredientes>
-
-                                </Col>
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 0 20px 0" }}>
-                                    
-                                        <Ingredientes>
-                                            <NombreIng>INGREDIENTES:</NombreIng>
+                                    <NombreIng>INGREDIENTES:</NombreIng>
                                             <ul>
                                                 {
                                                     tuper.ingredientes.map((el) => {
@@ -290,12 +275,14 @@ const Detalle = (props) => {
                                                     })
                                                 }
                                             </ul>
-
-                                        </Ingredientes>
-                                        <div className="d-flex align-items-end justify-content-end">
+                                            <div className="d-flex align-items-end justify-content-end">
                                             <FechaTuper>Este tupper se creo el {tuper.fecha}</FechaTuper>
-                                        </div>                         
+                                        </div> 
+
+                                    </Ingredientes>
+
                                 </Col>
+                              
                             </Row>
                         </Col>
                         <Col md={6} className="order-1 order-lg-2 mt-2 mb-3">
