@@ -107,6 +107,7 @@ const SolEntrantes = () => {
           <a onClick={toggle}><i className="fa fa-eye fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i></a>
           {el.comentario}
         </Usuario>
+        
         <Description>
           {el.tuper.descripcion}
         </Description>
