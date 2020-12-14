@@ -118,7 +118,6 @@ router.put('/ticketsUpdate/:id2', (req, res, next) => {
                     res.json({ok:false, error:'Falta de tickets'})
                 }
             });
-
 });
 
 router.delete("/logout", (req, res, next) => {
