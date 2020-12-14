@@ -203,11 +203,11 @@ const Detalle = (props) => {
     }
 
     return (
-        <Container fuid >
+        <Container fluid >
             <TituloSubirTupper><i class="fa fa-info-circle" aria-hidden="true"></i>
                           DETALLE TUPPER </TituloSubirTupper>
             <AnadirTupper>Todo sobre el tupper </AnadirTupper>
-            <Row className="justify-content-center">
+            <Row className="justify-content-center w-100">
                 <Col md={10}>
                     <Row className="p-1" style={ofrecerTupperRow}>
                         <Chip>
@@ -222,7 +222,7 @@ const Detalle = (props) => {
 
                             <Row >
 
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "20px 0 0 0" }} >
+                                <Col md={6} className={'p-0'} style={{ backgroundColor: "#E6F8F7", borderRadius: "20px 0 0 0" }} >
                                     <Imagen imagSrc={TuperController.getUrlFoto(tuper.url)}></Imagen>
 
                                 </Col>
@@ -238,37 +238,37 @@ const Detalle = (props) => {
                             </Row>
                             <Row className="mt-2" >
 
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px", borderRadius: "0 0 0 20px" }}>
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 0 0 20px" }}>
                                     <Ingredientes>
                                         <NombreIng>APTO PARA:</NombreIng>
                                         <ul>
-                                            veganos
-                                    </ul>
-                                        <ul>
-                                            Sin lactosa
-                                    </ul>
-
-                                    </Ingredientes>
-
-                                </Col>
-                                <Col md={6} style={{ backgroundColor: "#E6F8F7", height: "200px", borderRadius: "0 0 20px 0" }}>
-                                    <Ingredientes>
-                                        <NombreIng>INGREDIENTES:</NombreIng>
-                                        <ul>
-                                            {
-                                                tuper.ingredientes.map((el) => {
-                                                    return <li key={el}>{el}</li>;
-                                                })
-                                            }
+                                            <li><i className="fas fa-seedling"></i></li>
+                                            <li><i className="fas fa-leaf"></i></li>
+                                            <li><i className="fas fa-bread-slice"></i></li>
+                                            <li></li>
+                                            <li></li>
                                         </ul>
-
                                     </Ingredientes>
-                                    <FechaTuper>Este tupper se creo el {tuper.fecha}</FechaTuper>
+
                                 </Col>
-                                
+                                <Col md={6} style={{ backgroundColor: "#E6F8F7", borderRadius: "0 0 20px 0" }}>
+                                    
+                                        <Ingredientes>
+                                            <NombreIng>INGREDIENTES:</NombreIng>
+                                            <ul>
+                                                {
+                                                    tuper.ingredientes.map((el) => {
+                                                        return <li key={el}>{el}</li>;
+                                                    })
+                                                }
+                                            </ul>
+
+                                        </Ingredientes>
+                                        <div className="d-flex align-items-end justify-content-end">
+                                            <FechaTuper>Este tupper se creo el {tuper.fecha}</FechaTuper>
+                                        </div>                         
+                                </Col>
                             </Row>
-
-
                         </Col>
                         <Col md={6} className="order-1 order-lg-2 mt-2 mb-3">
                             <Mapa />

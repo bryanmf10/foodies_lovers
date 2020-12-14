@@ -97,9 +97,14 @@ const SolEntrantes = (props) => {
   }, []);
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
+<<<<<<< HEAD
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
       {/* <Foto imagSrc={el.tuper.urlFoto} /> */}
       <Foto imagSrc="https://www.lavanguardia.com/files/article_main_microformat/uploads/2018/06/01/5e99784964d1d.jpeg" />
+=======
+    <Box key={el.id} className="col-lg-3 col-sm-6 col-12">
+      <Foto imagSrc={el.urlFoto} />
+>>>>>>> 23f3194ebd665a2f648f2159975f02ca23af4d51
       <Info>
         <Title>
           {el.tuper.titulo}
