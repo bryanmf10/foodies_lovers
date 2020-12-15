@@ -12,7 +12,7 @@ const Contenedor = styled.div`
 
 const Formulario = styled.div`
     width: 600px;
-    height: 60px;
+    height: 60px,
     display: flex;
     justify-content: space-between;
 `;
