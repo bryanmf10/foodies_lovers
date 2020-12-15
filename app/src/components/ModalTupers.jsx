@@ -101,7 +101,7 @@ const ModalTupers = (props) => {
   return (
     <div>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Escoge como pagar</ModalHeader>
+        <ModalHeader toggle={toggle} style={{backgroundColor:"#E6F8F7",fontFamily: "Londrina Solid"}}>Escoge como pagar</ModalHeader>
         <ModalBody>
         <FormGroup tag="fieldset">
           <Row>
@@ -109,19 +109,19 @@ const ModalTupers = (props) => {
           </Row>
           <Row>
             <FormGroup className="col-12 textoNewTupper" >
-              <Label for="inputComentario" >Nombre</Label>
-              <Input type="text" name="inputComentario" id="inputComentario" placeholder="Introduce el nombre" value={comentario} onChange={(event) => setComentario(event.target.value)} required />
+              <Label for="inputComentario" >Comentario</Label>
+              <Input type="text" name="inputComentario" id="inputComentario" placeholder="¿Quieres mandar un mensaje especial?" value={comentario} onChange={(event) => setComentario(event.target.value)} required />
             </FormGroup>
           </Row>
         </FormGroup>
         </ModalBody>
-        <ModalFooter>
-          <Row className="w-100">
+        <ModalFooter style={{backgroundColor:"#E6F8F7"}}>
+          <Row className="w-100" >
               <Col className="text-left">
-                {props.pago !== 0 ? <Button color="warning" onClick={pagarConTokens}>Pagar con tokens</Button> : null}
+                {props.pago !== 0 ? <Button color="warning" onClick={pagarConTokens}>Pagar con Tokens </Button> : null}
               </Col>
               <Col className="text-right">
-                <Button color="danger" onClick={toggle}>Cancelar</Button>
+                <Button color="danger" onClick={toggle}><i class="fa fa-undo" aria-hidden="true"></i></Button>
               </Col>
           </Row>
         </ModalFooter>

@@ -17,6 +17,7 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center;
+    border-radius:20px 20px 0 0;
 `;
 
 const Box = styled.div`
@@ -31,8 +32,7 @@ const Box = styled.div`
 const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
-    margin-left: 10px;
-    height: 80px;
+    margin-left: 20px;
     font-family: 'Londrina Solid', cursive;
 `;
 
@@ -41,6 +41,7 @@ const Info = styled.div`
     background-color: #E6F8F7;
     width: 90%;
     margin-bottom: 15px;
+    border-radius: 0 0 20px 20px;
 `;
 
 const Description = styled.div`
@@ -49,26 +50,30 @@ const Description = styled.div`
     text-align: justify;
     font-weight: bold;
     overflow: scroll; 
-    height: 80px;
+    height: 50px;
 `;
 
 const Usuario = styled.div`
-    text-Align: right;
-    margin: 5px; 
-    font-Size: 13px;
-    scroll-padding-block: 30px;
-    display: flex;
-    flex-flow: column wrap;
+display:flex;
+justify-content:flex-end;
+margin-right: 5px; 
+font-Size: 13px;
+color: #EE5D6E;
+
 `;
 
 const Divider = styled.div`
-    border-left: 1px solid black;
-`;
+border-left: 3px solid #EE5D6E; `;
 
 const Botones = styled.div`
     display: flex;
     justify-Content: space-around;
     margin-Bottom: 20px;
+    margin-top:20px;
+`;
+const Separador=styled.div`
+    height:5px;
+    background-color:white;
 `;
 
 const SolEntrantes = () => {
@@ -102,20 +107,24 @@ const SolEntrantes = () => {
       <Info>
         <Title>
           {el.tuper.titulo}
+          <a onClick={toggle}><i className="fa fa-eye " aria-hidden="true" style={{ color: "#EE5D6E",marginLeft:"10px",cursor:"pointer"}}></i></a>
+
         </Title>
         <Usuario >
+          <span style={{marginRight: '5px'}}>{el.usuario.email.split('@')[0]}</span>
           <StarFixed valor={el.id_ranking} />
-          <span>{el.usuario.email.split('@')[0]}</span>
-          <a onClick={toggle}><i className="fa fa-eye fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i></a>
           <b><i>{el.comentario}</i></b>
         </Usuario>
+
         <Description>
           {el.tuper.descripcion}
         </Description>
+        <Separador/>
         <Botones>
-          <Button color="warning" onClick={() => refreshTupers(el.id, 2)}>Aceptar</Button>
+          <div  onClick={() => refreshTupers(el.id, 2)}><i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style={{ color: "#EE5D6E",cursor:"pointer" }}></i></div>
           <Divider />
-          <Button color="danger" onClick={() => refreshTupers(el.id, 0)}>Rechazar</Button>
+          <div  onClick={() => refreshTupers(el.id, 0)}><i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style={{ color: "#EE5D6E",cursor:"pointer"}}></i>
+</div>
         </Botones>
         
         <Modal isOpen={modal} toggle={toggle}>

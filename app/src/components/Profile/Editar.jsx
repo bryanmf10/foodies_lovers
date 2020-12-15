@@ -12,6 +12,7 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center; 
+    border-radius:20px 0 0 20px;
 `;
 
 const TituloSubirTupper = styled.h2`
@@ -63,6 +64,7 @@ const Editar = (props) => {
         return fotoFlag ? <Foto imagSrc={urlFoto}></Foto> :
             <FormGroup className="image-upload mt-1 ">
                 <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
+           
 
                     <i className="fa fa-camera-retro fa-4x " aria-hidden="true" style={{color: "#EE5D6E", cursor: "cell" }}></i>
                 </Label>
@@ -73,7 +75,7 @@ const Editar = (props) => {
     return (
         <Container fluid >
              <Form onSubmit={(event) => handleSubmit(event)} >
-            <TituloSubirTupper>Editar perfil</TituloSubirTupper>
+            <TituloSubirTupper>  <i className="fa fa-pencil" aria-hidden="true" ></i>EDITAR PERFIL</TituloSubirTupper>
             
             <Row className="justify-content-center ">
                 <Col sm={12} md={6}>

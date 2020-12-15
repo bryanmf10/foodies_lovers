@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import imagen from './images/images.jpg';
 import StarFixed from "../StarFixed";
-import dollar from "./images/dollar.svg";
+import dollar from "../imgAler/moneda.png";
 
 const Rango = styled.div`
     border-radius: 25px;
