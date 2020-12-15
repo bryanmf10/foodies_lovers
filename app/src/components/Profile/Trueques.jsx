@@ -1,10 +1,13 @@
 import { Container } from "reactstrap";
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
 import imagen from './images/images.jpg';
-
 import Perfil from "./Perfil";
 import Comentario from "./Comentario";
+import OfertasController from "../../controller/OfertasController";
+import TuperController from '../../controller/TuperController';
+import Context from "../../context/Context";
+import TokenController from "../../controller/TokenController";
 
 const Chip = styled.div`
     display: inline-block;
@@ -43,22 +46,47 @@ const Review = styled.div`
 
 const Trueques = () => {
 
+  const [listaTupers, setListaTupers] = useState([]);
+  const context = useContext(Context);
+
+  useEffect(() => {
+    OfertasController.getMyOffers(TokenController.getIdUser(context.token),context.token)
+      .then(data => {
+        console.log(data);
+        if (data.ok === false) {
+          setListaTupers([]);
+        } else {
+          let tupers = data.resp.filter((el) => el.respuesta === 2).map((el)=>{
+            el.tuper.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+            return el;
+          })
+          console.log(tupers);
+          setListaTupers(tupers);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  const display = listaTupers.length > 0 ? listaTupers.map((el) => (
+    <Contenedor key={el.id}>
+    <Chip>
+      <Imagen src={imagen} width="96" height="96" />
+      <span>{el.tuper.usuario.email.split('@')[0]}</span>
+    </Chip>
+    <Review>
+      <Comentario idOferta={el.id} />
+    </Review>
+  </Contenedor>
+  )):<p>No hay trueques por finalizar</p>;
+
   return (
     <Container>
-      <Perfil />
-      <div>
-      </div>
-      <br />
-      <Contenedor>
-        <Chip>
-          <Imagen src={imagen} width="96" height="96" />
-          <span>Julio Carpa Por Si Llueve</span>
-        </Chip>
-        <Review>
-          <Comentario />
-        </Review>
-      </Contenedor>
-    </Container>
+        <Perfil />
+        <div>
+        </div>
+        <br />
+        {display}
+      </Container>
   );
 }
 

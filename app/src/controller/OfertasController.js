@@ -69,4 +69,72 @@ export default class OfertasController {
                     });
             });
     }
+
+    static responderOferta = (idOferta, respuesta, token) => {
+        let obj = {
+            method: "PUT",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token
+            }),
+            body: JSON.stringify({respuesta: respuesta})
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/ofertas/change/"+idOferta, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
+
+    static comentarPuntuarTrueque = (idOferta, croqueta, token) => {
+        let obj = {
+            method: "PUT",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token
+            }),
+            body: JSON.stringify(croqueta)
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/ofertas/response/"+idOferta, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
+
+    static getMyComentarios = (idUser, token) => {
+        let obj = {
+            method: "GET",
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': token
+            })
+        };
+        return new Promise(
+            (resolve, reject) => {
+                fetch(api_url + "/ofertas/opinions/"+idUser, obj)
+                    .then(data => data.json())
+                    .then(datos => {
+                        resolve(datos);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    }
 }

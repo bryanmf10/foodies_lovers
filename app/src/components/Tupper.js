@@ -50,7 +50,6 @@ const Title = styled.div`
     margin-Top: 10px;
     font-Size: 25px;
     margin-left: 20px;
-    height: 40px;
     font-family: 'Londrina Solid', cursive;
 `;
 
@@ -64,13 +63,14 @@ const Info = styled.div`
 `;
 
 const Description = styled.div`
-    margin: 10px;
+    
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
     overflow: visible; 
     height: 80px;
-    margin-left: 20px;
+    padding:10px;
+   
     
 `;
 
@@ -80,6 +80,7 @@ const Usuario = styled.div`
     margin-right: 5px; 
     font-Size: 13px;
     color: #EE5D6E;
+   
  
 `;
 

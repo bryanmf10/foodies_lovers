@@ -20,9 +20,15 @@ router.get('/:id', (req, res, next) => {
 
 router.get('/offers/:id', (req,res,next)=>{
     let idOfertas = req.params.id;
-    
+    modelo.usuarios.hasOne(modelo.tupers, {foreignKey: 'id'})
+    modelo.tupers.belongsTo(modelo.usuarios, {foreignKey: 'usuarios_id_usuarios'})
+    modelo.tupers.hasOne(modelo.ofertas, {foreignKey: 'id'})
+    modelo.ofertas.belongsTo(modelo.tupers, {foreignKey: 'tupers_id_tupers'})
+    modelo.ofertas.findAll({where: {"usuarios_id_usuarios": idOfertas}, include: [{model: modelo.tupers, include: {model: modelo.usuarios, attributes: ['email', 'id', 'fotoURL']}}]})
+        .then(lista => {res.json({ ok: true, resp: lista })})
+        .catch(err => res.json({ ok: false, error: "No se encuentra la oferta" }));
 });
-
+//SELECT ofertas.*, tupers.id as tuperID FROM ofertas INNER JOIN tupers ON ofertas.tupers_id_tupers = tupers.id where ofertas.usuarios_id_usuarios = 33;
 //devuelve todas las ofertas de un user
 router.get('/user/:id', (req, res, next) => {
     let idUsuario = req.params.id;

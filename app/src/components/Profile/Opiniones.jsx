@@ -1,8 +1,11 @@
 import { Container } from "reactstrap";
-import React from "react";
+import React, {useEffect, useState, useContext} from "react";
 import styled from 'styled-components';
 import imagen from './images/images.jpg';
-
+import OfertasController from "../../controller/OfertasController";
+import TuperController from '../../controller/TuperController';
+import Context from "../../context/Context";
+import TokenController from "../../controller/TokenController";
 import Perfil from "./Perfil";
 import Opinion from "./Opinion";
 
@@ -45,7 +48,25 @@ const Review = styled.div`
 `;
 
 const Opiniones = () => {
-
+  const [listaComentarios, setListaComentarios] = useState([]);
+  const context = useContext(Context);
+  useEffect(() => {
+    OfertasController.getMyOffers(TokenController.getIdUser(context.token),context.token)
+      .then(data => {
+        console.log(data);
+        if (data.ok === false) {
+          setListaComentarios([]);
+        } else {
+          let comentarios = data.resp.map((el)=>{
+            el.tuper.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+            return el;
+          })
+          console.log(comentarios);
+          setListaComentarios(comentarios);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
   return (
     <Container>
       <Perfil />
