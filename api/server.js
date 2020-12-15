@@ -19,7 +19,7 @@ app.use(express.json());
 app.use("/account", accountRouter);
 app.use("/img", express.static('uploads'));
 
-app.use("/", express.static('public'), verifyToken);
+app.use("/", express.static('public'));
 app.use('/users', usersRouter);
 app.use('/ranking', rankingRouter);
 app.use('/tupers', tupersRouter);

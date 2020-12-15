@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Button } from "reactstrap";
+import React, { useEffect, useState, useContext } from "react";
+import { Container, Row } from "reactstrap";
 import styled from "styled-components";
 import OfertasController from "../../controller/OfertasController";
 import TuperController from '../../controller/TuperController';
-
+import Context from "../../context/Context";
+import TokenController from "../../controller/TokenController";
 import Perfil from "./Perfil"
 
 const Foto = styled.div`
@@ -52,16 +53,17 @@ const TuppersOfrecidos = () => {
 
   
   const [listaTupers, setListaTupers] = useState([]);
+  const context = useContext(Context);
 
   useEffect(() => {
-    OfertasController.getMyOfertas()
+    OfertasController.getMyOffers(TokenController.getIdUser(context.token),context.token)
       .then(data => {
         console.log(data);
         if (data.ok === false) {
           setListaTupers([]);
         } else {
           let tupers = data.resp.map((el)=>{
-            el.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+            el.tuper.urlFoto = TuperController.getUrlFoto(el.urlFoto);
             return el;
           })
           setListaTupers(tupers);
@@ -72,13 +74,13 @@ const TuppersOfrecidos = () => {
 
   const tuppers = listaTupers.length === 0 ? <p>No se han encontrado tupers</p> : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3  col-sm-6 col-12">
-      <Foto imagSrc={el.urlFoto} />
+      <Foto imagSrc={el.tuper.urlFoto} />
       <Info>
         <Title>
-          {el.titulo}
+          {el.tuper.titulo}
         </Title>
         <Description>
-          {el.descripcion}
+          {el.tuper.descripcion}
         </Description>
       </Info>
     </Box>

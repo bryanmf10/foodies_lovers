@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import styled from 'styled-components';
 import Context from "../../context/Context";
 import Star from "../Star";
+import OfertasController from "../../controller/OfertasController";
 
 const Contenedor = styled.div`
     width: 300px;
@@ -31,11 +32,20 @@ const Comentario = (props) => {
 
   const [puntuacion, setPuntuacion] = useState(['warning', 'Puntuar']);
 
-  const handleNameChange = e => setName(e.target.value);
   const handleNameSubmit = e => {
     e.preventDefault();
-    context.setName(name);
-    setRedireccion(true);
+    let nuevaFecha = new Date().toISOString().split('T')[0];
+    //Falta meter la puntuación
+    OfertasController.comentarPuntuarTrueque(props.idOferta,{comentario: name, puntuacion: 4, finalDate: nuevaFecha},context.token)
+    .then((data) => {
+      if(data.ok){
+        context.setName(name);
+        setRedireccion(true);
+      }else{
+        console.log("Error fatal");
+      }
+    })
+    .catch(err => console.log(err));
   };
 
   return redireccion ? (<Redirect to="/perfil/opiniones" />) : (
@@ -43,7 +53,7 @@ const Comentario = (props) => {
       <FormGroup>
         <Formulario>
           <Contenedor>
-            <Input type="text" id="name" value={name} onChange={handleNameChange} placeholder="Introduce tu comentario" />
+            <Input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Introduce tu comentario" />
           </Contenedor>
           <Estrellas>
             <Star />

@@ -74,17 +74,19 @@ const Botones = styled.div`
 const SolEntrantes = () => {
   const context = useContext(Context);
   const [listaTupers, setListaTupers] = useState([]);
-
+  const [tradeFlag, setTradeFlag] = useState(false);
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
   useEffect(() => {
+    if(tradeFlag) setTradeFlag(false);
     OfertasController.getMyOfertas(TokenController.getIdUser(context.token), context.token)
       .then(data => {
         if (data.ok === false) {
           setListaTupers([]);
         } else {
-          let tupers = data.resp.map((el)=>{
+          console.log(data);
+          let tupers = data.resp.filter((el) => el.respuesta === 1).map((el)=>{
             el.urlFoto = TuperController.getUrlFoto(el.tuper.urlFoto);
             return el;
           })
@@ -92,13 +94,11 @@ const SolEntrantes = () => {
         }
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [tradeFlag]);
 
   const tuppers = listaTupers.length === 0 ? null : listaTupers.map((el) => (
     <Box key={el.id} className="col-lg-3 col-sm-6 col-12">
-
       <Foto imagSrc={el.urlFoto} />
-      {/* <Foto imagSrc="https://www.ecestaticos.com/image/clipping/bb50de49b6df856a70062fad7cb388b7/made-in-spain-prepara-el-autentico-gazpacho-andaluz.jpg"/> */}
       <Info>
         <Title>
           {el.tuper.titulo}
@@ -113,9 +113,9 @@ const SolEntrantes = () => {
           {el.tuper.descripcion}
         </Description>
         <Botones>
-          <Button color="warning">Aceptar</Button>
+          <Button color="warning" onClick={() => refreshTupers(el.id, 2)}>Aceptar</Button>
           <Divider />
-          <Button color="danger" onClick={() => refreshTupers(el.id)}>Rechazar</Button>
+          <Button color="danger" onClick={() => refreshTupers(el.id, 0)}>Rechazar</Button>
         </Botones>
         
         <Modal isOpen={modal} toggle={toggle}>
@@ -138,16 +138,18 @@ const SolEntrantes = () => {
     </Box>
   ));
 
-  const refreshTupers = (e) => {
-    let newArray = [...listaTupers];
-    let removeIndex = newArray.map(function (item) { return item.id; }).indexOf(e);
-    newArray.splice(removeIndex, 1);
-    setListaTupers(newArray);
+  const refreshTupers = (id, resp) => {
+    OfertasController.responderOferta(id, resp, context.token)
+    .then(data => {
+      if(data.ok){
+        setTradeFlag(true);
+      }else{
+        console.log("Ha habido un error");
+      }
+    })
+    .catch(error => console.log(error));
   };
-
-  console.log("listaTupers");
-  console.log(listaTupers);
-
+  
   return (
     <Container>
       <Perfil />
