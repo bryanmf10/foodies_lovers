@@ -115,7 +115,6 @@ const SolEntrantes = () => {
           <StarFixed valor={el.id_ranking} />
           <b><i>{el.comentario}</i></b>
         </Usuario>
-
         <Description>
           {el.tuper.descripcion}
         </Description>
