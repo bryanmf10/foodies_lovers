@@ -145,8 +145,8 @@ const ModTuper = (props) => {
         <>
             <Container fluid >
                 <Form onSubmit={(event) => handleSubmit(event)} >
-                     <TituloSubirTupper>MODIFICAR TUPPER</TituloSubirTupper>
-                         <AnadirTupper>¿Qué te apetece subir hoy?
+                     <TituloSubirTupper>  <i className="fa fa-pencil" aria-hidden="true" ></i>MODIFICAR TUPPER</TituloSubirTupper>
+                         <AnadirTupper>
                          <FormGroup className="image-upload mt-1">
                                     <Label for="file-input">
                                        <i className="fa fa-camera-retro fa-2x" aria-hidden="true" ></i>

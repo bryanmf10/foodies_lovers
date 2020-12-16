@@ -113,10 +113,10 @@ const MisTuppers = () => {
         </Description>
         <Separador/>
         <Botones>
-          <Link to={"/modTuper/"+el.id}><i class="fa fa-pencil fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+          <Link to={"/modTuper/"+el.id}><i className="fa fa-pencil fa-2x" aria-hidden="true" style={{ color: "#EE5D6E",cursor:"pointer" }}></i>
       </Link>
           <Divider />
-          <div  onClick={()=> deleteTupper(el.id)}><i class="fa fa-trash fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+          <div  onClick={()=> deleteTupper(el.id)}><i className="fa fa-trash fa-2x" aria-hidden="true" style={{ color: "#EE5D6E",cursor:"pointer" }}></i>
         </div>
         </Botones>
       </Info>

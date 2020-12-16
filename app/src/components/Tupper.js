@@ -80,7 +80,7 @@ const Usuario = styled.div`
     margin-right: 5px; 
     font-Size: 13px;
     color: #EE5D6E;
-   
+
  
 `;
 
@@ -182,10 +182,10 @@ const Tupper = () => {
                <Separador/>
                 <Botones>
                     <Link to={"/detalle/"+el.id}>
-                        <i className="fa fa-eye fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                        <i className="fa fa-eye fa-2x" aria-hidden="true" style={{ color: "#EE5D6E",cursor:"pointer" }}></i>
                     </Link>
                     <Divider />
-                    <i className="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E" }}></i>
+                    <i className="fa fa-heart-o fa-2x" aria-hidden="true" style={{ color: "#EE5D6E",cursor:"pointer" }}></i>
                 </Botones>
             </Info>
         </Box>

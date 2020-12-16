@@ -13,6 +13,7 @@ const Foto = styled.div`
     background-image: url(${props => props.imagSrc});
     background-size: cover;
     background-position: center; 
+    border-radius:20px 0 0 20px;
 `;
 
 const TituloSubirTupper = styled.h2`
@@ -89,7 +90,7 @@ const Editar = (props) => {
     return (
         <Container fluid >
              <Form onSubmit={(event) => handleSubmit(event)} >
-            <TituloSubirTupper>Editar perfil</TituloSubirTupper>
+            <TituloSubirTupper>  <i className="fa fa-pencil" aria-hidden="true" ></i>EDITAR PERFIL</TituloSubirTupper>
             
             <Row className="justify-content-center ">
                 <Col sm={12} md={6}>
