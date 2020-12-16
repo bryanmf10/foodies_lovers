@@ -56,7 +56,7 @@ const App = (props) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
+  const [fotoUser, setFotoUser] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
   const context = useContext(Context);
@@ -72,7 +72,15 @@ const App = (props) => {
       .then(data => {
         if(data.ok !== false){
           context.setToken(token);
-          setAuthenticated(true)
+          UserController.getUser(TokenController.getIdUser(token), token)
+          .then((user) => {
+            if(user.ok) {
+              if(user.resp.fotoURL !== null) user.resp.fotoURL = UserController.getUrlFoto(user.resp.fotoURL);
+              setFotoUser(user.resp.fotoURL);
+            };
+          })
+          .catch(err => console.log(err));
+          setAuthenticated(true);
         }else{
           cookies.remove('token',false);
         }
@@ -117,7 +125,7 @@ const App = (props) => {
                   <Input className="form-control" type="text" placeholder="Search" aria-label="Search" />
                 </MDBCol>
                 <UncontrolledDropdown nav className="text-left mr-1">
-                  <DropdownToggle nav caret><FotoPerfilNav imgSrc={imagen}></FotoPerfilNav> </DropdownToggle>
+                  <DropdownToggle nav caret><FotoPerfilNav imgSrc={fotoUser !== null ? fotoUser : imagen}></FotoPerfilNav> </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem><Link to="/perfil">Mis tuppers</Link> </DropdownItem>
                     <DropdownItem divider />

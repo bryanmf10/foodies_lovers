@@ -45,7 +45,7 @@ const Description = styled.div`
     font-Size: 13px; 
     text-align: justify;
     font-weight: bold;
-    overflow: scroll; 
+    overflow: visible; 
     height: 80px;
 `;
 
@@ -63,7 +63,7 @@ const TuppersOfrecidos = () => {
           setListaTupers([]);
         } else {
           let tupers = data.resp.map((el)=>{
-            el.tuper.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+            el.tuper.urlFoto = TuperController.getUrlFoto(el.tuper.urlFoto);
             return el;
           })
           setListaTupers(tupers);

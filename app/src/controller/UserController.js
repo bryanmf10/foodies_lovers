@@ -1,4 +1,4 @@
-const api_url = 'https://heroku-foodies-lovers-app.herokuapp.com/users';
+const api_url = 'https://heroku-foodies-lovers-app.herokuapp.com/';
 
 export default class UserController{
     static logout = (token) => {
@@ -13,7 +13,7 @@ export default class UserController{
                 })
             };
         return new Promise((resolve, reject) => {
-            fetch(api_url+"/logout", obj)
+            fetch(api_url+"users/logout", obj)
             .then(resp => resp.json())
             .then(resp => resolve(resp))
             .catch(error => reject(error))
@@ -30,10 +30,13 @@ export default class UserController{
                 })
             };
         return new Promise((resolve, reject) => {
-            fetch(api_url+"/users/"+id, obj)
+            fetch(api_url+"users/"+id, obj)
             .then(resp => resp.json())
             .then(resp => resolve(resp))
             .catch(error => reject(error))
         })
     }  
+    static getUrlFoto = (foto) => {
+        return api_url+"img/users/"+foto;
+    }
 }

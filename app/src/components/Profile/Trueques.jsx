@@ -57,7 +57,7 @@ const Trueques = () => {
           setListaTupers([]);
         } else {
           let tupers = data.resp.filter((el) => el.respuesta === 2).map((el)=>{
-            el.tuper.urlFoto = TuperController.getUrlFoto(el.urlFoto);
+            el.tuper.usuario.urlFoto = TuperController.getUrlFoto(el.tuper.usuario.urlFoto);
             return el;
           })
           console.log(tupers);
@@ -70,10 +70,11 @@ const Trueques = () => {
   const display = listaTupers.length > 0 ? listaTupers.map((el) => (
     <Contenedor key={el.id}>
     <Chip>
-      <Imagen src={imagen} width="96" height="96" />
+      <Imagen src={el.tuper.usuario.fotoURL !== null ? el.tuper.usuario.fotoURL : imagen} width="96" height="96" />
       <span>{el.tuper.usuario.email.split('@')[0]}</span>
     </Chip>
     <Review>
+      <span className="p-2">Tupper: {el.tuper.titulo}</span>
       <Comentario idOferta={el.id} />
     </Review>
   </Contenedor>

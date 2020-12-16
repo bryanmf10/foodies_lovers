@@ -8,6 +8,7 @@ import Context from "../../context/Context";
 import TokenController from "../../controller/TokenController";
 import Perfil from "./Perfil";
 import Opinion from "./Opinion";
+import Star from "../Star";
 
 const Chip = styled.div`
     display: inline-block;
@@ -57,7 +58,7 @@ const Opiniones = () => {
         if (data.ok === false) {
           setListaComentarios([]);
         } else {
-          let comentarios = data.resp.map((el)=>{
+          let comentarios = data.resp.filter(el => el.respuesta === 3).map((el)=>{
             el.tuper.urlFoto = TuperController.getUrlFoto(el.urlFoto);
             return el;
           })
@@ -67,21 +68,28 @@ const Opiniones = () => {
       })
       .catch(err => console.log(err));
   }, []);
+
+  const displayComentarios = listaComentarios.length === 0 ? <p>No se han encontrado Comentarios sobre ti</p> : listaComentarios.map((el) => (
+      <Contenedor className={"d-flex align-items-center"}>
+        <Chip>
+        <Imagen src={el.tuper.usuario.fotoURL !== null ? el.tuper.usuario.fotoURL : imagen} width="96" height="96" />
+        <span>{el.tuper.usuario.email.split('@')[0]}</span>
+        </Chip>
+        <Review className="d-flex align-items-center">
+          <span>{el.comentario_cambio}</span> // <span>{el.final_date}</span>
+          <Star valor={el.puntuacion}/>
+        </Review>
+      </Contenedor>
+    ));
+  
+
   return (
     <Container>
       <Perfil />
       <div>
       </div>
       <br />
-      <Contenedor>
-        <Chip>
-          <Imagen src={imagen} width="96" height="96" />
-          <span>Julio Carpa Por Si Llueve</span>
-        </Chip>
-        <Review>
-          <Opinion />
-        </Review>
-      </Contenedor>
+      {displayComentarios}
     </Container>
   );
 }

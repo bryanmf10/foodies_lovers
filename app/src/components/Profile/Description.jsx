@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import styled from 'styled-components';
 import imagen from './images/images.jpg';
 import StarFixed from "../StarFixed";
 import dollar from "./images/dollar.svg";
+import Context from "../../context/Context";
+import UserController from "../../controller/UserController";
+import TokenController from "../../controller/TokenController";
 
 const Rango = styled.div`
     border-radius: 25px;
@@ -24,13 +27,6 @@ const Perfil = styled.img`
     box-shadow: 0 0 .25em .25em rgba(0, 0, 0, 0.25);
 `;
 
-const Descripcion = styled.div`
-    border-radius: 25px;
-    padding: 20px; 
-    width: 50%;
-    height: 30%;
-`;
-
 const Money = styled.img`
     width: 25px; 
     height: 25px;
@@ -49,20 +45,28 @@ const Usuario= styled.h1`
     border-radius: 10px;
 `;
 const Description = () => {
+  const context = useContext(Context);
+  const [user, setUser] = useState({email: "", ranking: {titulo: ""}});
+  useEffect(()=> {
+    UserController.getUser(TokenController.getIdUser(context.token),context.token)
+    .then((user) => {
+      if(user.ok) {
+        if(user.resp.fotoURL !== null) user.resp.fotoURL = UserController.getUrlFoto(user.resp.fotoURL);
+        setUser(user.resp);
+      };
+    })
+    .catch(err => console.log(err));
+  }, []);
 
   return (
     <Centro>
-      <Perfil src={imagen}></Perfil>
-      {/* <Descripcion>
-       
-        {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, explicabo itaque totam modi, velit, atque delectus aliquam sed neque culpa rerum illo quibusdam numquam officiis inventore aliquid! Doloremque, tempora voluptate.</p> */}
-      {/* </Descripcion> */} 
+      <Perfil src={user.fotoURL !== null ? user.fotoURL : imagen}></Perfil>
       <Rango>
-        <Usuario>Pedro</Usuario>
-        <h6>Rango: "Abuela"</h6>
+        <Usuario>{user.email.split("@")[0]}</Usuario>
+        <h6>Rango: "{user.ranking.titulo}"</h6>
         <StarFixed valor={2}/>
         <Saldo>
-            <h6>Saldo: 20</h6>
+            <h6>Saldo: {user.tickets}</h6>
             <Money src={dollar} alt='dollar'/>
         </Saldo>
       </Rango>
