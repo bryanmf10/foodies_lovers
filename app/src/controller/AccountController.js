@@ -41,9 +41,24 @@ export default class TuperController{
         })
     }
 
-    static changePassword = () => {
-        // In progress
-        return null;
+    static changePassword = (password, token) => {
+        let obj = {
+            method: "PUT",
+            headers: new Headers(
+                {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'authorization': token
+                }),
+            body: 
+                JSON.stringify({password: password})
+            };
+        return new Promise((resolve, reject) => {
+            fetch(api_url+"/changepassword", obj)
+            .then(data => data.json())
+            .then(data => resolve(data))
+            .catch(error => reject(error))
+        })
     }
 
 }

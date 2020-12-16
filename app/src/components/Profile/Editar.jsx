@@ -4,7 +4,8 @@ import '../NewTupper.css';
 import styled from 'styled-components';
 import UserController from "../../controller/UserController";
 import Context from "../../context/Context";
-import TupperController from "../../controller/TuperController";
+import AccountController from '../../controller/AccountController';
+
 const Foto = styled.div`
     width: 100%;
     height: 300px;
@@ -41,7 +42,10 @@ const Editar = (props) => {
     useEffect(()=>{
         let {id} = props.match.params;
         UserController.getUser(id,context.token)
-        .then((data) => console.log(data.resp))
+        .then((data) => {
+            console.log(data.resp)
+            setTel(data.resp.phone);
+        })
         .catch(err => console.log(err))
     },[]);
 
@@ -49,21 +53,33 @@ const Editar = (props) => {
         event.preventDefault();
         const profilePic = new FormData();
             profilePic.append("file", selectedFile);
-        TupperController.insertOne(profilePic,context.token)
-          .then(data => setLoading(true))
-          .catch(error => console.log(error));
+        if(fotoFlag){
+            UserController.insertOneFoto(profilePic, context.token)
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+        }
+        if(tel !== ""){
+            UserController.updatePhone(tel, context.token)
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+        }
+        if(pass !== ""){
+            AccountController.changePassword(pass, context.token)
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+        }
       }
 
     const handleImageChange = (event) => {
         let file = event.target.files[0];
         setFotoFlag(true);
+        setSelectedFile(file);
         setUrlFoto(URL.createObjectURL(file));
     }
     const FotoOrIcon = () => {
         return fotoFlag ? <Foto imagSrc={urlFoto}></Foto> :
             <FormGroup className="image-upload mt-1 ">
                 <Label for="file-input" data-toggle="tooltip" data-placement="top" title="Sube tu foto">
-
                     <i className="fa fa-camera-retro fa-4x " aria-hidden="true" style={{color: "#EE5D6E", cursor: "cell" }}></i>
                 </Label>
                 <Input id="file-input" type="file" name="customFile" onChange={(e) => handleImageChange(e)} />
